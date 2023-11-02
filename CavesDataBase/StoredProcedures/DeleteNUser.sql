@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE [dbo].[DeleteNUser]
+	@nUser_id UNIQUEIDENTIFIER 
+AS
+	DELETE FROM NUser WHERE NUser_Id = @nUser_id
+RETURN 0
+

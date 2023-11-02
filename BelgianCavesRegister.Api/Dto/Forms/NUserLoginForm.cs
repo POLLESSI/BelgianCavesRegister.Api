@@ -1,0 +1,23 @@
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace BelgianCavesRegister.Api.Dto.Forms
+{
+    public class NUserLoginForm
+    {
+        //[Required(ErrorMessage = "Email address is required.")]
+        //[EmailAddress]
+        //[MinLength(3)]
+        //[MaxLength(64)]
+        //[DataType(DataType.EmailAddress)]
+        //[DisplayName("Email Address.")]
+        public string Email { get; set; }
+        //[Required(ErrorMessage = "Password is Required")]
+        //[MinLength(3)]
+        //[MaxLength(64)]
+        //[DisplayName("Password : ")]
+        //[DataType(DataType.Password)]
+        public string PasswordHash { get; set; }
+    }
+}
+
