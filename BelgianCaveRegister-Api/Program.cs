@@ -1,11 +1,14 @@
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Repository;
-using System.Data;
+using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
+using BelgianCavesRegister.Bll.Services;
+using BelgianCaveRegister_Api.Hubs;
 using System.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
-using BelgianCavesRegister.Dal.Interfaces;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BelgianCavesRegister.Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,24 +19,41 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IDbConnection, SqlConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("default")));
+builder.Services.AddCors(o => o.AddPolicy("myPolicy", options =>
+    options.WithOrigins("http://localhost:5241", "https://localhost:7057")
+            .AllowCredentials()
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+
+builder.Services.AddScoped<SqlConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 
 // Injections
 
-//builder.Services.AddScoped<IBibliographyService, BibliographyService>();
+builder.Services.AddScoped<IBibliographyService, BibliographyService>();
 builder.Services.AddScoped<IBibliographyRepository, BibliographyRepository>();
-//builder.Services.AddScoped<ILambdaDataService, LambdaDataService>();
+builder.Services.AddScoped<ILambdaDataService, LambdaDataService>();
 builder.Services.AddScoped<ILambdaDataRepository, LambdaDataRepository>();
-//builder.Services.AddScoped<INOwnerService, NOwnerService>();
+builder.Services.AddScoped<INOwnerService, NOwnerService>();
 builder.Services.AddScoped<INOwnerRepository, NOwnerRepository>();
-//builder.Services.AddScoped<INPersonService, NPersonService>();
+builder.Services.AddScoped<INPersonService, NPersonService>();
 builder.Services.AddScoped<INPersonRepository, NPersonRepository>();
-//builder.Services.AddScoped<INUserService, NUserService>();
+builder.Services.AddScoped<INUserService, NUserService>();
 builder.Services.AddScoped<INUserRepository, NUserRepository>();
-//builder.Services.AddScoped<IScientificDataService, ScientificDataService>();
+builder.Services.AddScoped<IScientificDataService, ScientificDataService>();
 builder.Services.AddScoped<IScientificDataRepository, ScientificDataRepository>();
-//builder.Services.AddScoped<ISiteService, SiteService>();
+builder.Services.AddScoped<ISiteService, SiteService>();
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
+
+builder.Services.AddSignalR();
+
+builder.Services.AddSingleton<ChatHub>();
+builder.Services.AddSingleton<BibliographyHub>();
+builder.Services.AddSingleton<LambdaDataHub>();
+builder.Services.AddSingleton<NOwnerHub>();
+builder.Services.AddSingleton<NPersonHub>();
+builder.Services.AddSingleton<NUserHub>();
+builder.Services.AddSingleton<ScientificDataHub>();
+builder.Services.AddSingleton<SiteHub>();
 
 builder.Services.AddScoped<TokenGenerator>();
 
@@ -69,7 +89,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+//app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+app.UseCors("myPolicy");
 
 app.UseHttpsRedirection();
 //app.UseStaticFiles();
@@ -83,6 +104,15 @@ app.UseAuthorization();
        //pattern: "{controller-Home}/{action=Index}/Iid?}"
 //   );
 app.MapControllers();
+
+app.MapHub<ChatHub>("chat");
+app.MapHub<BibliographyHub>("bibliographyhub");
+app.MapHub<LambdaDataHub>("lambdadatahub");
+app.MapHub<NOwnerHub>("nownerhub");
+app.MapHub<NPersonHub>("npersonhub");
+app.MapHub<NUserHub>("nuserhub");
+app.MapHub<ScientificDataHub>("scientificdatahub");
+app.MapHub<SiteHub>("sitehub");
 
 app.Run();
 

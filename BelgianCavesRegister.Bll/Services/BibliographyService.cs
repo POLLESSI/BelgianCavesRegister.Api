@@ -1,11 +1,9 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
-using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
 using BelgianCavesRegister.Dal.Repository;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using BelgianCavesRegister.Bll.Mappers;
-using BelgianCavesRegister.Bll.Entities;
+using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Bll.Services
 {
@@ -18,31 +16,34 @@ namespace BelgianCavesRegister.Bll.Services
             _bibliographyRepository = bibliographyRepository;
         }
 
-        public void RegisterBibliography(string title, string author, int iSBN, string dataType, string detail)
+        public void CreateBibliography(string title, string author, int iSBN, string dataType, string detail)
         {
-            _bibliographyRepository.RegisterBibliography(title, author, iSBN, dataType, detail);
+            _bibliographyRepository.CreateBibliography(title, author, iSBN, dataType, detail);
         }
-        public void Create(string title, string author, int iSBN, string dataType, string detail)
+        public void Create(Bibliography bibliography)
         {
-            _bibliographyRepository.Create(title, author, iSBN, dataType, detail);
+            _bibliographyRepository.Create(bibliography);
         }
-        public IEnumerable<BibliographyPOCO> GetAll()
+        public IEnumerable<Bibliography> GetAll()
         {
-            //string sql = "SELECT * FROM Bibliography";
-            return _bibliographyRepository.GetAll().Select(x => x.BiDalToBll());
+            return _bibliographyRepository.GetAll();
         }
-        public BibliographyPOCO? GetById(int bibliography_Id)
+        public Bibliography? GetById(int bibliography_Id)
         {
-            return _bibliographyRepository.GetById(bibliography_Id).BiDalToBll();
+            return _bibliographyRepository.GetById(bibliography_Id);
         }
-        public BibliographyPOCO? Delete(int bibliography_Id)
+        public Bibliography? Delete(int bibliography_Id)
         {
-            return _bibliographyRepository.Delete(bibliography_Id).BiDalToBll();
+            return _bibliographyRepository.Delete(bibliography_Id);
         }
 
-        public BibliographyPOCO? Update(string title, string author, int bibliography_Id)
+        public Bibliography? Update(int bibliography_Id, string title, string author, int iSBN, string dataType, string detail)
         {
-            return _bibliographyRepository.Update(bibliography_Id).BiDalToBll();
+            return _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
+        }
+        public Bibliography? Update(string title, string author, int iSBN, string dataType, string detail, int bibliography_Id)
+        {
+            return _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
         }
     }
 }

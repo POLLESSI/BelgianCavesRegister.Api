@@ -2,6 +2,8 @@
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Entities;
+using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Tools;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -10,12 +12,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class NPersonController : ControllerBase
     {
         private readonly INPersonRepository _nPersonRepository;
-        //private readonly NPersonHub _nPersonHub;
+        private readonly NPersonHub _nPersonHub;
 
-        public NPersonController(INPersonRepository nPersonRepository )
+        public NPersonController(INPersonRepository nPersonRepository, NPersonHub nPersonHub )
         {
             _nPersonRepository = nPersonRepository;
-            //_nPersonHub = nPersonHub;
+            _nPersonHub = nPersonHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -30,11 +32,23 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_nPersonRepository.GetById(nPerson_Id));
         }
 
-        [HttpPost("register")]
-        public IActionResult Post(NPersonDTO newNPerson)
+        //[HttpPost("register")]
+        //public IActionResult Post(NPerson newNPerson)
+        //{
+        //    _nPersonRepository.RegisterNPerson( newNPerson);
+        //    return Ok();
+        //}
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(NPersonForm newPerson)
         {
-            _nPersonRepository.RegisterNPerson( newNPerson);
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest();
+            if (_nPersonRepository.Create(newPerson.NPersonToDal()))
+            {
+                await _nPersonHub.RefreshPerson();
+                return Ok();
+            }
+            return BadRequest("Registration Error");
         }
 
 
@@ -48,12 +62,12 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        //[HttpPut("{NPerson_Id}")]
-        //public IActionResult Update(UpdateNPersonForm np)
-        //{
-        //    _nPersonService.Update(np.Lastname, np.Firstname, np.BirthDate, np.Address_Street, np.Address_Nbr, np.PostalCode, np.Address_City, np.Address_Country, np.Telephone, np.Gsm); 
-        //    return Ok();
-        //}
+        [HttpPut("{NPerson_Id}")]
+        public IActionResult Update(UpdateNPersonForm np)
+        {
+                _nPersonRepository.Update(np.NPerson_Id, np.Lastname, np.Firstname, np.BirthDate, np.Email, np.Address_Street, np.Address_Nbr, np.PostalCode, np.Address_City, np.Address_Country, np.Telephone, np.Gsm);
+            return Ok();
+        }
 
 
 

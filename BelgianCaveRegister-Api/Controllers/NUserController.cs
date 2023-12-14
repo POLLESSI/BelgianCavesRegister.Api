@@ -13,13 +13,13 @@ namespace BelgianCaveRegister_Api.Controllers
     {
         private readonly BelgianCavesRegister.Dal.Interfaces.INUserRepository _userRepository;
         private readonly TokenGenerator _tokenGenerator;
-       //private readonly NUserHub _nUserHub;
+        private readonly NUserHub _nUserHub;
 
-        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator)
+        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator, NUserHub nUserHub)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
-            //_nUserHub = nUserHub;
+            _nUserHub = nUserHub;
         }
 
         //[Authorize("ModelPolicy")]
@@ -36,38 +36,38 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_userRepository.GetById(nUser_Id));
         }
 
-        [HttpPost("Login")]
-        public IActionResult Login(NUserDTO nUser)
-        {
-            try
-            {
-                NUserDTO? connectedNUser = _userRepository.LoginNUser(nUser.PasswordHash, nUser.Email);
-                string MdpNUser = nUser.PasswordHash;
-                string hashpwd = connectedNUser.PasswordHash;
-                bool motDePassValide = BCrypt.Net.BCrypt.Verify(MdpNUser, hashpwd);
+        //[HttpPost("Login")]
+        //public IActionResult Login(NUser nUser)
+        //{
+        //    try
+        //    {
+        //        NUser? connectedNUser = _userRepository.LoginNUser(nUser.PasswordHash, nUser.Email);
+        //        byte MdpNUser = nUser.PasswordHash;
+        //        byte hashpwd = connectedNUser.PasswordHash;
+        //        bool motDePassValide = BCrypt.Net.BCrypt.Verify(MdpNUser, hashpwd);
 
-                if (motDePassValide)
-                {
-                    return Ok(_tokenGenerator.GenerateToken(connectedNUser));
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        
+        //        if (motDePassValide)
+        //        {
+        //            return Ok(_tokenGenerator.GenerateToken(connectedNUser));
+        //        }
+        //        else
+        //        {
+        //            return BadRequest();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
-        [HttpPost("register")]
-        public IActionResult Register(NUserDTO nu)
-        {
-            _userRepository.RegisterNUser( nu);
-            return Ok();
-        }
+
+        //[HttpPost("register")]
+        //public IActionResult Register(NUser nu)
+        //{
+        //    _userRepository.RegisterNUser(nu);
+        //    return Ok();
+        //}
         //[HttpPost]
         //[ValidationAntiForgeryToken]
         //public ActionResult Validation(NUserRegisterForm form)
@@ -77,6 +77,19 @@ namespace BelgianCaveRegister_Api.Controllers
         //    else
         //        return RedirectToAction("Details", new { Id = 1 });
         //}
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NUserForm nUser)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+            if (_userRepository.Create(nUser.NUserToDal()))
+            {
+                await _nUserHub.RefreshNUser();
+                return Ok();
+            }
+            return BadRequest("Registration Error");
+        }
 
         //private static void ValidatePassword(NUserRegisterForm form, ModelStateDictionary modelState)
         //{
@@ -101,6 +114,12 @@ namespace BelgianCaveRegister_Api.Controllers
             _userRepository.Delete(nUser_Id);
             return Ok();
         }
+        [HttpPut("{NUser_Id}")]
+        public IActionResult Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, int role_Id) 
+        {
+            _userRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
+            return Ok();
+        }
 
         [HttpPatch("setRole")]
         public IActionResult ChangeRole(ChangeRole r)
@@ -108,23 +127,5 @@ namespace BelgianCaveRegister_Api.Controllers
             _userRepository.SetRole(r.NUser_Id, r.Role_Id);
             return Ok();
         }
-        
-        //[HttpPatch("update")]
-        //public IActionResult Update(UpdateNUserForm nu)
-        //{
-        //    _nUserService.Update(nu.Pseudo, nu.Email, nu.Role_Id);
-        //    return Ok();
-        //}
-
-        //[HttpPut("{NUser_Id}")]
-        //public IActionResult Update(UpdateNUserForm nu)
-        //{
-        //    _nUserService.Update(nu.Pseudo, nu.Email, nu.Role_Id);
-        //    return Ok();
-        //}
-
-
-
-
     }
 }

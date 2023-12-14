@@ -1,0 +1,6 @@
+﻿namespace BelgianCaveRegister_Api.wwwroot.lib
+{
+    public class favicon
+    {
+    }
+}

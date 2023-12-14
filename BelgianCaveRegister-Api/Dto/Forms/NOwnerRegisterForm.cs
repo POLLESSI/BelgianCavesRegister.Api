@@ -10,12 +10,12 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(3)]
         [MaxLength(256)]
         [DisplayName("Status")]
-        public string Status { get; set; }
+        public string? Status { get; set; }
         [Required(ErrorMessage = "The agreements is required")]
         [MinLength(3)]
         [MaxLength(256)]
         [DisplayName("Agreements")]
-        public string Agreement { get; set; }
+        public string? Agreement { get; set; }
 
     }
 }

@@ -2,6 +2,8 @@
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Entities;
+using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Tools;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -10,12 +12,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class SiteController : ControllerBase
     {
         private readonly ISiteRepository _siteRepository;
-        //private readonly SiteHub _siteHub;
+        private readonly SiteHub _siteHub;
 
-        public SiteController(ISiteRepository siteRepository )
+        public SiteController(ISiteRepository siteRepository, SiteHub siteHub )
         {
             _siteRepository = siteRepository;
-            //_siteHub = siteHub;
+            _siteHub = siteHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -29,11 +31,23 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_siteRepository.GetById(site_Id));
         }
 
-        [HttpPost("register")]
-        public IActionResult Register(SiteDTO newSite)
+        //[HttpPost("register")]
+        //public IActionResult Register(SiteRegisterForm si)
+        //{
+        //    _siteRepository.RegisterSite( si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation, si.DonneesLambda_Id, si.NOwner_Id, si.ScientificData_Id, si.Bibliography_Id );
+        //    return Ok();
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(SiteRegisterForm site)
         {
-            _siteRepository.RegisterSite( newSite );
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest();
+            if (_siteRepository.Create(site.SiteToDal()))
+            {
+                await _siteHub.RefreshSite();
+                return Ok();
+            }
+            return BadRequest("Registration Error");
         }
 
 
@@ -47,12 +61,12 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        //[HttpPut("{Site_Id}")]
-        //public IActionResult Ûpdate(int site_Id)
-        //{
-        //    _siteService.Update(site_Id);
-        //    return Ok();
-        //}
+        [HttpPut("{Site_Id}")]
+        public IActionResult Ûpdate(UpdateSiteForm si)
+        {
+            _siteRepository.Update(si.Site_Id, si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation, si.DonneesLambda_Id, si.NOwner_Id, si.ScientificData_Id, si.Bibliography_Id);
+            return Ok();
+        }
 
 
 

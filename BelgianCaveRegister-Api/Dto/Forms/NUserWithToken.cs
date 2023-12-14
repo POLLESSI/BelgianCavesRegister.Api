@@ -10,20 +10,20 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(3)]
         [MaxLength(64)]
         [DisplayName("Nick name : ")]
-        public string Pseudo { get; set; }
+        public string? Pseudo { get; set; }
         [Required(ErrorMessage = "Password is required.")]
         [MinLength(3)]
         [MaxLength(64)]
         [DisplayName("Password")]
         //[RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
-        public string Password { get; set; }
+        public string? PasswordHash { get; set; }
         [Required(ErrorMessage = "Email address is required.")]
         [EmailAddress]
         [MinLength(3)]
         [MaxLength(64)]
         [DataType(DataType.EmailAddress)]
         [DisplayName("Email Address.")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = " Person Id is required")]
         [DisplayName("Person Id")]
         public int NPerson_Id { get; set; }
@@ -31,7 +31,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [DisplayName("Role_Id")]
         public bool Role_Id { get; set; }
 
-        public string Token { get; set; }
+        public string? Token { get; set; }
     }
 }
 

@@ -1,48 +1,85 @@
-﻿using BelgianCavesRegister.Dal.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Data.SqlClient;
 
 namespace BelgianCavesRegister.Dal.Repository
 {
     public class NOwnerRepository : INOwnerRepository
     {
-        private readonly IDbConnection _connection;
+        private readonly /*IDbConnection*/ SqlConnection _connection;
 
-        public NOwnerRepository(IDbConnection connection)
+        public NOwnerRepository(/*IDbConnection*/ SqlConnection connection)
         {
             _connection = connection;
         }
-        public void RegisterNOwner(NOwnerDTO newNOwner)
+        public bool Create(NOwner nowner) 
+        {
+            string sql = "INSERT INTO NOwner(Status, Agreement) VALUES " + "(@Status, @Agreement)";
+            var param = new { nowner };
+            return _connection.Execute(sql, param) > 0;
+        }
+        public void CreateNOwner(string status, string agreement)
         {
             string sql = "INSERT INTO NOwner (Status, Agreement) " +
                 " VALUES (@status, @agreement)";
-            //var param = new { status, agreement };
-            _connection.Query(sql, newNOwner);
+            var param = new { status, agreement };
+            _connection.Query(sql, param);
         }
         
-        public IEnumerable<NOwnerDTO> GetAll()
+        public IEnumerable<NOwner> GetAll()
         {
             string sql = "SELECT * FROM NOwner";
-            return _connection.Query<NOwnerDTO>(sql);
+            return _connection.Query<NOwner>(sql);
         }
-        public NOwnerDTO? GetById(int nOwner_Id)
+        //async Task<System.Windows.Documents.IEnumerable<NOwner>> INOwnerRepository.GetAll()
+        //{
+        //    using (HttpClient http = new HttpClient())
+        //    {
+        //        HttpResponseMessage message = await http.GetAsync("https://BelgianCavesRegister.Dal/Entities/nowner?limit=1530");
+        //        if (message.IsSuccessStatusCode)
+        //        {
+        //            NOwner nowner = await message.Content.ReadFromJsonAsync<NOwner>();
+        //        }
+        //    }
+        //}
+        public NOwner? GetById(int nOwner_Id)
         {
-            string sql = "SELECT * FROM NOWNER WHERE NOwner_Id = @nOwner_Id";
+            string sql = "SELECT * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
             var param = new { nOwner_Id };
-            return _connection.QueryFirst<NOwnerDTO>(sql, param);
+            return _connection.QueryFirst<NOwner>(sql, param);
         }
-        public NOwnerDTO? Delete(int nOwner_Id)
+        //async Task<NOwner> INOwnerRepository.GetById(int nOwner_Id)
+        //{
+        //    using (HttpClient http =  new HttpClient())
+        //    {
+        //        HttpResponseMessage message = await http.GetAsync($"https://BelgianCavesRegister.Dal/Entities/NOwner/{nOwner_Id}");
+        //        if (message.IsSuccessStatusCode)
+        //        {
+        //            return await message.Content.ReadFromJsonAsync<NOwner>();
+        //        }
+        //    }
+        //    return null;
+        //}
+        public NOwner? Delete(int nOwner_Id)
         {
-            string sql = "SELECT * FROM NOWNER WHERE NOwner_Id = @nOwner_Id";
+            string sql = "DELETE FROM NOwner WHERE NOwner_Id = @nOwner_Id";
             var param = new { nOwner_Id };
-            return _connection.QueryFirst<NOwnerDTO>(sql, param);
+            return _connection.QueryFirst<NOwner>(sql, param);
         }
-        public NOwnerDTO? Update(int nOwner_Id)
+        public NOwner? Update(int nOwner_Id, string status, string agreement)
         {
-            string sql = "UpDate NOwner SET NOwner_Id = @nOwner_Id WHERE NOwner_Id";
-            var param = new { nOwner_Id };
-            return _connection.QueryFirst<NOwnerDTO>(sql, param);
+            string sql = "UpDate NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwner_Id";
+            var param = new {nOwner_Id, status, agreement };
+            return _connection.QueryFirst<NOwner>(sql, param);
         }
     }
 }

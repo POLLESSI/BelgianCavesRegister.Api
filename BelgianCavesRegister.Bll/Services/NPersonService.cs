@@ -1,5 +1,8 @@
-﻿using BelgianCavesRegister.Bll.Entities;
-using BelgianCavesRegister.Bll.Mappers;
+﻿using BelgianCavesRegister.Dal.Entities;
+using BelgianCavesRegister.Bll;
+using BelgianCavesRegister.Dal.Repository;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Bll.Services
@@ -12,29 +15,29 @@ namespace BelgianCavesRegister.Bll.Services
         {
             _nPersonRepository = nPersonRepository;
         }
-        public void RegisterNPerson(NPersonDTO newPoco)
+        public void Create(NPerson nPerson)
         {
-            _nPersonRepository.RegisterNPerson(newPoco.NpBllToDal());
+            _nPersonRepository.Create(nPerson);
         }
-        //public void Create(string lastname, string firstname, DateTime birthDate, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
-        //{
-        //    _nPersonRepository.Create(lastname, firstname, birthDate, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
-        //}
-        public IEnumerable<NPersonPOCO> GetAll()
+        public void CreateNPerson(string lastname, string firstname, DateTime birthDate, string email, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
         {
-            return _nPersonRepository.GetAll().Select(x => x.NpDalToBll());
+            _nPersonRepository.CreateNPerson(lastname, firstname, birthDate, email , address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
         }
-        public NPersonPOCO? GetById(int nPerson_Id)
+        public IEnumerable<NPerson> GetAll()
         {
-            return _nPersonRepository.GetById(nPerson_Id).NpDalToBll();
+            return _nPersonRepository.GetAll();
         }
-        public NPersonPOCO? Delete(int nPerson_Id)
+        public NPerson? GetById(int nPerson_Id)
         {
-            return _nPersonRepository.Delete(nPerson_Id).NpDalToBll();
+            return _nPersonRepository.GetById(nPerson_Id);
         }
-        public NPersonPOCO? Update(int nPerson_Id)
+        public NPerson? Delete(int nPerson_Id)
         {
-            return _nPersonRepository.Update(nPerson_Id).NpDalToBll();
+            return _nPersonRepository.Delete(nPerson_Id);
+        }
+        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
+        {
+            return _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthDate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
         }
     }
 }

@@ -9,45 +9,50 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [Required(ErrorMessage = "The name of the site is required")]
         [MinLength(3)]
         [MaxLength(32)]
-        [DisplayName("Site name")]
-        public string Site_name { get; set; }
+        [DisplayName("Site name : ")]
+        public string? Site_Name { get; set; }
         [Required(ErrorMessage = "The situation of the site is required")]
         [MinLength(3)]
         [MaxLength(256)]
-        [DisplayName("Site situation")]
-        public string Site_Description { get; set; }
+        [DisplayName("Site's situation : ")]
+        public string? Site_Description { get; set; }
         [Required(ErrorMessage = " The latitude of the site is required")]
-        [DisplayName("Latitude")]
+        [DisplayName("Latitude : ")]
         public double Latitude { get; set; }
-        [Required(ErrorMessage = "Yhe longitude of the site is required")]
-        [DisplayName("Longitude")]
+        [Required(ErrorMessage = "The longitude of the site is required. A double please")]
+        [DisplayName("Longitude : ")]
         public double Longitude { get; set; }
-        [Required(ErrorMessage = "The Length is required")]
+        [Required(ErrorMessage = "The Length is required. A double please")]
         [MinLength(1)]
-        [MaxLength(15000)]
-        [DisplayName("Length")]
+        [MaxLength(25000)]
+        [DisplayName("Length : ")]
         public decimal Length { get; set; }
-        [Required(ErrorMessage = "The depth is required")]
+        [Required(ErrorMessage = "The Depth is required. A decimal please")]
         [MinLength(0)]
         [MaxLength(150)]
-        [DisplayName("Depth")]
+        [DisplayName("Depth : ")]
         public decimal Depth { get; set; }
-        [Required(ErrorMessage = "The access requirement is required")]
+        [Required(ErrorMessage = "The access requirements is required. A decimal please")]
         [MinLength(3)]
         [MaxLength(256)]
-        [DisplayName("Access requirement")]
-        public string AccessRequirement { get; set; }
-        [Required(ErrorMessage = "The parcticals Informations is required")]
+        [DisplayName("Access Requirement : ")]
+        public string? AccessRequirement { get; set; }
+        [Required(ErrorMessage = "The parcticals Informations is required : ")]
         [MinLength(3)]
         [MaxLength(512)]
         [DisplayName("Parcticals Infoemations")]
-        public string PracticalInformation { get; set; }
-        [Required(ErrorMessage = "The Lambdas Datas Id is required")]
-        [DisplayName("Lambdas Datas id")]
+        public string? PracticalInformation { get; set; }
+        [Required(ErrorMessage = "The Lambda Datas Id is required")]
+        [DisplayName("Lambda Datas id : ")]
         public int DonneesLambda_Id { get; set; }
         [Required(ErrorMessage = "The id of the owner is required")]
+        [DisplayName("Owner's Id : ")]
         public int NOwner_Id { get; set; }
+        [Required(ErrorMessage = "The Id of the scientific datas is required")]
+        [DisplayName("Scientific Datas Id : ")]
         public int ScientificData_Id { get; set; }
+        [Required(ErrorMessage = "The bibliography's Id is required")]
+        [DisplayName("Bibliography's Id : ")]
         public int Bibliography_Id { get; set; }
 
     }

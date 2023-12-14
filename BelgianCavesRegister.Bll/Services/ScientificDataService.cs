@@ -1,13 +1,9 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
-using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
+using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -18,29 +14,29 @@ namespace BelgianCavesRegister.Models.Services
         {
             _scientificDataRepository = scientificDataRepository;
         }
-        public void RegisterScientificData(string dataType, string detailData, string referenceData)
+        public void CreateScientificData(string dataType, string detailData, string referenceData)
         {
-            _scientificDataRepository.RegisterScientificData(dataType, detailData, referenceData);
+            _scientificDataRepository.CreateScientificData(dataType, detailData, referenceData);
         }
-        public void Create(string dataType, string detailData, string referenceData)
+        public void Create(ScientificData scientificData)
         {
-            _scientificDataRepository.Create(dataType, detailData, referenceData);
+            _scientificDataRepository.Create(scientificData);
         }
-        public IEnumerable<ScientificDataPOCO> GetAll()
+        public IEnumerable<ScientificData> GetAll()
         {
-            return _scientificDataRepository.GetAll().Select(x => x.ScDalToBll());
+            return _scientificDataRepository.GetAll();
         }
-        public ScientificDataPOCO? GetById(int scientificData_Id)
+        public ScientificData? GetById(int scientificData_Id)
         {
-            return _scientificDataRepository.GetById(scientificData_Id).ScDalToBll();
+            return _scientificDataRepository.GetById(scientificData_Id);
         }
-        public ScientificDataPOCO? Delete(int scientificData_Id)
+        public ScientificData? Delete(int scientificData_Id)
         {
-            return _scientificDataRepository.Delete(scientificData_Id).ScDalToBll();
+            return _scientificDataRepository.Delete(scientificData_Id);
         }
-        public ScientificDataPOCO? Update(int scientificData_Id)
+        public ScientificData? Update(int scientificData_Id, string dataType, string detailData, string referenceData)
         {
-            return _scientificDataRepository.Update(scientificData_Id).ScDalToBll();
+            return _scientificDataRepository.Update(scientificData_Id, dataType, detailData, referenceData);
         }
     }
 }

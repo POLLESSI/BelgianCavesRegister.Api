@@ -10,7 +10,7 @@ namespace BelgianCaveRegister_Api.Tools
     {
         public static string secretKey = "µpiçaezjrkuyjfgk:ghmkjghmiugl:hjfvtFSDMOifnZAE MOVjkµ$)'éàipornjfd ù)'$piç";
 
-        public string GenerateToken(NUserDTO nu)
+        public string GenerateToken(NUser nu)
         {
             //Génération de la clé de signature du token
 

@@ -1,6 +1,10 @@
 ﻿using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Bll.Mappers;
-using BelgianCavesRegister.Bll.Entities;
+using BelgianCavesRegister.Dal.Entities;
+using BelgianCavesRegister.Bll;
+using BelgianCavesRegister.Dal.Repository;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Bll.Services
 {
@@ -11,29 +15,29 @@ namespace BelgianCavesRegister.Bll.Services
         {
             _nOwnerRepository = nOwnerRepository;
         }
-        public void RegisterNOwner(string status, string agreement)
+        public void CreateNOwner(string status, string agreement)
         {
-            _nOwnerRepository.RegisterNOwner(status, agreement);
+            _nOwnerRepository.CreateNOwner(status, agreement);
         }
-        public void Create(string status, string agreement)
+        public void Create(NOwner nOwner)
         {
-            _nOwnerRepository.Create(status, agreement);
+            _nOwnerRepository.Create(nOwner);
         }
-        public IEnumerable<NOwnerPOCO> GetAll()
+        public IEnumerable<NOwner> GetAll()
         {
-            return _nOwnerRepository.GetAll().Select(x => x.NoDalToBll());
+            return _nOwnerRepository.GetAll();
         }
-        public NOwnerPOCO? GetById(int nOwner_Id)
+        public NOwner? GetById(int nOwner_Id)
         {
-            return _nOwnerRepository.GetById(nOwner_Id).NoDalToBll();
+            return _nOwnerRepository.GetById(nOwner_Id);
         }
-        public NOwnerPOCO? Delete(int nOwner_Id)
+        public NOwner? Delete(int nOwner_Id)
         {
-            return _nOwnerRepository.Delete(nOwner_Id).NoDalToBll();
+            return _nOwnerRepository.Delete(nOwner_Id);
         }
-        public NOwnerPOCO? Update(int nOwner_Id)
+        public NOwner? Update(int nOwner_Id, string status, string agreement)
         {
-            return _nOwnerRepository.Update(nOwner_Id).NoDalToBll();
+            return _nOwnerRepository.Update(nOwner_Id, status, agreement);
         }
     }
 }

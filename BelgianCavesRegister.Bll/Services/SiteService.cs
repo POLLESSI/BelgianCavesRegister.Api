@@ -1,14 +1,9 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
-using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
-using System.Security.Policy;
+using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -20,30 +15,30 @@ namespace BelgianCavesRegister.Models.Services
         {
             _siteRepository = siteRepository;
         }
-        public void RegisterSite(string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+        public void CreateSite(string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
-            _siteRepository.RegisterSite(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
+            _siteRepository.CreateSite(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
         }
 
-        public void Create(string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+        public void Create(Site site)
         {
-            _siteRepository.Create(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
+            _siteRepository.Create(site);
         }
-        public IEnumerable<SitePOCO> GetAll()
+        public IEnumerable<Site> GetAll()
         {
-            return _siteRepository.GetAll().Select(x => x.SiDalToBll());
+            return _siteRepository.GetAll();
         }
-        public SitePOCO? GetById(int site_Id)
+        public Site? GetById(int site_Id)
         {
-            return _siteRepository.GetById(site_Id).SiDalToBll();
+            return _siteRepository.GetById(site_Id);
         }
-        public SitePOCO? Delete(int site_Id)
+        public Site? Delete(int site_Id)
         {
-            return _siteRepository.Delete(site_Id).SiDalToBll();
+            return _siteRepository.Delete(site_Id);
         }
-        public SitePOCO? Update(int site_Id)
+        public Site? Update(int site_Id, string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
-            return _siteRepository.Update(site_Id).SiDalToBll();
+            return _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id) ;
         }
     }
 }

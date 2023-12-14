@@ -2,6 +2,8 @@
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Entities;
+using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Tools;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -10,12 +12,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class NOwnerController : ControllerBase
     {
         private readonly INOwnerRepository _nOwnerRepository;
-        //private readonly NOwnerHub _nOwnerHub;
+        private readonly NOwnerHub _nOwnerHub;
 
-        public NOwnerController(INOwnerRepository nOwnerRepository)
+        public NOwnerController(INOwnerRepository nOwnerRepository, NOwnerHub nOwnerHub)
         {
             _nOwnerRepository = nOwnerRepository;
-            //_nOwnerHub = nOwnerHub;
+            _nOwnerHub = nOwnerHub;
         }
 
         [HttpGet]
@@ -30,11 +32,23 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpPost("register")]
-        public IActionResult Post(NOwnerDTO newNOwner)
+        //[HttpPost("register")]
+        //public IActionResult Post(NOwnerRegisterForm newNOwner)
+        //{
+        //    _nOwnerRepository.RegisterNOwner( newNOwner.Status, newNOwner.Agreement );
+        //    return Ok();
+        //}
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(NOwnerRegisterForm nOwnerRegister)
         {
-            _nOwnerRepository.RegisterNOwner( newNOwner );
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest();
+            if (_nOwnerRepository.Create(nOwnerRegister.NOwnerToDal()))
+            {
+                await _nOwnerHub.RefreshNOwner();
+                return Ok();
+            }
+            return BadRequest("Registration error");
         }
 
 
@@ -48,14 +62,14 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        //[HttpPut("{NOwner_Id}")]
+        [HttpPut("{NOwner_Id}")]
 
-        //public IActionResult Update(NOwnerRegisterForm no)
-        //{
-        //    _nOwnerService.Update(no.Status, no.Agreement);
-        //    return Ok();
-        //}
-            
+        public IActionResult Update(UpdateNOwnerForm no)
+        {
+            _nOwnerRepository.Update(no.NOwner_Id, no.Status, no.Agreement);
+            return Ok();
+        }
+
 
 
         //[HttpPatch("Update")]

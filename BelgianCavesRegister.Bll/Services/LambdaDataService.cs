@@ -1,12 +1,9 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
-using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
+using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Bll.Services
 {
@@ -17,30 +14,32 @@ namespace BelgianCavesRegister.Bll.Services
         {
             _lambdaDataRepository = lambdaDataRepository;
         }
-        public void RegisterLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public void CreateLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
-            _lambdaDataRepository.RegisterLambdaData(localisation, topo, acces, equipementSheet, practicalInformation, description);
+            _lambdaDataRepository.CreateLambdaData(localisation, topo, acces, equipementSheet, practicalInformation, description);
         }
-        public void Create(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public void Create(LambdaData lambdaData)
         {
-            _lambdaDataRepository.Create(localisation, topo, acces, equipementSheet, practicalInformation, description);
+            _lambdaDataRepository.Create(lambdaData);
         }
-        public IEnumerable<LambdaDataPOCO> GetAll()
+        public IEnumerable<LambdaData> GetAll()
         {
-            return _lambdaDataRepository.GetAll().Select(x => x.LaDalToBll());
+            return (IEnumerable<LambdaData>)_lambdaDataRepository.GetAll();
         }
 
-        public LambdaDataPOCO? GetById(int donneesLambda_Id)
+        public LambdaData? GetById(int donneesLambda_Id)
         {
-            return _lambdaDataRepository.GetById(donneesLambda_Id).LaDalToBll();
+            return _lambdaDataRepository.GetById(donneesLambda_Id);
         }
-        public LambdaDataPOCO? Delete(int donneesLambda_Id)
+        public LambdaData? Delete(int donneesLambda_Id)
         {
-            return _lambdaDataRepository.Delete(donneesLambda_Id).LaDalToBll();
+            return _lambdaDataRepository.Delete(donneesLambda_Id);
         }
-        public LambdaDataPOCO? Update(int donneesLambda_Id)
+        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
-            return _lambdaDataRepository.Update(donneesLambda_Id).LaDalToBll();
+            return _lambdaDataRepository.Update(donneesLambda_Id, localisation, topo, acces, equipementSheet, practicalInformation, description);
         }
+
+        
     }
 }

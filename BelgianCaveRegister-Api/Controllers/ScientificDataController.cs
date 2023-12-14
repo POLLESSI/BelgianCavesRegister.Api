@@ -2,6 +2,8 @@
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Entities;
+using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Tools;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -10,12 +12,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class ScientificDataController : ControllerBase
     {
         private readonly IScientificDataRepository _scientificDataRepository;
-        //private readonly ScientificDataHub _scientificDataHub;
+        private readonly ScientificDataHub _scientificDataHub;
 
-        public ScientificDataController(IScientificDataRepository scientificDataRepository)
+        public ScientificDataController(IScientificDataRepository scientificDataRepository, ScientificDataHub scientificDataHub)
         {
             _scientificDataRepository = scientificDataRepository;
-            //_scientificDataHub = scientificDataHub;
+            _scientificDataHub = scientificDataHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -36,12 +38,26 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-        [HttpPost("register")]
-        public IActionResult Post(ScientificDataDTO newScien)
+        //[HttpPost("register")]
+        //public IActionResult Post(ScientificDataRegisterForm sc)
+        //{
+        //    _scientificDataRepository.RegisterScientificData(sc.DataType, sc.DetailsData, sc.ReferenceData);
+        //    return Ok();
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ScientificDataRegisterForm scientificData)
         {
-            _scientificDataRepository.RegisterScientificData(newScien);
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest();
+            if (_scientificDataRepository.Create(scientificData.ScientificDataToDal()))
+            {
+                await _scientificDataHub.RefreshScientificData();
+                return Ok();
+            }
+            return BadRequest("Registration Error");
         }
+
 
         [HttpDelete("{ScientificData_Id}")]
         //[ValidationAntiForgeryToken]
@@ -53,12 +69,12 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        //[HttpPut("{ScientificData_Id}")]
-        //public IActionResult Update(ScientificDataRegisterForm sc)
-        //{
-        //    _scientificDataService.Update(sc.DataType, sc.DetailData, sc.ReferenceData);
-        //    return Ok();
-        //}
+        [HttpPut("update")]
+        public IActionResult Update(UpdateScientificDataForm sc)
+        {
+            _scientificDataRepository.Update(sc.ScientificData_Id, sc.DataType, sc.DelailsData, sc.ReferenceData);
+            return Ok();
+        }
 
 
 

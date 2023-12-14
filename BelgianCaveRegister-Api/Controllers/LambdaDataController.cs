@@ -2,6 +2,8 @@
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Entities;
+using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Tools;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -10,11 +12,11 @@ namespace BelgianCaveRegister_Api.Controllers
     public class LambdaDataController : ControllerBase
     {
         private readonly ILambdaDataRepository _LambdaDataRepository;
-        //private readonly LambdaDataHub _lambdaDataHub;
-        public LambdaDataController(ILambdaDataRepository lambdaDataRepository)
+        private readonly LambdaDataHub _lambdaDataHub;
+        public LambdaDataController(ILambdaDataRepository lambdaDataRepository, LambdaDataHub lambdaDataHub)
         {
             _LambdaDataRepository = lambdaDataRepository;
-            //_lambdaDataHub = lambdaDataHub;
+            _lambdaDataHub = lambdaDataHub;
         }
 
         [HttpGet]
@@ -28,13 +30,25 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_LambdaDataRepository.GetById(donneesLambda_Id));
         }
 
-        [HttpPost("register")]
-        public IActionResult Post(LambdaDataDTO newLambda)
+        //[HttpPost("register")]
+        //public IActionResult Post(LambdaDataRegisterForm la)
+        //{
+        //    _LambdaDataRepository.RegisterLambdaData( la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description);
+        //    return Ok();
+        //}
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(LambdaDataRegisterForm lambdaDataRegister)
         {
-            _LambdaDataRepository.RegisterLambdaData( newLambda );
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest();
+            
+            if (_LambdaDataRepository.Create(lambdaDataRegister.LambdaDataToDal()))
+            {
+                await _lambdaDataHub.RefreshLambdaData();
+                return Ok();
+            }
+            return BadRequest("Registration error");
         }
-
 
         [HttpDelete("{LambdaData_Id}")]
         //[ValidationAntiForgeryToken]
@@ -46,20 +60,20 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        //[HttpPut("{LambdaData_Id}")]
-        //public IActionResult Update(LambdaDataRegisterForm la)
-        //{
-        //    _LambdaDataService.Update(la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description);
-        //    return Ok();
-        //}
+        [HttpPut("{LambdaData_Id}")]
+        public IActionResult Update(UpdateLambdaDataForm la)
+        {
+            _LambdaDataRepository.Update(la.DonneesLambda_Id,la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description);
+            return Ok();
+        }
 
 
 
 
         //[HttpPatch("update")]
-        //public IActionResult Update(LambdaDataRegisterForm la)
+        //public IActionResult Update(UpdateLambdaDataForm la)
         //{
-        //    _LambdaDataService.Update(la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description);
+        //    _LambdaDataRepository.Update(la.DonneesLambda_Id,la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description);
         //    return Ok();
         //}
 

@@ -1,14 +1,9 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
-using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
+using BelgianCavesRegister.Dal.Interfaces;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -19,18 +14,18 @@ namespace BelgianCavesRegister.Models.Services
         {
             _nUserRepository = nUserRepository;
         }
-        public void RegisterNUser(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public void CreateNUser(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
-            _nUserRepository.RegisterNUser(pseudo, passwordHash, email, nPerson_Id, role_Id);
+            _nUserRepository.CreateNUser(pseudo, passwordHash, email, nPerson_Id, role_Id);
         }
-        public void Create(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public void Create(NUser nUser)
         {
-            _nUserRepository.Create(pseudo, passwordHash, email, nPerson_Id, role_Id);
+            _nUserRepository.Create(nUser);
         }
 
-        public NUserPOCO? LoginNUser(string email, string password)
+        public NUser? LoginNUser(string email, string password)
         {
-            return _nUserRepository.LoginNUser(email, password).NuDalTaBll();
+            return _nUserRepository.LoginNUser(email, password);
         }
 
         public void SetRole(Guid nUser_Id, int role_Id)
@@ -39,25 +34,25 @@ namespace BelgianCavesRegister.Models.Services
         }
         public void UnregisterNUser(Guid nUser_Id)
         {
-            throw new System.NotImplementedException();
+            _nUserRepository.Delete(nUser_Id);
         }
 
-        public IEnumerable<NUserPOCO> GetAll()
+        public IEnumerable<NUser> GetAll()
         {
-            return _nUserRepository.GetAll().Select(x => x.NuDalTaBll());
+            return _nUserRepository.GetAll();
         }
 
-        public NUserPOCO? GetById(Guid nUser_Id)
+        public NUser? GetById(Guid nUser_Id)
         {
-            return _nUserRepository.GetById(nUser_Id).NuDalTaBll();
+            return _nUserRepository.GetById(nUser_Id);
         }
-        public NUserPOCO? Delete(Guid nUser_Id)
+        public NUser? Delete(Guid nUser_Id)
         {
-            return _nUserRepository.Delete(nUser_Id).NuDalTaBll();
+            return _nUserRepository.Delete(nUser_Id);
         }
-        public NUserPOCO? Update(Guid nUser_Id)
+        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
-            return _nUserRepository.Update(nUser_Id).NuDalTaBll();
+            return _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
         }
     }
 }
