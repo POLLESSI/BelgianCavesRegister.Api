@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Repository;
+//using BelgianCavesRegister.Dal.Entities;
+using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
+using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -24,7 +27,7 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             return Ok(_LambdaDataRepository.GetAll());
         }
-        [HttpGet("{LambdaData_Id}")]
+        [HttpGet("{DonneesLambda_Id}")]
         public IActionResult GetById(int donneesLambda_Id)
         {
             return Ok(_LambdaDataRepository.GetById(donneesLambda_Id));
@@ -61,9 +64,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
         [HttpPut("{LambdaData_Id}")]
-        public IActionResult Update(UpdateLambdaDataForm la)
+        public IActionResult Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
-            _LambdaDataRepository.Update(la.DonneesLambda_Id,la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description);
+            _LambdaDataRepository.Update(donneesLambda_Id,localisation, topo, acces, equipementSheet, practicalInformation, description);
             return Ok();
         }
 

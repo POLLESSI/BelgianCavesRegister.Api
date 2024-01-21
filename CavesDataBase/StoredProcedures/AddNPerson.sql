@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[AddNPerson]
 	@lastname NVARCHAR(32),
 	@firstname NVARCHAR(32),
+	@birthDate DATE,
 	@email NVARCHAR(64),
 	@address_Street NVARCHAR(64),
 	@address_Nbr INT,

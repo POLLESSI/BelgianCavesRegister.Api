@@ -5,6 +5,10 @@ namespace BelgianCaveRegister_Api.Hubs
 {
     public class BibliographyHub : Hub
     {
+        public async Task NotifyNewBibliography()
+        {
+            await Clients.All.SendAsync("ReceiveBibliographyUpdate");
+        }
         public async Task RefreshBibliography()
         {
             if (Clients.All is not null)

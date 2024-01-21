@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
@@ -27,7 +24,7 @@ namespace BelgianCavesRegister.Dal.Repository
             var param = new { bibliography };
             return _connection.Execute(sql, param) > 0;
         }
-        public void CreateBibliography(string title, string author, int iSBN, string dataType, string detail)
+        public void AddBibliography(string title, string author, int iSBN, string dataType, string detail)
         {
             string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail) VALUES " +
                 "(@title, @author, @iSBN, @dataType, @detail)";
@@ -55,7 +52,7 @@ namespace BelgianCavesRegister.Dal.Repository
         public Bibliography? GetById(int bibliography_Id)
         {
           
-            string sql = "SELECT * FROM Bibliography WHERE Bibliography_Id = @bibliography_Id";
+            string sql = "SELECT * FROM BIBLIOGRAPHY WHERE Bibliography_Id = @bibliography_Id";
             var param = new { bibliography_Id };
             return _connection.QueryFirst<Bibliography>(sql, param);
         }
@@ -79,9 +76,14 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public Bibliography? Update(int bibliography_Id, string title, string author, int iSBN, string dataType, string detail)
         {
-            string sql = "UPDATE Bibliography SET Bibliography_Id = @bibliography_Id WHERE Bibliography_Id = @bibliography";
+            string sql = "UPDATE Bibliography SET Bibliography_Id = @bibliography_Id WHERE Bibliography_Id = @bibliography_Id";
             var param = new { bibliography_Id };
             return _connection.QueryFirst<Bibliography>(sql, param);
+        }
+
+        public Bibliography? Update(Bibliography bibliography)
+        {
+            throw new NotImplementedException();
         }
     }
 }

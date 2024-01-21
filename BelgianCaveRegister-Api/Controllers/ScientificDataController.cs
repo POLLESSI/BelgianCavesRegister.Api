@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Repository;
+using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
+using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -70,9 +73,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
         [HttpPut("update")]
-        public IActionResult Update(UpdateScientificDataForm sc)
+        public IActionResult Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
         {
-            _scientificDataRepository.Update(sc.ScientificData_Id, sc.DataType, sc.DelailsData, sc.ReferenceData);
+            _scientificDataRepository.Update(scientificData_Id, dataType, detailsData, referenceData);
             return Ok();
         }
 

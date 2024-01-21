@@ -2,9 +2,9 @@
 {
     public class ScientificDataDTO
     {
-        public string DataType { get; set; }
-        public string DetailsData { get; set; }
-        public string ReferenceData { get; set; }
+        public string? DataType { get; set; }
+        public string? DetailsData { get; set; }
+        public string? ReferenceData { get; set; }
         public bool Active { get; set; }
     }
 }

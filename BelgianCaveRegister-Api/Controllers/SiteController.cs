@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Repository;
+using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
+using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -62,9 +65,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
         [HttpPut("{Site_Id}")]
-        public IActionResult Ûpdate(UpdateSiteForm si)
+        public IActionResult Update(int site_Id, string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id,int scientificData_Id, int bibliography_Id)
         {
-            _siteRepository.Update(si.Site_Id, si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation, si.DonneesLambda_Id, si.NOwner_Id, si.ScientificData_Id, si.Bibliography_Id);
+            _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
             return Ok();
         }
 

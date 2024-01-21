@@ -1,7 +1,6 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using static BelgianCavesRegister.Dal.Entities.LambdaData;
 
 namespace BelgianCavesRegister.Dal.Interfaces
@@ -9,7 +8,7 @@ namespace BelgianCavesRegister.Dal.Interfaces
     public interface ILambdaDataRepository
     {
         bool Create(LambdaData lambdaData);
-        void CreateLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description);
+        void AddLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description);
         IEnumerable<LambdaData> GetAll();
         LambdaData? GetById(int donneesLambda_Id);
         LambdaData? Delete(int donneesLambda_Id);

@@ -22,7 +22,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [EmailAddress]
         [MinLength(3)]
         [MaxLength(64)]
-        [DisplayName("Email address ; ")]
+        [DisplayName("Email address : ")]
         public string? Email { get; set; }
         public bool Role_Id { get; set; }
 

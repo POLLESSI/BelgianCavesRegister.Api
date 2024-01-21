@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[spGetNUserById]
+	@NUser_Id UNIQUEIDENTIFIER
+AS
+	SELECT *
+	FROM [NUser]
+	WHERE NUser_Id = @NUser_Id
+RETURN 0

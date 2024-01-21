@@ -9,18 +9,22 @@ namespace BelgianCaveRegister_Api.Hubs
         {
             await Clients.All.SendAsync("receiveMessage", message);
         }
-        public async Task JoinGroup(string groupName, string pseudo)
+        public async Task JoinGroup(string groupName, string username)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             await SendToGroup(new Message
             {
                 Author = "System",
-                Content = "A new user has logged in" + pseudo
+                newMessage = "A new user has logged in" + username
             }, groupName);
         }
         public async Task SendToGroup(Message message, string groupName)
         {
             await Clients.Group(groupName).SendAsync("messageFromGroup", message);
+        }
+        public async Task RefreshChat()
+        {
+            if (Clients.All is not null) await Clients.All.SendAsync("notifyNewChat");
         }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
@@ -27,7 +24,7 @@ namespace BelgianCavesRegister.Dal.Repository
             var param = new { newperson };
             return _connection.Execute(sql, param) > 0;
         }
-        public void CreateNPerson(string lastname, string firstname, DateTime birthDate, string email, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
+        public void AddNPerson(string lastname, string firstname, DateTime birthDate, string email, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
         {
             string sql = "INSERT INTO NPerson (Lastname, Firstname, BirthDate, Email, Address_Street, Address_Nbr, PostalCode, Address_City, Address_Country, Telephone, Gsm) " +
                 "VALUES (@lastname, @firstname, @birthDate, @email, @address_Street, @address_Nbr, @postalCode, @address_City, @address_Country, @telephone, @gsm)";

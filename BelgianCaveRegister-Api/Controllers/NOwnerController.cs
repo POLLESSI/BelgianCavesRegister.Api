@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Repository;
+using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
+using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -64,9 +67,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
         [HttpPut("{NOwner_Id}")]
 
-        public IActionResult Update(UpdateNOwnerForm no)
+        public IActionResult Update(int nOwner_Id, string status, string agreement)
         {
-            _nOwnerRepository.Update(no.NOwner_Id, no.Status, no.Agreement);
+            _nOwnerRepository.Update(nOwner_Id, status, agreement);
             return Ok();
         }
 

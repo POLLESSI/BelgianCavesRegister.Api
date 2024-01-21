@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
@@ -27,7 +24,7 @@ namespace BelgianCavesRegister.Dal.Repository
             var param = new { lambdaData };
             return _connection.Execute(sql, param) > 0;
         }
-        public void CreateLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public void AddLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
             string sql = "INSERT INTO LambdaData (Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) " +
                 "VALUES (@localisation, @topo, @acces, @equipementSheet, @practicalInformation, @description)";

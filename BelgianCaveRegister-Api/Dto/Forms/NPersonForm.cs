@@ -6,6 +6,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class NPersonForm
     {
+        public int NPerson_Id { get; set; }
         [Required(ErrorMessage = "The last name is required")]
         [MinLength(3)]
         [MaxLength(32)]
@@ -31,7 +32,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         public string? Address_Street { get; set; }
         [Required(ErrorMessage = "Numero is required")]
         [MinLength(1)]
-        [MaxLength(64)]
+        [MaxLength(6)]
         [DisplayName("Numero : ")]
         public int Address_Nbr { get; set; }
         [Required(ErrorMessage = "Postal Code is required")]
@@ -57,7 +58,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(9)]
         [MaxLength(16)]
         public int Gsm { get; set; }
-
+        public bool Active { get; set; }
     }
 }
 

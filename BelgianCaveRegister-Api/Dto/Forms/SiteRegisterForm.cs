@@ -32,15 +32,15 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(150)]
         [DisplayName("Depth : ")]
         public decimal Depth { get; set; }
-        [Required(ErrorMessage = "The access requirements is required. A decimal please")]
+        [Required(ErrorMessage = "The access requirements are required ! ")]
         [MinLength(3)]
         [MaxLength(256)]
         [DisplayName("Access Requirement : ")]
         public string? AccessRequirement { get; set; }
-        [Required(ErrorMessage = "The parcticals Informations is required : ")]
+        [Required(ErrorMessage = "The practicals Informations are required : ")]
         [MinLength(3)]
         [MaxLength(512)]
-        [DisplayName("Parcticals Infoemations")]
+        [DisplayName("Practicals Informations")]
         public string? PracticalInformation { get; set; }
         [Required(ErrorMessage = "The Lambda Datas Id is required")]
         [DisplayName("Lambda Datas id : ")]

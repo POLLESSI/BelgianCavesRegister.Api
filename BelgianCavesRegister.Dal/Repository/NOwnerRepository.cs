@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
@@ -27,7 +24,7 @@ namespace BelgianCavesRegister.Dal.Repository
             var param = new { nowner };
             return _connection.Execute(sql, param) > 0;
         }
-        public void CreateNOwner(string status, string agreement)
+        public void AddNOwner(string status, string agreement)
         {
             string sql = "INSERT INTO NOwner (Status, Agreement) " +
                 " VALUES (@status, @agreement)";
@@ -77,7 +74,7 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public NOwner? Update(int nOwner_Id, string status, string agreement)
         {
-            string sql = "UpDate NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwner_Id";
+            string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwner_Id";
             var param = new {nOwner_Id, status, agreement };
             return _connection.QueryFirst<NOwner>(sql, param);
         }

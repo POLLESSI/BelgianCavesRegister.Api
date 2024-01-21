@@ -19,7 +19,7 @@ AS
 					Site_Description = @site_Description,
 					Latitude = @latitude,
 					Longitude = @longitude,
-					Length = @length,
+					[Length] = @length,
 					Depth = @depth,
 					AccessRequirement = @accesRequirement,
 					PracticalInformation = @practicalInformation,

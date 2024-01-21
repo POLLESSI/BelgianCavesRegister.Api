@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.DataAnnotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BelgianCaveRegister_Api.Dto.Forms

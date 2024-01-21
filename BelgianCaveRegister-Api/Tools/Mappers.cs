@@ -17,6 +17,14 @@ namespace BelgianCaveRegister_Api.Tools
                 //Active = bi.Active,
             };
         }
+        public static Chat ChatToDal(this Message ch)
+        {
+            return new Chat
+            {
+                NewMessage = ch.newMessage,
+                Author = ch.Author,
+            };
+        }
         public static LambdaData LambdaDataToDal(this LambdaDataRegisterForm la) 
         {
             return new LambdaData
@@ -43,6 +51,7 @@ namespace BelgianCaveRegister_Api.Tools
         {
             return new NPerson
             {
+                NPerson_Id = np.NPerson_Id,
                 Lastname = np.Lastname,
                 Firstname = np.Firstname,
                 BirthDate = np.BirthDate,
@@ -54,7 +63,7 @@ namespace BelgianCaveRegister_Api.Tools
                 Address_Country = np.Address_Country,
                 Telephone = np.Telephone,
                 Gsm = np.Gsm,
-                //Active = np.Active,
+                Active = np.Active
             };
         }
         public static NUser NUserToDal(this NUserForm nu) 

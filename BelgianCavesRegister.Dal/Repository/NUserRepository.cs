@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
-using System.Data;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
@@ -25,14 +22,14 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public bool Create(NUser newNUser) 
         {
-            string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id) VALUES" + "(@Pseudo, @PasswordHash, Email, NPerson_Id, @Role)";
+            string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id) VALUES" + "(@Pseudo, @PasswordHash, @Email, NPerson_Id, @Role)";
             var param = new { newNUser };
             return _connection.Execute(sql, param) > 0;
         }
-        public void CreateNUser(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public void AddNUser(string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
             string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id)  " +
-                "VALUES(@pseudo, @passwordHash, @email, @nPerson_Id, @role_Id)using";
+               "VALUES(@pseudo, @passwordHash, @email, @nPerson_Id, @role_Id)using";
             _connection.Query(sql);
         }
         public void CreateNUser(NUser newNUser)
@@ -40,8 +37,7 @@ namespace BelgianCavesRegister.Dal.Repository
             //string PasswordHashed = BCrypt.Net.BCrypt.HashPassword(PasswordHash);
             
         }
-        
-        public NUser? LoginNUser(string email, string passwordHash)
+        public NUser? LoginNUser(string email, byte passwordHash)
         {
             try
             {
@@ -53,7 +49,6 @@ namespace BelgianCavesRegister.Dal.Repository
 
                 throw new InvalidOperationException("Non-existent user");
             }
-
         }
         public IEnumerable<NUser> GetAll()
         {
@@ -75,7 +70,7 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public NUser? GetById(Guid nUser_Id)
         {
-            string sql = "SELECT * FROM NUSER WHERE NUser_Id = @nUser_Id";
+            string sql = "SELECT * FROM NUser WHERE NUser_Id = @nUser_Id";
             return _connection.QueryFirst<NUser>(sql, new { nUser_Id });
            
         }
@@ -101,10 +96,10 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
             var param = new { nUser_Id };
-            return _connection.QueryFirst<NUser>(sql, new { nUser_Id });
+            return _connection.QueryFirst<NUser>(sql, param);
             
         }
-        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public NUser? Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
             string sql = "UPDATE NUser SET Pseudo = @pseudo, PasswordHash = @passwordHash, Email = @email WHERE NUser_Id = @nUser_Id";
             return _connection.QueryFirst<NUser>(sql);

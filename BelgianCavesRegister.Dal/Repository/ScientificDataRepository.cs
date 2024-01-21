@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using Dapper;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
@@ -27,7 +24,7 @@ namespace BelgianCavesRegister.Dal.Repository
             var param = new { scientificdata };
             return _connection.Execute(sql, param) > 0;
         }
-        public void CreateScientificData(string dataType, string detailsData, string referenceData)
+        public void AddScientificData(string dataType, string detailsData, string referenceData)
         {
             string sql = "INSERT INTO ScientificData(DataType, DetailsData, ReferenceData) " + " VALUES (@dataType, @detailsData, @referenceData)";
             var param = new { dataType, detailsData, referenceData };
@@ -35,7 +32,7 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public IEnumerable<ScientificData> GetAll()
         {
-            string sql = "SELECT + FROM ScientificData";
+            string sql = "SELECT * FROM ScientificData";
             return _connection.Query<ScientificData>(sql);
         }
         //async Task<System.Windows.Documents.IEnumerable<ScientificData>> IScientificDataRepository.GetAll()
@@ -52,7 +49,7 @@ namespace BelgianCavesRegister.Dal.Repository
         public ScientificData? GetById(int scientificData_Id)
         {
            
-            string sql = "SELECT * FROM SCIENTIFICDATA WHERE ScientificData_Id = @scientificData_Id";
+            string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
             return _connection.QueryFirst<ScientificData>(sql, new { scientificData_Id });
         }
 

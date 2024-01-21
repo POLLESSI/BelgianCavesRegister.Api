@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Entities;
+//using BelgianCavesRegister.Dal.Repository;
+using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Hubs;
+using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -115,7 +118,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
         [HttpPut("{NUser_Id}")]
-        public IActionResult Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, int role_Id) 
+        public IActionResult Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int nPerson_Id, int role_Id) 
         {
             _userRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
             return Ok();

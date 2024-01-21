@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Hubs;
-using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
+using BelgianCavesRegister.Dal.Interfaces;
+using System.Security.Cryptography;
+
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -12,6 +15,7 @@ namespace BelgianCaveRegister_Api.Controllers
     {
         private readonly IBibliographyRepository _bibliographyRepository;
         private readonly BibliographyHub _bibliographyHub;
+        private readonly Dictionary<string, string> currentBibliography = new Dictionary<string, string>();
         public BibliographyController(IBibliographyRepository bibliographyRepository, BibliographyHub bibliographyHub)
         {
             _bibliographyRepository = bibliographyRepository;
@@ -32,7 +36,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_bibliographyRepository.GetById(bibliography_Id));
         }
         [HttpPost]
-        public async Task<IActionResult> Create(BibliographyRegisterForm? newBibliography)
+        public async Task<IActionResult> BibliographyCreate(BibliographyRegisterForm newBibliography)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -43,7 +47,6 @@ namespace BelgianCaveRegister_Api.Controllers
             }
             return BadRequest("Registration error");
         }
-
 
         //[HttpPost("register")]
         //public IActionResult Post(BibliographyRegisterForm bl)
@@ -62,13 +65,21 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         [HttpPut("{Bibliography_Id}")]
-        public IActionResult Update(UpdateBibliographyForm bl)
+        public IActionResult Update(int bibliography_Id, string title, string author, int iSBN, string dataType, string detail)
         {
-            _bibliographyRepository.Update(bl.Bibliography_Id, bl.Title, bl.Author, bl.ISBN, bl.DataType, bl.Detail);
+            _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
             return Ok();
         }
 
-
+        [HttpPost("update")]
+        public IActionResult ReceiveBibliographyUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentBibliography[item.Key] = item.Value;
+            }
+            return Ok(currentBibliography);
+        }
 
         //[HttpPatch("update")]
         //public IActionResult Update(UpdateBibliographyForm b)
