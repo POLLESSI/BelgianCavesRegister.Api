@@ -2,9 +2,8 @@ using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Repository;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Bll;
-//using BelgianCavesRegister.Bll.BllInterfaces;
 using BelgianCavesRegister.Bll.Services;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using System.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -24,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(o => o.AddPolicy("myPolicy", options =>
-    options.WithOrigins("http://localhost:4200", "https://localhost:7234")
+    options.WithOrigins("http://localhost:7044", "https://localhost:7234")
             .AllowCredentials()
             .AllowAnyHeader()
             .AllowAnyMethod()));
@@ -53,14 +52,14 @@ builder.Services.AddScoped<ISiteRepository, SiteRepository>();
 builder.Services.AddSignalR();
 
 
-builder.Services.AddSingleton<BibliographyHub>();
-builder.Services.AddSingleton<ChatHub>();
-builder.Services.AddSingleton<LambdaDataHub>();
-builder.Services.AddSingleton<NOwnerHub>();
-builder.Services.AddSingleton<NPersonHub>();
-builder.Services.AddSingleton<NUserHub>();
-builder.Services.AddSingleton<ScientificDataHub>();
-builder.Services.AddSingleton<SiteHub>();
+//builder.Services.AddSingleton<BibliographyHub>();
+//builder.Services.AddSingleton<ChatHub>();
+//builder.Services.AddSingleton<LambdaDataHub>();
+//builder.Services.AddSingleton<NOwnerHub>();
+//builder.Services.AddSingleton<NPersonHub>();
+//builder.Services.AddSingleton<NUserHub>();
+//builder.Services.AddSingleton<ScientificDataHub>();
+//builder.Services.AddSingleton<SiteHub>();
 
 builder.Services.AddScoped<TokenGenerator>();
 
@@ -117,18 +116,18 @@ app.UseHttpsRedirection();
 //   );
 app.MapControllers();
 app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<BibliographyHub>("/bibliographyhub");
-    endpoints.MapHub<ChatHub>("/chathub");
-    endpoints.MapHub<LambdaDataHub>("/lambdadatahub");
-    endpoints.MapHub<NOwnerHub>("/nownerhub");
-    endpoints.MapHub<NPersonHub>("/npersonhub");
-    endpoints.MapHub<NUserHub>("/nuserhub");
-    endpoints.MapHub<ScientificDataHub>("/scientificdatahub");
-    endpoints.MapHub<SiteHub>("/sitehub");
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapHub<BibliographyHub>("/bibliographyhub");
+//    endpoints.MapHub<ChatHub>("/chathub");
+//    endpoints.MapHub<LambdaDataHub>("/lambdadatahub");
+//    endpoints.MapHub<NOwnerHub>("/nownerhub");
+//    endpoints.MapHub<NPersonHub>("/npersonhub");
+//    endpoints.MapHub<NUserHub>("/nuserhub");
+//    endpoints.MapHub<ScientificDataHub>("/scientificdatahub");
+//    endpoints.MapHub<SiteHub>("/sitehub");
 
-});
+//});
 
 
 app.Run();

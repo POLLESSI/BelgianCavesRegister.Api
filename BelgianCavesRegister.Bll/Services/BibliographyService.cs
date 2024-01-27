@@ -15,7 +15,7 @@ namespace BelgianCavesRegister.Bll.Services
     public class BibliographyService : IBibliographyService
     {
         private readonly IBibliographyRepository _bibliographyRepository;
-        private readonly Microsoft.AspNet.SignalR.Client.HubConnection _hubConnection;
+        //private readonly Microsoft.AspNet.SignalR.Client.HubConnection _hubConnection;
 
         public BibliographyService(IBibliographyRepository bibliographyRepository)
         {
@@ -85,7 +85,7 @@ namespace BelgianCavesRegister.Bll.Services
             }
             return true;
         }
-        public void AddBibliography(string title, string author, int iSBN, string dataType, string detail)
+        public void AddBibliography(string title, string author, string iSBN, string dataType, string detail)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public Bibliography? Update(int bibliography_Id, string title, string author, int iSBN, string dataType, string detail)
+        public Bibliography? Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
             try
             {

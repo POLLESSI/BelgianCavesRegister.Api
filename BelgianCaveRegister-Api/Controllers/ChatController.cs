@@ -1,5 +1,5 @@
 ﻿using BelgianCaveRegister_Api.Dto.Forms;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Repository;
@@ -14,12 +14,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class ChatController : ControllerBase
     {
         private readonly IChatRepository _chatRepository;
-        private readonly ChatHub hub;
+        //private readonly ChatHub _hub;
 
-        public ChatController(IChatRepository chatRepository ,ChatHub Hub)
+        public ChatController(IChatRepository chatRepository)
         {
             _chatRepository = chatRepository;
-            hub = Hub;
+            //_hub = hub;
         }
         //[HttpPost]
         //public async Task<IActionResult> Login(string passworHash, string email)
@@ -47,8 +47,8 @@ namespace BelgianCaveRegister_Api.Controllers
             }
             if (_chatRepository.Create(newMessage.ChatToDal()))
             {
-                await hub.RefreshChat();
-                return Ok();
+                //await hub.RefreshChat();
+                return Ok(newMessage);
             }
             return BadRequest("Registration error");
         }

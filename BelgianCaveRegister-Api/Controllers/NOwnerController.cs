@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-//using BelgianCavesRegister.Dal.Entities;
-//using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
@@ -15,12 +13,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class NOwnerController : ControllerBase
     {
         private readonly INOwnerRepository _nOwnerRepository;
-        private readonly NOwnerHub _nOwnerHub;
-
-        public NOwnerController(INOwnerRepository nOwnerRepository, NOwnerHub nOwnerHub)
+        //private readonly NOwnerHub _nOwnerHub;
+        private readonly Dictionary<string, string> currentNOwner = new Dictionary<string, string>();
+        public NOwnerController(INOwnerRepository nOwnerRepository)
         {
             _nOwnerRepository = nOwnerRepository;
-            _nOwnerHub = nOwnerHub;
+            //_nOwnerHub = nOwnerHub;
         }
 
         [HttpGet]
@@ -48,8 +46,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_nOwnerRepository.Create(nOwnerRegister.NOwnerToDal()))
             {
-                await _nOwnerHub.RefreshNOwner();
-                return Ok();
+                //await _nOwnerHub.RefreshNOwner();
+                return Ok(nOwnerRegister);
             }
             return BadRequest("Registration error");
         }
@@ -73,7 +71,15 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-
+        [HttpPost("update")]
+        public IActionResult ReceiveNOwnerUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentNOwner[item.Key] = item.Value;
+            }
+            return Ok(currentNOwner);
+        }
 
         //[HttpPatch("Update")]
         //public IActionResult Update(UpdateNOwnerForm no)

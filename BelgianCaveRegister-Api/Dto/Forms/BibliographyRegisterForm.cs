@@ -16,12 +16,12 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [DisplayName("Author")]
         public string? Author { get; set; }
         [Required(ErrorMessage = "ISBN is required")]
-        [MinLength(13)]
+        [MinLength(16)]
         [DisplayName("ISBN")]
-        public int ISBN { get; set; }
+        public string? ISBN { get; set; }
         [Required(ErrorMessage = "Type of datas is required")]
         [MinLength(1)]
-        [MaxLength(32)]
+        [MaxLength(64)]
         [DisplayName("Type of data")]
         public string? DataType { get; set; }
         [Required(ErrorMessage = "the details of this bibliography is required")]

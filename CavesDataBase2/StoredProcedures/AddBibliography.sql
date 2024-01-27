@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[AddBibliography]
 	@title NVARCHAR(64),
 	@author NVARCHAR(32),
-	@iSBN INT,
-	@dataType NVARCHAR(32),
+	@iSBN NVARCHAR(16),
+	@dataType NVARCHAR(64),
 	@detail NVARCHAR(512)
 AS
 BEGIN

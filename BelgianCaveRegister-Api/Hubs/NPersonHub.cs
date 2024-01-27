@@ -1,15 +1,19 @@
-﻿using BelgianCaveRegister_Api.Dto;
-using Microsoft.AspNetCore.SignalR;
+﻿//using BelgianCaveRegister_Api.Dto;
+//using Microsoft.AspNetCore.SignalR;
 
-namespace BelgianCaveRegister_Api.Hubs
-{
-    public class NPersonHub : Hub
-    {
-        public async Task RefreshPerson()
-        {
-            if (Clients.All is not null)
-                await Clients.All.SendAsync("notiftNewNPerson");
-        }
-    }
-}
+//namespace BelgianCaveRegister_Api.Hubs
+//{
+//    public class NPersonHub : Hub
+//    {
+//        public async Task NotifyNewNPerson()
+//        {
+//            await Clients.All.SendAsync("ReceiveNPersonUpdate");
+//        }
+//        public async Task RefreshPerson()
+//        {
+//            if (Clients.All is not null)
+//                await Clients.All.SendAsync("notiftNewNPerson");
+//        }
+//    }
+//}
 

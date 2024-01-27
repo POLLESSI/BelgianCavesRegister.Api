@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-//using BelgianCavesRegister.Dal.Repository;
-//using BelgianCavesRegister.Dal.Entities;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
@@ -15,11 +13,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class LambdaDataController : ControllerBase
     {
         private readonly ILambdaDataRepository _LambdaDataRepository;
-        private readonly LambdaDataHub _lambdaDataHub;
-        public LambdaDataController(ILambdaDataRepository lambdaDataRepository, LambdaDataHub lambdaDataHub)
+        //private readonly LambdaDataHub _lambdaDataHub;
+        private readonly Dictionary<string, string> currentLambdaData = new Dictionary<string, string>();
+        public LambdaDataController(ILambdaDataRepository lambdaDataRepository)
         {
             _LambdaDataRepository = lambdaDataRepository;
-            _lambdaDataHub = lambdaDataHub;
+            //_lambdaDataHub = lambdaDataHub;
         }
 
         [HttpGet]
@@ -47,8 +46,8 @@ namespace BelgianCaveRegister_Api.Controllers
             
             if (_LambdaDataRepository.Create(lambdaDataRegister.LambdaDataToDal()))
             {
-                await _lambdaDataHub.RefreshLambdaData();
-                return Ok();
+
+                return Ok(lambdaDataRegister);
             }
             return BadRequest("Registration error");
         }
@@ -70,7 +69,15 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-
+        [HttpPost("update")]
+        public IActionResult ReceiveLambdaDataUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentLambdaData[item.Key] = item.Value;
+            }
+            return Ok(currentLambdaData);
+        }
 
 
         //[HttpPatch("update")]

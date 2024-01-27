@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCavesRegister.Dal.Interfaces;
-//using BelgianCavesRegister.Dal.Entities;
-//using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
@@ -16,13 +14,14 @@ namespace BelgianCaveRegister_Api.Controllers
     {
         private readonly BelgianCavesRegister.Dal.Interfaces.INUserRepository _userRepository;
         private readonly TokenGenerator _tokenGenerator;
-        private readonly NUserHub _nUserHub;
+        //private readonly NUserHub _nUserHub;
+        private readonly Dictionary<string, string> currentNUser = new Dictionary<string, string>();
 
-        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator, NUserHub nUserHub)
+        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
-            _nUserHub = nUserHub;
+            //_nUserHub = nUserHub;
         }
 
         //[Authorize("ModelPolicy")]
@@ -88,8 +87,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_userRepository.Create(nUser.NUserToDal()))
             {
-                await _nUserHub.RefreshNUser();
-                return Ok();
+                //await _nUserHub.RefreshNUser();
+                return Ok(nUser);
             }
             return BadRequest("Registration Error");
         }
@@ -122,6 +121,16 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             _userRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
             return Ok();
+        }
+
+        [HttpPost("update")]
+        public IActionResult ReceiveNUserUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate) 
+            {
+                currentNUser[item.Key] = item.Value;
+            }
+            return Ok(currentNUser);
         }
 
         [HttpPatch("setRole")]

@@ -12,6 +12,7 @@ namespace BelgianCaveRegister_Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly Dictionary<string, string> currentWeatherForecast = new Dictionary<string, string>();
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
@@ -28,6 +29,15 @@ namespace BelgianCaveRegister_Api.Controllers
             })
             .ToArray();
             
+        }
+        [HttpPost("update")]
+        public IActionResult ReceiveWeatherForecastUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentWeatherForecast[item.Key] = item.Value;
+            }
+            return Ok(currentWeatherForecast);
         }
     }
 }

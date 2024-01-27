@@ -19,37 +19,82 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public void AddChat(string newMessage, string author)
         {
-            string sql = "INSERT INTO Chat (Content, Author, NUser_Id) VALUES " +
+            try
+            {
+                string sql = "INSERT INTO Chat (Content, Author, NUser_Id) VALUES " +
                 "(@content, @author, @nUser_Id)";
-            var param = new { newMessage, author };
-            _connection.Query(sql, param);
+                var param = new { newMessage, author };
+                _connection.Query(sql, param);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error Additionning Chat: {ex.ToString}");
+            }
+            
         }
 
         public bool Create(Chat chat)
         {
-            string sql = "INSERT INTO Chat (Content, Author, NUser_Id)";
-            var param = new { chat };
-            return _connection.Execute(sql, param) > 0;
+            try
+            {
+                string sql = "INSERT INTO Chat (Content, Author, NUser_Id)";
+                var param = new { chat };
+                return _connection.Execute(sql, param) > 0;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error encoding Chat: {ex.ToString}");
+            }
+            return false;
         }
 
         public Chat? Delete(int chat_Id)
         {
-            string sql = "DELETE FROM Chat WHERE Chat_Id = @chat_Id";
-            var param = new { chat_Id };
-            return _connection.QueryFirst<Chat>(sql, param);
+            try
+            {
+                string sql = "DELETE FROM Chat WHERE Chat_Id = @chat_Id";
+                var param = new { chat_Id };
+                return _connection.QueryFirst<Chat>(sql, param);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error deleting Chat: {ex.ToString}");
+            }
+            return null;
         }
 
         public IEnumerable<Chat> GetAll()
         {
-            string sql = "SELECT * FROM Chat";
-            return _connection.Query<Chat>(sql);
+            try
+            {
+                string sql = "SELECT * FROM Chat";
+                return _connection.Query<Chat>(sql);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting Chats : {ex.ToString}");
+            }
+            return new List<Chat>();
         }
 
         public Chat? GetById(int chat_Id)
         {
-            string sql = "SELECT * FROM Chat WHERE Chat_Id = @chat_Id";
-            var param = new { chat_Id };
-            return _connection.QueryFirst<Chat>(sql, param);
+            try
+            {
+                string sql = "SELECT * FROM Chat WHERE Chat_Id = @chat_Id";
+                var param = new { chat_Id };
+                return _connection.QueryFirst<Chat>(sql, param);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting Chat: {ex.ToString}");
+            }
+            return new Chat();
         }
     }
 }

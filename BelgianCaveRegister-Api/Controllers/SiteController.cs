@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-//using BelgianCavesRegister.Dal.Entities;
-//using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
@@ -15,12 +13,13 @@ namespace BelgianCaveRegister_Api.Controllers
     public class SiteController : ControllerBase
     {
         private readonly ISiteRepository _siteRepository;
-        private readonly SiteHub _siteHub;
+        //private readonly SiteHub _siteHub;
+        private readonly Dictionary<string, string> currentSite = new Dictionary<string, string>();
 
-        public SiteController(ISiteRepository siteRepository, SiteHub siteHub )
+        public SiteController(ISiteRepository siteRepository)
         {
             _siteRepository = siteRepository;
-            _siteHub = siteHub;
+            //_siteHub = siteHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -47,8 +46,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_siteRepository.Create(site.SiteToDal()))
             {
-                await _siteHub.RefreshSite();
-                return Ok();
+                //await _siteHub.RefreshSite();
+                return Ok(site);
             }
             return BadRequest("Registration Error");
         }
@@ -71,7 +70,15 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-
+        [HttpPost("update")]
+        public IActionResult ReceiveSiteUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentSite[item.Key] = item.Value;
+            }
+            return Ok(currentSite);
+        }
 
         //[HttPatch("update")]
         //public IActionResult Update(UpdateSiteForm si)

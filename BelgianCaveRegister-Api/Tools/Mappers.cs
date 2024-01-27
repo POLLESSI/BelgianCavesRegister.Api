@@ -14,7 +14,7 @@ namespace BelgianCaveRegister_Api.Tools
                 ISBN = bi.ISBN,
                 DataType = bi.DataType,
                 Detail = bi.Detail,
-                //Active = bi.Active,
+                //Active = bi.Active
             };
         }
         public static Chat ChatToDal(this Message ch)

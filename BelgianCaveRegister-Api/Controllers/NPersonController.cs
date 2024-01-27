@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-//using BelgianCavesRegister.Dal.Entities;
-//using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
@@ -15,12 +13,13 @@ namespace BelgianCaveRegister_Api.Controllers
     public class NPersonController : ControllerBase
     {
         private readonly INPersonRepository _nPersonRepository;
-        private readonly NPersonHub _nPersonHub;
+        //private readonly NPersonHub _nPersonHub;
+        private readonly Dictionary<string, string> currentNPerson = new Dictionary<string, string>();
 
-        public NPersonController(INPersonRepository nPersonRepository, NPersonHub nPersonHub )
+        public NPersonController(INPersonRepository nPersonRepository)
         {
             _nPersonRepository = nPersonRepository;
-            _nPersonHub = nPersonHub;
+            //_nPersonHub = nPersonHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -48,8 +47,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_nPersonRepository.Create(newPerson.NPersonToDal()))
             {
-                await _nPersonHub.RefreshPerson();
-                return Ok();
+                //await _nPersonHub.RefreshPerson();
+                return Ok(newPerson);
             }
             return BadRequest("Registration Error");
         }
@@ -72,7 +71,15 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-
+        [HttpPost("update")]
+        public IActionResult ReceiveNPersonUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentNPerson[item.Key] = item.Value;
+            }
+            return Ok(currentNPerson);
+        }
 
         //[HttpPatch("update")]
         //public IActionResult Update(NPersonForm np)

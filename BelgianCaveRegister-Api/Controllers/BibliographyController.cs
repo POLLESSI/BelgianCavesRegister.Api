@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Interfaces;
@@ -14,12 +14,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class BibliographyController : ControllerBase
     {
         private readonly IBibliographyRepository _bibliographyRepository;
-        private readonly BibliographyHub _bibliographyHub;
+        //private readonly BibliographyHub _bibliographyHub;
         private readonly Dictionary<string, string> currentBibliography = new Dictionary<string, string>();
-        public BibliographyController(IBibliographyRepository bibliographyRepository, BibliographyHub bibliographyHub)
+        public BibliographyController(IBibliographyRepository bibliographyRepository)
         {
             _bibliographyRepository = bibliographyRepository;
-            _bibliographyHub = bibliographyHub;
+            //_bibliographyHub = bibliographyHub;
         }
 
 
@@ -42,8 +42,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_bibliographyRepository.Create(newBibliography.BibliographyToDal()))
             {
-                await _bibliographyHub.RefreshBibliography();
-                return Ok();
+                //await _bibliographyHub.RefreshBibliography();
+                return Ok(newBibliography);
             }
             return BadRequest("Registration error");
         }
@@ -65,21 +65,21 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         [HttpPut("{Bibliography_Id}")]
-        public IActionResult Update(int bibliography_Id, string title, string author, int iSBN, string dataType, string detail)
+        public IActionResult Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
             _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
             return Ok();
         }
 
-        [HttpPost("update")]
-        public IActionResult ReceiveBibliographyUpdate(Dictionary<string, string> newUpdate)
-        {
-            foreach (var item in newUpdate)
-            {
-                currentBibliography[item.Key] = item.Value;
-            }
-            return Ok(currentBibliography);
-        }
+        //[HttpPost("update")]
+        //public IActionResult ReceiveBibliographyUpdate(Dictionary<string, string> newUpdate)
+        //{
+        //    foreach (var item in newUpdate)
+        //    {
+        //        currentBibliography[item.Key] = item.Value;
+        //    }
+        //    return Ok(currentBibliography);
+        //}
 
         //[HttpPatch("update")]
         //public IActionResult Update(UpdateBibliographyForm b)

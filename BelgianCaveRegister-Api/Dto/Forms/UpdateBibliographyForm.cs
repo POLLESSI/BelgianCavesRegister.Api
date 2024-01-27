@@ -21,9 +21,10 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [Required(ErrorMessage = "ISBN is required")]
         [MinLength(13)]
         [DisplayName("ISBN")]
-        public int ISBN { get; set; }
+        public string? ISBN { get; set; }
         [Required(ErrorMessage = "Type of data is required")]
-        [MinLength(1)]
+        [MinLength(3)]
+        [MaxLength(64)]
         [DisplayName("Type of data")]
         public string? DataType { get; set; }
         [Required(ErrorMessage = "The details of this bibliography is required")]

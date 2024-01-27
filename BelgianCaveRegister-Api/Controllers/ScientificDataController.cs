@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BelgianCaveRegister_Api.Hubs;
+//using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-//using BelgianCavesRegister.Dal.Entities;
-//using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
@@ -15,12 +13,13 @@ namespace BelgianCaveRegister_Api.Controllers
     public class ScientificDataController : ControllerBase
     {
         private readonly IScientificDataRepository _scientificDataRepository;
-        private readonly ScientificDataHub _scientificDataHub;
+        //private readonly ScientificDataHub _scientificDataHub;
+        private readonly Dictionary<string, string> currentScientificData = new Dictionary<string, string>();
 
-        public ScientificDataController(IScientificDataRepository scientificDataRepository, ScientificDataHub scientificDataHub)
+        public ScientificDataController(IScientificDataRepository scientificDataRepository)
         {
             _scientificDataRepository = scientificDataRepository;
-            _scientificDataHub = scientificDataHub;
+            //_scientificDataHub = scientificDataHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -55,8 +54,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_scientificDataRepository.Create(scientificData.ScientificDataToDal()))
             {
-                await _scientificDataHub.RefreshScientificData();
-                return Ok();
+                //await _scientificDataHub.RefreshScientificData();
+                return Ok(scientificData);
             }
             return BadRequest("Registration Error");
         }
@@ -79,7 +78,15 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-
+        [HttpPost("update")]
+        public IActionResult ReceiveScientificDataUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                currentScientificData[item.Key] = item.Value;
+            }
+            return Ok(currentScientificData);
+        }
 
         //[HttpPatch("update")]
         //public IActionResult Update(ScientificDataRegisterForm sc)
