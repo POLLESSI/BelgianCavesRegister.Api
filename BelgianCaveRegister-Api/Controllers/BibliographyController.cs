@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Interfaces;
 using System.Security.Cryptography;
-
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -14,12 +13,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class BibliographyController : ControllerBase
     {
         private readonly IBibliographyRepository _bibliographyRepository;
-        //private readonly BibliographyHub _bibliographyHub;
+        private readonly BibliographyHub _bibliographyHub;
         private readonly Dictionary<string, string> currentBibliography = new Dictionary<string, string>();
-        public BibliographyController(IBibliographyRepository bibliographyRepository)
+        public BibliographyController(IBibliographyRepository bibliographyRepository, BibliographyHub bibliographyHub)
         {
             _bibliographyRepository = bibliographyRepository;
-            //_bibliographyHub = bibliographyHub;
+            _bibliographyHub = bibliographyHub;
         }
 
 
@@ -36,13 +35,13 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_bibliographyRepository.GetById(bibliography_Id));
         }
         [HttpPost]
-        public async Task<IActionResult> BibliographyCreate(BibliographyRegisterForm newBibliography)
+        public async Task<IActionResult> Create(BibliographyRegisterForm newBibliography)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
             if (_bibliographyRepository.Create(newBibliography.BibliographyToDal()))
             {
-                //await _bibliographyHub.RefreshBibliography();
+                await _bibliographyHub.RefreshBibliography();
                 return Ok(newBibliography);
             }
             return BadRequest("Registration error");
@@ -51,7 +50,7 @@ namespace BelgianCaveRegister_Api.Controllers
         //[HttpPost("register")]
         //public IActionResult Post(BibliographyRegisterForm bl)
         //{
-        //    _bibliographyRepository.RegisterBibliography( bl.Title, bl.Author, bl.ISBN, bl.DataType, bl.Detail);
+        //    _bibliographyRepository.RegisterBibliography(bl.Title, bl.Author, bl.ISBN, bl.DataType, bl.Detail);
         //    return Ok();
         //}
 

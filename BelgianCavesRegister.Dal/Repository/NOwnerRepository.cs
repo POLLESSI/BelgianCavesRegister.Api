@@ -12,56 +12,49 @@ namespace BelgianCavesRegister.Dal.Repository
 {
     public class NOwnerRepository : INOwnerRepository
     {
-        private readonly /*IDbConnection*/ SqlConnection _connection;
+        private readonly SqlConnection _connection;
 
-        public NOwnerRepository(/*IDbConnection*/ SqlConnection connection)
+        public NOwnerRepository(SqlConnection connection)
         {
             _connection = connection;
         }
         public bool Create(NOwner nowner) 
         {
-            try
-            {
-                string sql = "INSERT INTO NOwner(Status, Agreement) VALUES " + "(@Status, @Agreement)";
-                var param = new { nowner };
-                return _connection.Execute(sql, param) > 0;
-            }
-            catch (Exception ex)
-            {
+            string sql = "INSERT INTO NOwner (Status, Agreement) VALUES " + "(@Status, @Agreement)";
+            //var param = nowner;
+            return _connection.Execute(sql, nowner) > 0;
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error encoding New Owner: {ex.ToString}");
-            }
-            return false;
+            //    Console.WriteLine($"Error encoding New Owner: {ex.ToString}");
+            //}
+            //return false;
         }
-        public void AddNOwner(string status, string agreement)
-        {
-            try
-            {
-                string sql = "INSERT INTO NOwner (Status, Agreement) " +
-                " VALUES (@status, @agreement)";
-                var param = new { status, agreement };
-                _connection.Query(sql, param);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error additionning New Owner: {ex.ToString}");
-            }
-        }
-        
+        //public void CreateNOwner(NOwner nowner)
+        //{
+        //    string sql = "INSERT INTO NOwner (Status, Agreement) " +
+        //        " VALUES (@status, @agreement)";
+        //    //var param = nowner;
+        //    _connection.Query(sql, nowner);
+        //}
         public IEnumerable<NOwner> GetAll()
         {
-            try
-            {
-                string sql = "SELECT * FROM NOwner";
-                return _connection.Query<NOwner>(sql);
-            }
-            catch (Exception ex)
-            {
+            string sql = "SELECT * FROM NOwner";
+            return _connection.Query<NOwner>(sql);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error geting Owners: {ex.ToString}");
-            }
-            return Enumerable.Empty<NOwner>();
+            //    Console.WriteLine($"Error geting Owners: {ex.ToString}");
+            //}
+            //return Enumerable.Empty<NOwner>();
         }
         //async Task<System.Windows.Documents.IEnumerable<NOwner>> INOwnerRepository.GetAll()
         //{
@@ -76,18 +69,19 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public NOwner? GetById(int nOwner_Id)
         {
-            try
-            {
-                string sql = "SELECT * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
-                var param = new { nOwner_Id };
-                return _connection.QueryFirst<NOwner>(sql, param);
-            }
-            catch (Exception ex)
-            {
+            string sql = "SELECT * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
+            var param = new { nOwner_Id };
+            return _connection.QueryFirst<NOwner>(sql, param);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error geting Owner: {ex.ToString}");
-            }
-            return new NOwner();
+            //    Console.WriteLine($"Error geting Owner: {ex.ToString}");
+            //}
+            //return new NOwner();
         }
         //async Task<NOwner> INOwnerRepository.GetById(int nOwner_Id)
         //{
@@ -103,37 +97,40 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public NOwner? Delete(int nOwner_Id)
         {
-            try
-            {
-                string sql = "DELETE FROM NOwner WHERE NOwner_Id = @nOwner_Id";
-                var param = new { nOwner_Id };
-                return _connection.QueryFirst<NOwner>(sql, param);
-            }
-            catch (Exception ex)
-            {
+            string sql = "DELETE FROM NOwner WHERE NOwner_Id = @nOwner_Id";
+            var param = new { nOwner_Id };
+            return _connection.QueryFirst<NOwner>(sql, param);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error deleting Owner: {ex.ToString}");
-            }
-            return null;
+            //    Console.WriteLine($"Error deleting Owner: {ex.ToString}");
+            //}
+            //return null;
         }
         public NOwner? Update(int nOwner_Id, string status, string agreement)
         {
-            try
-            {
-                string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwner_Id";
-                var param = new { nOwner_Id, status, agreement };
-                return _connection.QueryFirst<NOwner>(sql, param);
-            }
-            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            {
+            string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwner_Id";
+            var param = new { nOwner_Id, status, agreement };
+            return _connection.QueryFirst<NOwner>(sql, param);
+            //try
+            //{
+                
+            //}
+            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            //{
 
-                Console.WriteLine($"Validation error : {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating Owner : {ex}");
-            }
-            return new NOwner();        }
+            //    Console.WriteLine($"Validation error : {ex.Message}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error updating Owner : {ex}");
+            //}
+            //return new NOwner();
+         }
     }
 }
 

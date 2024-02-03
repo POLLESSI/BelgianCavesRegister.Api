@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
@@ -13,13 +13,13 @@ namespace BelgianCaveRegister_Api.Controllers
     public class SiteController : ControllerBase
     {
         private readonly ISiteRepository _siteRepository;
-        //private readonly SiteHub _siteHub;
+        private readonly SiteHub _siteHub;
         private readonly Dictionary<string, string> currentSite = new Dictionary<string, string>();
 
-        public SiteController(ISiteRepository siteRepository)
+        public SiteController(ISiteRepository siteRepository, SiteHub siteHub)
         {
             _siteRepository = siteRepository;
-            //_siteHub = siteHub;
+            _siteHub = siteHub;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -46,7 +46,7 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_siteRepository.Create(site.SiteToDal()))
             {
-                //await _siteHub.RefreshSite();
+                await _siteHub.RefreshSite();
                 return Ok(site);
             }
             return BadRequest("Registration Error");

@@ -1,10 +1,11 @@
 ﻿using BelgianCaveRegister_Api.Dto.Forms;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
@@ -14,18 +15,18 @@ namespace BelgianCaveRegister_Api.Controllers
     public class ChatController : ControllerBase
     {
         private readonly IChatRepository _chatRepository;
-        //private readonly ChatHub _hub;
+        private readonly ChatHub _hub;
 
-        public ChatController(IChatRepository chatRepository)
+        public ChatController(IChatRepository chatRepository, ChatHub hub)
         {
             _chatRepository = chatRepository;
-            //_hub = hub;
+            _hub = hub;
         }
         //[HttpPost]
         //public async Task<IActionResult> Login(string passworHash, string email)
         //{
         //    //Based on connection ID, Iwill retrieve the list of user groups and re-register them in their groups at the hub level
-        //    await hub.JoinGroup("groupname", "username");
+        //    await _hub.JoinGroup("groupname", "username");
         //    return Ok();
         //}
         [HttpGet]
@@ -47,7 +48,7 @@ namespace BelgianCaveRegister_Api.Controllers
             }
             if (_chatRepository.Create(newMessage.ChatToDal()))
             {
-                //await hub.RefreshChat();
+                await _hub.RefreshChat();
                 return Ok(newMessage);
             }
             return BadRequest("Registration error");

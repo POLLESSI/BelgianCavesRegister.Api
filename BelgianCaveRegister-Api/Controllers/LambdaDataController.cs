@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
@@ -13,12 +13,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class LambdaDataController : ControllerBase
     {
         private readonly ILambdaDataRepository _LambdaDataRepository;
-        //private readonly LambdaDataHub _lambdaDataHub;
+        private readonly LambdaDataHub _lambdaDataHub;
         private readonly Dictionary<string, string> currentLambdaData = new Dictionary<string, string>();
-        public LambdaDataController(ILambdaDataRepository lambdaDataRepository)
+        public LambdaDataController(ILambdaDataRepository lambdaDataRepository, LambdaDataHub lambdaDataHub)
         {
             _LambdaDataRepository = lambdaDataRepository;
-            //_lambdaDataHub = lambdaDataHub;
+            _lambdaDataHub = lambdaDataHub;
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace BelgianCaveRegister_Api.Controllers
             
             if (_LambdaDataRepository.Create(lambdaDataRegister.LambdaDataToDal()))
             {
-
+                await _lambdaDataHub.RefreshLambdaData();
                 return Ok(lambdaDataRegister);
             }
             return BadRequest("Registration error");

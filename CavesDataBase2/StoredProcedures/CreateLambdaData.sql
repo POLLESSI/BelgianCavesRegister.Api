@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddLambdaData]
+﻿CREATE PROCEDURE [dbo].[CreateLambdaData]
 	@localisation NVARCHAR(128),
 	@topo NVARCHAR(MAX),
 	@acces NVARCHAR(256),

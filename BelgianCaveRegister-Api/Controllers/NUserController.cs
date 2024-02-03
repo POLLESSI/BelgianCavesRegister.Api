@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCavesRegister.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
@@ -14,14 +14,14 @@ namespace BelgianCaveRegister_Api.Controllers
     {
         private readonly BelgianCavesRegister.Dal.Interfaces.INUserRepository _userRepository;
         private readonly TokenGenerator _tokenGenerator;
-        //private readonly NUserHub _nUserHub;
+        private readonly NUserHub _nUserHub;
         private readonly Dictionary<string, string> currentNUser = new Dictionary<string, string>();
 
-        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator)
+        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator, NUserHub nUserHub)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
-            //_nUserHub = nUserHub;
+            _nUserHub = nUserHub;
         }
 
         //[Authorize("ModelPolicy")]
@@ -87,7 +87,7 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_userRepository.Create(nUser.NUserToDal()))
             {
-                //await _nUserHub.RefreshNUser();
+                await _nUserHub.RefreshNUser();
                 return Ok(nUser);
             }
             return BadRequest("Registration Error");

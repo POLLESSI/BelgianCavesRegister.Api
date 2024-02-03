@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddBibliography]
+﻿CREATE PROCEDURE [dbo].[CreateBibliography]
 	@title NVARCHAR(64),
 	@author NVARCHAR(32),
 	@iSBN NVARCHAR(16),

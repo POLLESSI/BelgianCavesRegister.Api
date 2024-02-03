@@ -9,8 +9,9 @@ namespace BelgianCavesRegister.Bll.BllInterfaces
 {
     public interface IChatService
     {
-        void AddChat(string newMessage, string author);
+        //void AddChat(string newMessage, string author);
         bool Create(Chat chat);
+        //void CreateChat(Chat chat);
         IEnumerable<Chat?> GetAll();
         Chat? GetById(int chat_Id);
         Chat? Delete(int chat_Id);

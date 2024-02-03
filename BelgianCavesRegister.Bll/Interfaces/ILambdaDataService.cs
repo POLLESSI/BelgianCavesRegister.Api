@@ -10,8 +10,9 @@ namespace BelgianCavesRegister.Bll
 {
     public interface ILambdaDataService
     {
-        void AddLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description);
+        //void AddLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description);
         bool Create(LambdaData lambdaData);
+        //void CreateLambdaData(LambdaData lambdaData);
         IEnumerable<LambdaData> GetAll();
         LambdaData? GetById(int donneesLambda_Id);
         LambdaData? Delete(int donneesLambda_Id);

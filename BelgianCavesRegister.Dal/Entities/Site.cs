@@ -17,18 +17,6 @@ namespace BelgianCavesRegister.Dal.Entities
         public int ScientificData_Id { get; set; }
         public int Bibliography_Id { get; set; }
         public bool Active { get; set; }
-        //public List<SiteDTO> sites { get; set; }
-
-        //public class Result
-        //{
-        //    public List<SiteResult> results { get; private set; }
-        //}
-        //public class SiteResult
-        //{
-        //    public string Site_Name { get; set; }
-        //    public string Site_Description { get; set; }
-        //    public string Url { get; set; }
-        //}
     }
 }
 

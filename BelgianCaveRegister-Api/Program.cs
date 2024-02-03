@@ -3,7 +3,7 @@ using BelgianCavesRegister.Dal.Repository;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Bll;
 using BelgianCavesRegister.Bll.Services;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using System.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BelgianCavesRegister.Models.Services;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 using BelgianCavesRegister.Bll.BllInterfaces;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,14 +53,14 @@ builder.Services.AddScoped<ISiteRepository, SiteRepository>();
 builder.Services.AddSignalR();
 
 
-//builder.Services.AddSingleton<BibliographyHub>();
-//builder.Services.AddSingleton<ChatHub>();
-//builder.Services.AddSingleton<LambdaDataHub>();
-//builder.Services.AddSingleton<NOwnerHub>();
-//builder.Services.AddSingleton<NPersonHub>();
-//builder.Services.AddSingleton<NUserHub>();
-//builder.Services.AddSingleton<ScientificDataHub>();
-//builder.Services.AddSingleton<SiteHub>();
+builder.Services.AddSingleton<BibliographyHub>();
+builder.Services.AddSingleton<ChatHub>();
+builder.Services.AddSingleton<LambdaDataHub>();
+builder.Services.AddSingleton<NOwnerHub>();
+builder.Services.AddSingleton<NPersonHub>();
+builder.Services.AddSingleton<NUserHub>();
+builder.Services.AddSingleton<ScientificDataHub>();
+builder.Services.AddSingleton<SiteHub>();
 
 builder.Services.AddScoped<TokenGenerator>();
 
@@ -89,12 +90,11 @@ var app = builder.Build();
 // Configure the HTTP Request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     //app.UseExceptionHandler("/Home/Error");
     //// The default HSTS is 30 days. You want to change this for production scenarios, see https://aka.ms/aspnetcore.hsts.
     //app.UseHsts();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
     //c =>
     //{
     //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "belgiancavesregister_api");
@@ -108,27 +108,23 @@ app.UseHttpsRedirection();
 
 //app.UseRouting();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 
 //app.MapControllerRoute(
        //name: "default",
        //pattern: "{controller-Home}/{action=Index}/Iid?}"
 //   );
 app.MapControllers();
-app.UseRouting();
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapHub<BibliographyHub>("/bibliographyhub");
-//    endpoints.MapHub<ChatHub>("/chathub");
-//    endpoints.MapHub<LambdaDataHub>("/lambdadatahub");
-//    endpoints.MapHub<NOwnerHub>("/nownerhub");
-//    endpoints.MapHub<NPersonHub>("/npersonhub");
-//    endpoints.MapHub<NUserHub>("/nuserhub");
-//    endpoints.MapHub<ScientificDataHub>("/scientificdatahub");
-//    endpoints.MapHub<SiteHub>("/sitehub");
+//app.UseRouting();
 
-//});
-
+app.MapHub<BibliographyHub>("/bibliographyhub");
+app.MapHub<ChatHub>("/chat");
+app.MapHub<LambdaDataHub>("/lambdadatahub");
+app.MapHub<NOwnerHub>("/nownerhub");
+app.MapHub<NPersonHub>("/npersonhub");
+app.MapHub<NUserHub>("/nuserhub");
+app.MapHub<ScientificDataHub>("/scientificdatahub");
+app.MapHub<SiteHub>("/sitehub");
 
 app.Run();
 

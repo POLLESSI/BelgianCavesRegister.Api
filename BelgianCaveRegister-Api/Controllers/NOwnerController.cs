@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using BelgianCaveRegister_Api.Hubs;
+using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
 using BelgianCaveRegister_Api.Dto.Forms;
@@ -13,12 +13,12 @@ namespace BelgianCaveRegister_Api.Controllers
     public class NOwnerController : ControllerBase
     {
         private readonly INOwnerRepository _nOwnerRepository;
-        //private readonly NOwnerHub _nOwnerHub;
+        private readonly NOwnerHub _nOwnerHub;
         private readonly Dictionary<string, string> currentNOwner = new Dictionary<string, string>();
-        public NOwnerController(INOwnerRepository nOwnerRepository)
+        public NOwnerController(INOwnerRepository nOwnerRepository, NOwnerHub nOwnerHub)
         {
             _nOwnerRepository = nOwnerRepository;
-            //_nOwnerHub = nOwnerHub;
+            _nOwnerHub = nOwnerHub;
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_nOwnerRepository.Create(nOwnerRegister.NOwnerToDal()))
             {
-                //await _nOwnerHub.RefreshNOwner();
+                await _nOwnerHub.RefreshNOwner();
                 return Ok(nOwnerRegister);
             }
             return BadRequest("Registration error");

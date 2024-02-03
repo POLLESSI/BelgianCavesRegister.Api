@@ -15,137 +15,126 @@ namespace BelgianCavesRegister.Models.Services
         {
             _nUserRepository = nUserRepository;
         }
-        public void AddNUser(string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
-        {
-            try
-            {
-                _nUserRepository.AddNUser(pseudo, passwordHash, email, nPerson_Id, role_Id);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error adding new user: {ex.ToString}");
-            }
-            
-        }
+        
         public bool Create(NUser nUser)
         {
-            try
-            {
-                _nUserRepository.Create(nUser);
-            }
-            catch (Exception ex)
-            {
+            return _nUserRepository.Create(nUser);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error creating new user: {ex.ToString}");
-            }
-            return true;
+            //    Console.WriteLine($"Error creating new user: {ex.ToString}");
+            //}
+            //return true;
         }
+        //public void CreateNUser(NUser nUser)
+        //{
+        //    _nUserRepository.CreateNUser(nUser);
+        //}
          
         public NUser? LoginNUser(string email, byte password)
         {
-            try
-            {
-                return _nUserRepository.LoginNUser(email, password);
-            }
-            catch (Exception ex)
-            {
+            return _nUserRepository.LoginNUser(email, password);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error loging: {ex.ToString}");
-            }
-            return new NUser();
+            //    Console.WriteLine($"Error loging: {ex.ToString}");
+            //}
+            //return new NUser();
         }
         public void SetRole(Guid nUser_Id, int role_Id)
         {
-            try
-            {
-                _nUserRepository.SetRole(nUser_Id, role_Id);
-            }
-            catch (Exception ex)
-            {
+            _nUserRepository.SetRole(nUser_Id, role_Id);
+            //try
+            //{
+            //    _nUserRepository.SetRole(nUser_Id, role_Id);
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error changin role: {ex.ToString}");
-            }
+            //    Console.WriteLine($"Error changin role: {ex.ToString}");
+            //}
             
         }
         public void UnregisterNUser(Guid nUser_Id)
         {
-            try
-            {
-                _nUserRepository.Delete(nUser_Id);
-            }
-            catch (Exception ex)
-            {
+            _nUserRepository.Delete(nUser_Id);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error unregistring user: {ex.ToString}");
-            }
+            //    Console.WriteLine($"Error unregistring user: {ex.ToString}");
+            //}
            
         }
 
         public IEnumerable<NUser> GetAll()
         {
-            try
-            {
-                return _nUserRepository.GetAll();
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error geting all users: {ex.ToString}");
-            }
-            return Enumerable.Empty<NUser>();
+            return _nUserRepository.GetAll();
         }
-
         public NUser? GetById(Guid nUser_Id)
         {
-            try
-            {
-                return _nUserRepository.GetById(nUser_Id);
-            }
-            catch (Exception ex)
-            {
+            return _nUserRepository.GetById(nUser_Id);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error getting user: {ex.ToString}");
-            }
-            return new NUser();
+            //    Console.WriteLine($"Error getting user: {ex.ToString}");
+            //}
+            //return new NUser();
         }
         public NUser? Delete(Guid nUser_Id)
         {
-            try
-            {
-                return _nUserRepository.Delete(nUser_Id);
-            }
-            catch (Exception ex)
-            {
+            return _nUserRepository.Delete(nUser_Id);
+            //try
+            //{
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error deleting user: {ex.ToString}");
-            }
-            return null;
+            //    Console.WriteLine($"Error deleting user: {ex.ToString}");
+            //}
+            //return null;
         }
         public NUser? Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
-            try
-            {
-                var updateNUser = _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
+            var updateNUser = _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
 
-                return updateNUser;
-            }
-            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            {
+            return updateNUser;
+            //try
+            //{
+                
+            //}
+            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            //{
 
-                Console.WriteLine($"Validation error : {ex.Message}");
+            //    Console.WriteLine($"Validation error : {ex.Message}");
 
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($"Database update error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating user: {ex}");
-            }
-            return new NUser();
-            //return _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
+            //}
+            //catch (DbUpdateException ex)
+            //{
+            //    Console.WriteLine($"Database update error: {ex.Message}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error updating user: {ex}");
+            //}
+            //return new NUser();
+            ////return _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
         }
     }
 }

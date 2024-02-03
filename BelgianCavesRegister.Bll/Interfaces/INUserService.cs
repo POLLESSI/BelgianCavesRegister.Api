@@ -10,8 +10,9 @@ namespace BelgianCavesRegister.Bll
 {
     public interface INUserService
     {
-        void AddNUser(string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id);
+        //void AddNUser(string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id);
         bool Create(NUser nUser);
+        //void CreateNUser(NUser nUser);
         IEnumerable<NUser> GetAll();
         NUser? GetById(Guid nUser_Id);
         NUser? Delete(Guid nUser_Id);

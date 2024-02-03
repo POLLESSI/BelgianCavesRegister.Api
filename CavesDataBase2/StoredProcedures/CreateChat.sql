@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddChat]
+﻿CREATE PROCEDURE [dbo].[CreateChat]
 	@newMessage NVARCHAR(256),
 	@author NVARCHAR(128)
 AS

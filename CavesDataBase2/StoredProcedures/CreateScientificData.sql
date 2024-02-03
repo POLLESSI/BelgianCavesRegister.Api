@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddSientificData]
+﻿CREATE PROCEDURE [dbo].[CreateScientificData]
 	@dataType NVARCHAR(128),
 	@detailsData NVARCHAR(512),
 	@referenceData NVARCHAR(256)

@@ -16,17 +16,5 @@ namespace BelgianCavesRegister.Dal.Entities
         public int Telephone { get; set; }
         public int Gsm { get; set; }
         public bool Active { get; set; }
-
-        //public List<NPersonDTO> NPersons { get; set; }
-        //public class Result
-        //{
-        //    public List<NPersonResult> results { get; set; }
-        //}
-        //public class NPersonResult
-        //{
-        //    public string Lastname { get; set; }
-        //    public string Firstname { get; set; }
-        //    public DateTime BirthDate { get; set; }
-        //}
     }
 }

@@ -61,7 +61,6 @@
     <Folder Include="Programability\Procedures" />
     <Folder Include="Programability\Procedures\spAuth" />
     <Folder Include="Tables" />
-    <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Programability\Functions\fHasher.sql" />
@@ -75,30 +74,6 @@
     <Build Include="Tables\NUser.sql" />
     <Build Include="Tables\ScientificData.sql" />
     <Build Include="Tables\Site.sql" />
-    <Build Include="StoredProcedures\AddBibliography.sql" />
-    <Build Include="StoredProcedures\AddChat.sql" />
-    <Build Include="StoredProcedures\AddLambdaData.sql" />
-    <Build Include="StoredProcedures\AddNOwner.sql" />
-    <Build Include="StoredProcedures\AddNPerson.sql" />
-    <Build Include="StoredProcedures\AddNUser.sql" />
-    <Build Include="StoredProcedures\AddSientificData.sql" />
-    <Build Include="StoredProcedures\AddSite.sql" />
-    <Build Include="StoredProcedures\DeleteBibliography.sql" />
-    <Build Include="StoredProcedures\DeleteChat.sql" />
-    <Build Include="StoredProcedures\DeleteLambdaData.sql" />
-    <Build Include="StoredProcedures\DeleteNOwner.sql" />
-    <Build Include="StoredProcedures\DeleteNPerson.sql" />
-    <Build Include="StoredProcedures\DeleteNUser.sql" />
-    <Build Include="StoredProcedures\DeleteScientificData.sql" />
-    <Build Include="StoredProcedures\DeleteSite.sql" />
-    <Build Include="StoredProcedures\UpdateBibliography.sql" />
-    <Build Include="StoredProcedures\UpdateLambdaData.sql" />
-    <Build Include="StoredProcedures\UpdateNOwner.sql" />
-    <Build Include="StoredProcedures\UpdateNperson.sql" />
-    <Build Include="StoredProcedures\UpdateNUser.sql" />
-    <Build Include="StoredProcedures\UpdateScientificData.sql" />
-    <Build Include="StoredProcedures\UpdateSite.sql" />
-    <Build Include="StoredProcedures\spGetNUserById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CavesDataBase2.publish.xml" />

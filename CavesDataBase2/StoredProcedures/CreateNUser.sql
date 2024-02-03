@@ -1,7 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[AddNUser]
+﻿CREATE PROCEDURE [dbo].[CreateNUser]
 	@pseudo NVARCHAR(64),
 	@passwordHash BINARY(64),
-	@securityStamp UNIQUEIDENTIFIER, 
+	@securityStamp UNIQUEIDENTIFIER,
 	@email NVARCHAR(64),
 	@nPerson_Id INT,
 	@role_Id INT
