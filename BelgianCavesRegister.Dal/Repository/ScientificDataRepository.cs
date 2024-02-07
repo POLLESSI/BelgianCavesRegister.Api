@@ -20,20 +20,22 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public bool Create(ScientificData scientificdata) 
         {
-            string sql = "INSERT INTO ScientificData (DataType, DetailsData, ReferenceData) VALUES " + "(@DataType, @DetailData, @ReferenceData)";
-            //var param = scientificdata;
-            return _connection.Execute(sql, scientificdata) > 0;
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "INSERT INTO ScientificData (DataType, DetailsData, ReferenceData) VALUES " + "(@DataType, @DetailData, @ReferenceData)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@DataType", scientificdata.DataType);
+                parameters.Add("@DetailsData", scientificdata.DetailsData);
+                parameters.Add("@ReferenceData", scientificdata.ReferenceData);
+                return _connection.Execute(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error encoding new scientific datas : {ex.ToString}");
-            //}
-            //return false;
-            
+                Console.WriteLine($"Error encoding new scientific datas : {ex.ToString}");
+            }
+            return false;
+
         }
         //public void CreateScientificData(ScientificData scientificData)
         //{
@@ -69,18 +71,18 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public ScientificData? GetById(int scientificData_Id)
         {
-            string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
-            return _connection.QueryFirst<ScientificData>(sql, new { scientificData_Id });
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
+                var param = new { scientificData_Id };
+                return _connection.QueryFirst<ScientificData>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting scientific's data : {ex.ToString}");
-            //}
-            //return new ScientificData();
+                Console.WriteLine($"Error geting scientific's data : {ex.ToString}");
+            }
+            return new ScientificData();
         }
 
         //async Task<ScientificData> IScientificDataRepository.GetById(int scientificData_Id)
@@ -98,38 +100,38 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public ScientificData? Delete(int scientificData_Id)
         {
-            string sql = "DELETE FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
-            return _connection.QueryFirst<ScientificData>(sql, new { scientificData_Id });
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "DELETE FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
+                var param = new { scientificData_Id };
+                return _connection.QueryFirst<ScientificData>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting Scientific's data : {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting Scientific's data : {ex.ToString}");
+            }
+            return null;
         }
         public ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
         {
-            string sql = "UPDATE ScientificData SET DataType = @dataType, DetailsData = @detailsData, ReferenceData = @referenceData  WHERE ScientificData_Id = @scientificData_Id";
-            var param = new { scientificData_Id, dataType, detailsData, referenceData };
-            return _connection.QueryFirst<ScientificData>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            //{
+            
+            try
+            {
+                string sql = "UPDATE ScientificData SET DataType = @dataType, DetailsData = @detailsData, ReferenceData = @referenceData  WHERE ScientificData_Id = @scientificData_Id";
+                var param = new { scientificData_Id, dataType, detailsData, referenceData };
+                return _connection.QueryFirst<ScientificData>(sql, param);
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
 
-            //    Console.WriteLine($"Validation error : {ex.Message}");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Error updating scientific's data : {ex}");
-            //}
-            //return new ScientificData();
+                Console.WriteLine($"Validation error : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating scientific's data : {ex}");
+            }
+            return new ScientificData();
         }
     }
 }

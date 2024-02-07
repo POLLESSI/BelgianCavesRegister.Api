@@ -20,19 +20,24 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public bool Create(LambdaData lambdaData)
         {
-            string sql = "INSERT INTO LambdaData (Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) VALUES " + "(@Localisation, @Topo, @Acces, @EquipementSheet, @PracticalInformation, @Description)";
-            //var param = lambdaData;
-            return _connection.Execute(sql, lambdaData) > 0;
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "INSERT INTO LambdaData (Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) VALUES " + "(@Localisation, @Topo, @Acces, @EquipementSheet, @PracticalInformation, @Description)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Localisation", lambdaData.Localisation);
+                parameters.Add("@Topo", lambdaData.Topo);
+                parameters.Add("@Acces", lambdaData.Acces);
+                parameters.Add("@EquipementSheet", lambdaData.EquipementSheet);
+                parameters.Add("@PracticalInformation", lambdaData.PracticalInformation);
+                parameters.Add("@Description", lambdaData.Description);
+                return _connection.Execute(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error encoding Lambda Data: {ex.ToString}");
-            //}
-            //return false;
+                Console.WriteLine($"Error encoding Lambda Data: {ex.ToString}");
+            }
+            return false;
         }
         //public void CreateLambdaData(LambdaData lambdaData)
         //{
@@ -68,19 +73,18 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public LambdaData? GetById(int donneesLambda_Id)
         {
-            string sql = "SELECT * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
-            var param = new { donneesLambda_Id };
-            return _connection.QueryFirst<LambdaData>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "SELECT * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
+                var param = new { donneesLambda_Id };
+                return _connection.QueryFirst<LambdaData>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting Lambda Data: {ex.ToString}");
-            //}
-            //return new LambdaData();
+                Console.WriteLine($"Error geting Lambda Data: {ex.ToString}");
+            }
+            return new LambdaData();
         }
         //async Task<LambdaData> ILambdaDataRepository.GetById(int donneesLambda_Id)
         //{
@@ -96,40 +100,38 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public LambdaData? Delete(int donneesLambda_Id)
         {
-            string sql = "DELETE FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
-            var param = new { donneesLambda_Id };
-            return _connection.QueryFirst<LambdaData>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "DELETE FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
+                var param = new { donneesLambda_Id };
+                return _connection.QueryFirst<LambdaData>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting Lambda Data: {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting Lambda Data: {ex.ToString}");
+            }
+            return null;
         }
 
         public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
-            string sql = "UPDATE LambdaData SET DonneesLambda_Id = @lambdaData_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
-            var param = new { donneesLambda_Id };
-            return _connection.QueryFirst<LambdaData>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            //{
+            try
+            {
+                string sql = "UPDATE LambdaData SET DonneesLambda_Id = @lambdaData_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
+                var param = new { donneesLambda_Id };
+                return _connection.QueryFirst<LambdaData>(sql, param);
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
 
-            //    Console.WriteLine($"Validation error : {ex.Message}");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Error updating Lambda Data: {ex}");
-            //}
-            //return new LambdaData();
+                Console.WriteLine($"Validation error : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating Lambda Data: {ex}");
+            }
+            return new LambdaData();
         }
     }
 }

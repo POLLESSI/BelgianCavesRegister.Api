@@ -20,19 +20,30 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public bool Create(Site site)
         {
-            string sql = "INSERT INTO Site (Site_Name, Site_Description, Latitude, Longitude, Length, Depth, AccessRequirement, PracticalInformation, DonneesLambda_Id, NOwner_Id, ScientificData_Id, Bibliography_Id) VALUES " + "(@Site_Name, @Site_Description, @Latitude, @Longitude, @Length, @Depth, @AccessRequirement, @PracticalInformation, @DonneesLambda_Id, @NOwner_Id, @ScientificData_Id, @Bibliography_Id)";
-            //var param = site;
-            return _connection.Execute(sql, site) > 0;
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "INSERT INTO Site (Site_Name, Site_Description, Latitude, Longitude, Length, Depth, AccessRequirement, PracticalInformation, DonneesLambda_Id, NOwner_Id, ScientificData_Id, Bibliography_Id) VALUES " + "(@Site_Name, @Site_Description, @Latitude, @Longitude, @Length, @Depth, @AccessRequirement, @PracticalInformation, @DonneesLambda_Id, @NOwner_Id, @ScientificData_Id, @Bibliography_Id)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Site_Name", site.Site_Name);
+                parameters.Add("@Site_Description", site.Site_Description);
+                parameters.Add("@Latitude", site.Latitude);
+                parameters.Add("@Longitude", site.Longitude);
+                parameters.Add("@Length", site.Length);
+                parameters.Add("@Depth", site.Depth);
+                parameters.Add("@AccessRequirement", site.AccessRequirement);
+                parameters.Add("@PracticalInformation", site.PracticalInformation);
+                parameters.Add("@Donnees_Lambda_Id", site.DonneesLambda_Id);
+                parameters.Add("@NOwner_Id", site.NOwner_Id);
+                parameters.Add("@ScientificData_Id", site.ScientificData_Id);
+                parameters.Add("@Bibliography_Id", site.Bibliography_Id);
+                return _connection.Execute(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error encoding Site : {ex.ToString}");
-            //}
-            //return false;
+                Console.WriteLine($"Error encoding Site : {ex.ToString}");
+            }
+            return false;
         }
         //public void CreateSite(Site site)
         //{
@@ -71,19 +82,18 @@ namespace BelgianCavesRegister.Dal.Repository
         {
 
             //string sql = "SELECT * FROM Site WHERE Site_Id = @site_Id";
-            string sql = "SELECT si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation FROM Site si JOIN LambdaData la ON si.LambdaData_Id = la.LambdaData_Id JOIN NOwner no ON si.NOwner_Id = no.NOwner_Id JOIN ScientificData sc ON si.ScientificData_Id = sc.ScientificData_Id JOIN Bibliography bi ON si.Bibliography_Id = bi.Bibliography_Id ";
-            var param = new { site_Id };
-            return _connection.QueryFirst<Site?>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "SELECT si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation FROM Site si JOIN LambdaData la ON si.LambdaData_Id = la.LambdaData_Id JOIN NOwner no ON si.NOwner_Id = no.NOwner_Id JOIN ScientificData sc ON si.ScientificData_Id = sc.ScientificData_Id JOIN Bibliography bi ON si.Bibliography_Id = bi.Bibliography_Id ";
+                var param = new { site_Id };
+                return _connection.QueryFirst<Site?>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting site : {ex.ToString}");
-            //}
-            //return new Site();
+                Console.WriteLine($"Error geting site : {ex.ToString}");
+            }
+            return new Site();
         }
         
         //async Task<Site> ISiteRepository.GetById(int site_Id)
@@ -100,39 +110,50 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public Site? Delete(int site_Id)
         {
-            string sql = "DELETE FROM Site WHERE Site_Id = @site_Id";
-            var param = new { site_Id };
-            return _connection.QueryFirst<Site>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "DELETE FROM Site WHERE Site_Id = @site_Id";
+                var param = new { site_Id };
+                return _connection.QueryFirst<Site>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting Site : {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting Site : {ex.ToString}");
+            }
+            return null;
         }
         public Site? Update(int site_Id, string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
-            string sql = "UPDATE Site SET Site_Name = @site_Name, Site_Description = @site_Description, Latitude = @latitude, Longitude = @longitude, Length = @length, Depth = @depth, AccessRequirement = @accessRequirement, PracticalInformation = @practicalInformation, DonneesLambda_Id = @donneesLambda_Id, NOwner_Id = @nOwner_Id, ScientificData_Id = @scientificData_Id, Bibliography_Id = @bibliography_Id WHERE Site_Id = @site_Id";
-            var param = new { site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id };
-            return _connection.QueryFirst<Site>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            //{
+            try
+            {
+                string sql = "UPDATE Site SET Site_Name = @site_Name, Site_Description = @site_Description, Latitude = @latitude, Longitude = @longitude, Length = @length, Depth = @depth, AccessRequirement = @accessRequirement, PracticalInformation = @practicalInformation, DonneesLambda_Id = @donneesLambda_Id, NOwner_Id = @nOwner_Id, ScientificData_Id = @scientificData_Id, Bibliography_Id = @bibliography_Id WHERE Site_Id = @site_Id";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@site_Id", site_Id);
+                parameters.Add("@site_Name", site_Name);
+                parameters.Add("@site_Description", site_Description);
+                parameters.Add("@latitude", latitude);
+                parameters.Add("@longitude", longitude);
+                parameters.Add("@length", length);
+                parameters.Add("@depth", depth);
+                parameters.Add("@accessRequirement", accessRequirement);
+                parameters.Add("@practicalInformation", practicalInformation);
+                parameters.Add("@donneesLambda_Id", donneesLambda_Id);
+                parameters.Add("@nOwner_Id", nOwner_Id);
+                parameters.Add("scientificData_Id", scientificData_Id);
+                parameters.Add("@bibliography_Id", bibliography_Id);
+                return _connection.QueryFirst<Site>(sql, parameters);
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
 
-            //    Console.WriteLine($"Validation error : {ex.Message}");
-            //}
-            //catch (Exception ex) 
-            //{
-            //    Console.WriteLine($"Error updating Site : {ex}");
-            //}
-            //return new Site();
+                Console.WriteLine($"Validation error : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating Site : {ex}");
+            }
+            return new Site();
         }
     }
 }

@@ -22,19 +22,23 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public bool Create(NUser nUser) 
         {
-            string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id) VALUES" + "(@Pseudo, @PasswordHash, @Email, @NPerson_Id, @Role)";
-            //var param = nUser;
-            return _connection.Execute(sql, nUser) > 0;
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id) VALUES" + "(@Pseudo, @PasswordHash, @Email, @NPerson_Id, @Role_Id)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Pseudo", nUser.Pseudo);
+                parameters.Add("@PasswordHash", nUser.PasswordHash);
+                parameters.Add("@Email", nUser.Email);
+                parameters.Add("@NPerson_Id", nUser.NPerson_Id);
+                parameters.Add("@Role_Id", nUser.Role_Id);
+                return _connection.Execute(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error Enconding New User : {ex.ToString}");
-            //}
-            //return false;
+                Console.WriteLine($"Error Enconding New User : {ex.ToString}");
+            }
+            return false;
         }
         //public void CreateNUser(NUser nUser)
         //{
@@ -46,17 +50,20 @@ namespace BelgianCavesRegister.Dal.Repository
         
         public NUser? LoginNUser(string email, byte passwordHash)
         {
-            string sqlCheckPassword = "SELECT * FROM NUser WHERE Email = @email";
-            return _connection.QueryFirst<NUser>(sqlCheckPassword, new { email });
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            
+            try
+            {
+                string sqlCheckPassword = "SELECT * FROM NUser WHERE Email = @email, PasswordHash = @passwordHash";
+                var parameters = new DynamicParameters();
+                parameters.Add("@email", email);
+                parameters.Add("@passwordHash", passwordHash);
+                return _connection.QueryFirst<NUser>(sqlCheckPassword, parameters);
+            }
+            catch (Exception ex)
+            {
 
-            //    throw new InvalidOperationException("Non-existent user");
-            //}
+                throw new InvalidOperationException("Non-existent user");
+            }
         }
         public IEnumerable<NUser> GetAll()
         {
@@ -86,18 +93,18 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public NUser? GetById(Guid nUser_Id)
         {
-            string sql = "SELECT * FROM NUser WHERE NUser_Id = @nUser_Id";
-            return _connection.QueryFirst<NUser>(sql, new { nUser_Id });
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "SELECT * FROM NUser WHERE NUser_Id = @nUser_Id";
+                var param = new { nUser_Id };
+                return _connection.QueryFirst<NUser>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting User : {ex.ToString}");
-            //}
-            //return new NUser();
+                Console.WriteLine($"Error geting User : {ex.ToString}");
+            }
+            return new NUser();
         }
         //async Task<NUser> INUserRepository.GetById(System.Guid nUser_Id)
         //{
@@ -113,70 +120,75 @@ namespace BelgianCavesRegister.Dal.Repository
         //}
         public NUser? UnregisterNUser(Guid nUser_Id)
         {
-            string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
-            var param = new { nUser_Id };
-            return _connection.QueryFirst<NUser>(sql, new { nUser_Id });
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
+                var param = new { nUser_Id };
+                return _connection.QueryFirst<NUser>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error UnRegistering User : {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error UnRegistering User : {ex.ToString}");
+            }
+            return null;
         }
         public NUser? Delete(Guid nUser_Id)
         {
-            string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
-            var param = new { nUser_Id };
-            return _connection.QueryFirst<NUser>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
+                var param = new { nUser_Id };
+                return _connection.QueryFirst<NUser>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting User : {ex.ToString}");
-            //}
-            //return default(NUser);
-            
+                Console.WriteLine($"Error deleting User : {ex.ToString}");
+            }
+            return default(NUser);
+
         }
         public NUser? Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
-            string sql = "UPDATE NUser SET Pseudo = @pseudo, PasswordHash = @passwordHash, Email = @email WHERE NUser_Id = @nUser_Id";
-            return _connection.QueryFirst<NUser>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            //{
+            try
+            {
+                string sql = "UPDATE NUser SET Pseudo = @pseudo, PasswordHash = @passwordHash, Email = @email, NPerson_Id = @nPerson_Id, Role_Id = @role_Id WHERE NUser_Id = @nUser_Id";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nUser_Id", nUser_Id);
+                parameters.Add("@pseudo", pseudo);
+                parameters.Add("@passwordHash", passwordHash);
+                parameters.Add("@email", email);
+                parameters.Add("@nPerson_Id", nPerson_Id);
+                parameters.Add("@role_Id", role_Id);
+                return _connection.QueryFirst<NUser>(sql, parameters);
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
 
-            //    Console.WriteLine($"Validation error : {ex.Message}");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Error updating User : {ex}");
-            //}
-            //return new NUser();
+                Console.WriteLine($"Validation error : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating User : {ex}");
+            }
+            return new NUser();
         }
         public void SetRole(Guid nUser_Id, int role_id)
         {
-            string sql = "UPDATE NUser SET Role_Id = @role_Id WHERE Id = @nUser_Id";
-            var param = new { nUser_Id, role_id };
-            _connection.Execute(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "UPDATE NUser SET Role_Id = @role_Id WHERE Id = @nUser_Id";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nUser_Id", nUser_Id);
+                parameters.Add("@role_Id", role_id);
+                _connection.Execute(sql, parameters);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error changing rôle : {ex.ToString}");
-            //}           
+                Console.WriteLine($"Error changing rôle : {ex.ToString}");
+            }
         }
     }
 }

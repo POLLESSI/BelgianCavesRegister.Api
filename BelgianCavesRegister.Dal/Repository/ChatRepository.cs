@@ -19,19 +19,20 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public bool Create(Chat chat)
         {
-            string sql = "INSERT INTO Chat (Content, Author, NUser_Id)";
-            //var param = chat;
-            return _connection.Execute(sql, chat) > 0;
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "INSERT INTO Chat (NewMessage, Author) VALUES " + "(@NewMessage, @Author)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Content", chat.NewMessage);
+                parameters.Add("@Author", chat.Author);
+                return _connection.Execute(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error encoding Chat: {ex.ToString}");
-            //}
-            //return false;
+                Console.WriteLine($"Error encoding Chat: {ex.ToString}");
+            }
+            return false;
         }
 
         //public void CreateChat(Chat chat)
@@ -44,19 +45,18 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public Chat? Delete(int chat_Id)
         {
-            string sql = "DELETE FROM Chat WHERE Chat_Id = @chat_Id";
-            var param = new { chat_Id };
-            return _connection.QueryFirst<Chat>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "DELETE FROM Chat WHERE Chat_Id = @chat_Id";
+                var param = new { chat_Id };
+                return _connection.QueryFirst<Chat>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting Chat: {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting Chat: {ex.ToString}");
+            }
+            return null;
         }
 
         public IEnumerable<Chat> GetAll()
@@ -77,19 +77,18 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public Chat? GetById(int chat_Id)
         {
-            string sql = "SELECT * FROM Chat WHERE Chat_Id = @chat_Id";
-            var param = new { chat_Id };
-            return _connection.QueryFirst<Chat>(sql, param);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                string sql = "SELECT * FROM Chat WHERE Chat_Id = @chat_Id";
+                var param = new { chat_Id };
+                return _connection.QueryFirst<Chat>(sql, param);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting Chat: {ex.ToString}");
-            //}
-            //return new Chat();
+                Console.WriteLine($"Error geting Chat: {ex.ToString}");
+            }
+            return new Chat();
         }
     }
 }
