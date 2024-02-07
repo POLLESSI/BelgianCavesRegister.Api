@@ -41,7 +41,7 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest();
             if (_bibliographyRepository.Create(newBibliography.BibliographyToDal()))
             {
-                await _bibliographyHub.RefreshBibliography();
+                await _bibliographyHub.RefreshBibliography();   // Provoque un TypeError: Ntworkerror when attempting to fetch resource 
                 return Ok(newBibliography);
             }
             return BadRequest("Registration error");
