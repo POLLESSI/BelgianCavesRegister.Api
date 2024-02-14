@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using BelgianCavesRegister.Dal.Interfaces;
 using System.Data.Entity.Infrastructure;
+using BelgianCavesRegister.Bll.Models;
+using BelgianCavesRegister.Bll.Mappers;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -35,9 +37,9 @@ namespace BelgianCavesRegister.Models.Services
         //    _nUserRepository.CreateNUser(nUser);
         //}
          
-        public NUser? LoginNUser(string email, byte password)
+        public NUser? LoginNUser(string email, string passwordHash)
         {
-            return _nUserRepository.LoginNUser(email, password);
+            return _nUserRepository.LoginNUser(email, passwordHash);
             //try
             //{
                 
@@ -63,9 +65,9 @@ namespace BelgianCavesRegister.Models.Services
             //}
             
         }
-        public void UnregisterNUser(Guid nUser_Id)
+        public void RegisterNUser(string pseudo, string email, string passwordHash)
         {
-            _nUserRepository.Delete(nUser_Id);
+            _nUserRepository.RegisterNUser(pseudo, email, passwordHash);
             //try
             //{
                 
@@ -110,7 +112,7 @@ namespace BelgianCavesRegister.Models.Services
             //}
             //return null;
         }
-        public NUser? Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
             var updateNUser = _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
 

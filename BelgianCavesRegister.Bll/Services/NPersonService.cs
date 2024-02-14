@@ -30,10 +30,10 @@ namespace BelgianCavesRegister.Bll.Services
             //}
             //return true;
         }
-        //public void CreateNPerson(NPerson nPerson)
-        //{
-        //    _nPersonRepository.CreateNPerson(nPerson);
-        //}
+        public void CreateNPerson(NPerson nPerson)
+        {
+            _nPersonRepository.CreateNPerson(nPerson);
+        }
         public IEnumerable<NPerson> GetAll()
         {
             return _nPersonRepository.GetAll();

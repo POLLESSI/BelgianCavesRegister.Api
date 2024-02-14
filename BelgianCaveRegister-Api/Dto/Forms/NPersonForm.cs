@@ -6,7 +6,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class NPersonForm
     {
-        public int NPerson_Id { get; set; }
         [Required(ErrorMessage = "The last name is required")]
         [MinLength(3)]
         [MaxLength(32)]

@@ -16,9 +16,9 @@ namespace BelgianCavesRegister.Bll
         IEnumerable<NUser> GetAll();
         NUser? GetById(Guid nUser_Id);
         NUser? Delete(Guid nUser_Id);
-        NUser? Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id);
-        void UnregisterNUser(Guid nUser_Id);
-        NUser? LoginNUser(string email, byte password);
+        NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id);
+        void RegisterNUser(string pseudo, string email, string passwordHash);
+        NUser? LoginNUser(string email, string passwordHash);
         void SetRole(Guid nUser_Id, int role_Id);
     }
 }

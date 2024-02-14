@@ -48,7 +48,7 @@ namespace BelgianCavesRegister.Dal.Repository
         //    _connection.Query(sql, nUser);
         //}
         
-        public NUser? LoginNUser(string email, byte passwordHash)
+        public NUser? LoginNUser(string email, string passwordHash)
         {
             
             try
@@ -62,7 +62,7 @@ namespace BelgianCavesRegister.Dal.Repository
             catch (Exception ex)
             {
 
-                throw new InvalidOperationException("Non-existent user");
+                throw new InvalidOperationException($"Non-existent user : {ex.ToString}");
             }
         }
         public IEnumerable<NUser> GetAll()
@@ -118,20 +118,22 @@ namespace BelgianCavesRegister.Dal.Repository
         //    }
         //    return null;
         //}
-        public NUser? UnregisterNUser(Guid nUser_Id)
+        public void RegisterNUser(string pseudo, string email, string passwordHash)
         {
             try
             {
-                string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
-                var param = new { nUser_Id };
-                return _connection.QueryFirst<NUser>(sql, param);
+                //byte PswdHash = BCrypt.Net.BCrypt.HashPassword(passwordHash);
+                string sql = "INSERT INTO NUser (Pseudo, Email, PasswordHash)" +
+                    " VALUES (@pseudo, @email, @passwordHash)";
+                var param = new { pseudo, email, passwordHash };
+                _connection.Execute(sql, param);
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine($"Error UnRegistering User : {ex.ToString}");
             }
-            return null;
+            return;
         }
         public NUser? Delete(Guid nUser_Id)
         {
@@ -146,10 +148,10 @@ namespace BelgianCavesRegister.Dal.Repository
 
                 Console.WriteLine($"Error deleting User : {ex.ToString}");
             }
-            return default(NUser);
+            return null;
 
         }
-        public NUser? Update(Guid nUser_Id, string pseudo, byte passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
         {
             try
             {

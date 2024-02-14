@@ -8,7 +8,7 @@ namespace BelgianCavesRegister.Dal.Interfaces
     public interface INPersonRepository
     {
         bool Create(NPerson nPerson);
-        //void CreateNPerson(NPerson person);
+        void CreateNPerson(NPerson person);
         IEnumerable<NPerson> GetAll();
         NPerson? GetById(int nPerson_Id);
         NPerson? Delete(int nPerson_Id);

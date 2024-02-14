@@ -15,7 +15,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(3)]
         [MaxLength(64)]
         [DisplayName("Password")]
-        //[RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
         public string? PasswordHash { get; set; }
         [Required(ErrorMessage = "Email address is required.")]
         [EmailAddress]

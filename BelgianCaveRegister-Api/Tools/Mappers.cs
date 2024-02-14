@@ -51,7 +51,6 @@ namespace BelgianCaveRegister_Api.Tools
         {
             return new NPerson
             {
-                NPerson_Id = np.NPerson_Id,
                 Lastname = np.Lastname,
                 Firstname = np.Firstname,
                 BirthDate = np.BirthDate,

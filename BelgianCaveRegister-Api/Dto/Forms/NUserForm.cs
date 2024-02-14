@@ -16,13 +16,14 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(6)]
         [MaxLength(64)]
         [DisplayName("Password : ")]
-        public Byte PasswordHash { get; set; }
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
+        public string? PasswordHash { get; set; }
+        [DisplayName("Security Stamp : ")]
+        public Guid SecurityStamp { get; set; }
         [Required(ErrorMessage = "Email is required")]
         [MinLength(3)]
         [MaxLength(64)]
         [DisplayName("Email : ")]
-        //public Guid SecurityStamp { get; set; }
-        //[Required]
         public string? Email { get; set; }
         [Required(ErrorMessage = "The Person's Id is required")]
         [DisplayName("Person's Id : ")]

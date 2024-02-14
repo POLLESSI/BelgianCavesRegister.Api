@@ -11,7 +11,7 @@ namespace BelgianCavesRegister.Bll
     public interface INPersonService
     {
         bool Create(NPerson nPerson);
-        //void CreateNPerson(NPerson nPerson);
+        void CreateNPerson(NPerson nPerson);
         IEnumerable<NPerson> GetAll();
         NPerson? GetById(int nPerson_Id);
         NPerson? Delete(int nPerson_Id);

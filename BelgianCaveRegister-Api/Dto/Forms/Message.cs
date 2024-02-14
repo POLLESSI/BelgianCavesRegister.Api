@@ -15,7 +15,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(64)]
         [DisplayName("Author")]
         public string? Author { get; set; }
-        [DisplayName("User's Id")]
-        public Guid NUser_Id { get; set; }
+        
     }
 }

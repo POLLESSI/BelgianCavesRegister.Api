@@ -44,14 +44,14 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return false;
         }
-        
-        //public void CreateNPerson(NPerson nPerson)
-        //{
-        //    string sql = "INSERT INTO NPerson (Lastname, Firstname, BirthDate, Email, Address_Street, Address_Nbr, PostalCode, Address_City, Address_Country, Telephone, Gsm) " +
-        //        "VALUES (@lastname, @firstname, @birthDate, @email, @address_Street, @address_Nbr, @postalCode, @address_City, @address_Country, @telephone, @gsm)";
-        //    //var param = nPerson;
-        //    _connection.Execute(sql, nPerson);
-        //}
+
+        public void CreateNPerson(NPerson nPerson)
+        {
+            string sql = "INSERT INTO NPerson (Lastname, Firstname, BirthDate, Email, Address_Street, Address_Nbr, PostalCode, Address_City, Address_Country, Telephone, Gsm) " +
+                "VALUES (@lastname, @firstname, @birthDate, @email, @address_Street, @address_Nbr, @postalCode, @address_City, @address_Country, @telephone, @gsm)";
+            //var param = nPerson;
+            _connection.Execute(sql, nPerson);
+        }
         public IEnumerable<NPerson> GetAll()
         {
             string sql = "SELECT * FROM NPerson";
@@ -149,7 +149,7 @@ namespace BelgianCavesRegister.Dal.Repository
             {
                 Console.WriteLine($"Error updating Person<: {ex}");
             }
-            return new NPerson();
+            return null;
         }
     }
 }
