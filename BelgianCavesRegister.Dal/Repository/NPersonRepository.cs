@@ -49,23 +49,24 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             string sql = "INSERT INTO NPerson (Lastname, Firstname, BirthDate, Email, Address_Street, Address_Nbr, PostalCode, Address_City, Address_Country, Telephone, Gsm) " +
                 "VALUES (@lastname, @firstname, @birthDate, @email, @address_Street, @address_Nbr, @postalCode, @address_City, @address_Country, @telephone, @gsm)";
-            //var param = nPerson;
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@lastname", nPerson.Lastname);
+            parameters.Add("@firstname", nPerson.Firstname);
+            parameters.Add("@birthDate", nPerson.BirthDate);
+            parameters.Add("@email", nPerson.Email);
+            parameters.Add("@address_Street", nPerson.Address_Street);
+            parameters.Add("@address_Nbr", nPerson.Address_Nbr);
+            parameters.Add("@postalCode", nPerson.PostalCode);
+            parameters.Add("@address_City", nPerson.Address_City);
+            parameters.Add("@address_Country", nPerson.Address_Country);
+            parameters.Add("@telephone", nPerson.Telephone);
+            parameters.Add("@gsm", nPerson.Gsm);
             _connection.Execute(sql, nPerson);
         }
         public IEnumerable<NPerson> GetAll()
         {
             string sql = "SELECT * FROM NPerson";
             return _connection.Query<NPerson>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error geting Persons : {ex.ToString}");
-            //}
-            //return Enumerable.Empty<NPerson>();
         }
         //async Task<System.Windows.Documents.IEnumerable<NPerson>> INPersonRepository.GetAll()
         //{
@@ -83,8 +84,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "SELECT * FROM NPerson WHERE NPerson_Id = @nPerson_Id";
-                var param = new { nPerson_Id };
-                return _connection.QueryFirst<NPerson>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nPerson_Id");
+                return _connection.QueryFirst<NPerson>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -110,8 +112,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "DELETE FROM NPerson WHERE NPerson_Id = @nPerson_Id";
-                var param = new { nPerson_Id };
-                return _connection.QueryFirst<NPerson>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nPerson_Id", nPerson_Id);
+                return _connection.QueryFirst<NPerson>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -120,7 +123,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return null;
         }
-        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
+        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
         {
             try
             {

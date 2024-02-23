@@ -74,6 +74,7 @@
     <Build Include="Tables\NUser.sql" />
     <Build Include="Tables\ScientificData.sql" />
     <Build Include="Tables\Site.sql" />
+    <Build Include="Tables\WeatherForecast.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CavesDataBase2.publish.xml" />

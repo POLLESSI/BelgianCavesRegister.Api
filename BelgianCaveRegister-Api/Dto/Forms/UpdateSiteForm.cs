@@ -21,20 +21,20 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 
         [Required(ErrorMessage = "The latitude is required")]
         [DisplayName("Latitude : ")]
-        public double Latitude { get; set; }
+        public string? Latitude { get; set; }
         [Required(ErrorMessage = "The Longitude is required. A double please")]
         [DisplayName("Longitude : ")]
-        public double Longitude { get; set; }
+        public string? Longitude { get; set; }
         [Required(ErrorMessage = "The Length is required. A double please")]
         [MinLength(1)]
         [MaxLength(25000)]
         [DisplayName("Length : ")]
-        public decimal Length { get; set; }
+        public string? Length { get; set; }
         [Required(ErrorMessage = "The Depth is required. A decimal please")]
         [MinLength(0)]
         [MaxLength(150)]
         [DisplayName("Depth : ")]
-        public decimal Depth { get; set; }
+        public string? Depth { get; set; }
         [Required(ErrorMessage = "The access requirements is required. A decimal please")]
         [MinLength(3)]
         [MaxLength(256)]

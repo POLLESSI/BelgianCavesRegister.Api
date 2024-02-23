@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
         [HttpPut("{Site_Id}")]
-        public IActionResult Update(int site_Id, string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id,int scientificData_Id, int bibliography_Id)
+        public IActionResult Update(int site_Id, string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id,int scientificData_Id, int bibliography_Id)
         {
             _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
             return Ok();

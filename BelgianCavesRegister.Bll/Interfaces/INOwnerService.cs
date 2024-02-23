@@ -12,7 +12,7 @@ namespace BelgianCavesRegister.Bll
     {
         //void AddNOwner(string status, string agreement);
         bool Create(NOwner nOwner);
-        //void CreateNOwner(NOwner nOwner);
+        void CreateNOwner(NOwner nOwner);
         IEnumerable<NOwner> GetAll();
         NOwner? GetById(int nOwner_Id);
         NOwner? Delete(int nOwner_Id);

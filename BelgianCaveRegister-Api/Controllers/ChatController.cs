@@ -1,11 +1,9 @@
-﻿using BelgianCaveRegister_Api.Dto.Forms;
+﻿using BelgianCaveRegister_Api.Models;
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers

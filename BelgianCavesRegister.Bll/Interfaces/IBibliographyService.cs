@@ -11,7 +11,7 @@ namespace BelgianCavesRegister.Bll
     public interface IBibliographyService
     {
         bool Create(Bibliography bibliography);
-        //void CreateBibliography(Bibliography bibliography);
+        void CreateBibliography(Bibliography bibliography);
         IEnumerable<Bibliography?> GetAll();
         Bibliography? GetById(int bibliography_Id);
         Bibliography? Delete(int bibliography_Id);

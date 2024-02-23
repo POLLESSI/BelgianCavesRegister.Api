@@ -24,7 +24,7 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id) VALUES" + "(@Pseudo, @PasswordHash, @Email, @NPerson_Id, @Role_Id)";
+                string sql = "INSERT INTO NUser (Pseudo, PasswordHash, Email, NPerson_Id, Role_Id) VALUES" + "(@Pseudo, CONVERT(varbinary(max), @PasswordHash), @Email, @NPerson_Id, @Role_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Pseudo", nUser.Pseudo);
                 parameters.Add("@PasswordHash", nUser.PasswordHash);
@@ -40,21 +40,25 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return false;
         }
-        //public void CreateNUser(NUser nUser)
-        //{
-        //    string sql = "INSERT INTO NUser (Pseudp, PasswordHash, Email, NPerson_Id, Role_Id) " +
-        //        "VALUES (@pseudo, @passwordHash, @email, @nPerson_Id, @role)";
-        //    //var param = nUser;
-        //    _connection.Query(sql, nUser);
-        //}
-        
-        public NUser? LoginNUser(string email, string passwordHash)
+        public void CreateNUser(NUser nUser)
         {
-            
+            string sql = "INSERT INTO NUser (Pseudp, PasswordHash, Email, NPerson_Id, Role_Id) " +
+                "VALUES (@pseudo, CONVERT(varbinary(max), @PasswordHash), @email, @nPerson_Id, @role_Id)";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@pseudo", nUser.Pseudo);
+            parameters.Add("@passwordHash", nUser.PasswordHash);
+            parameters.Add("@email", nUser.Email);
+            parameters.Add("@nPerson_Id", nUser.NPerson_Id);
+            parameters.Add("@role_Id", nUser.Role_Id);
+            _connection.Query(sql, nUser);
+        }
+
+        public NUser? LoginNUser(string? email, string? passwordHash)
+        {
             try
             {
-                string sqlCheckPassword = "SELECT * FROM NUser WHERE Email = @email, PasswordHash = @passwordHash";
-                var parameters = new DynamicParameters();
+                string sqlCheckPassword = "SELECT * FROM NUser WHERE Email = @email, PasswordHash = CONVERT(varbinary(max), @PasswordHash)";
+                DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@email", email);
                 parameters.Add("@passwordHash", passwordHash);
                 return _connection.QueryFirst<NUser>(sqlCheckPassword, parameters);
@@ -69,16 +73,6 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             string sql = "SELECT * FROM NUser";
             return _connection.Query<NUser>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error geting Users : {ex.ToString}");
-            //}
-            //return Enumerable.Empty<NUser>();
         }
         //async Task<System.Windows.Documents.IEnumerable<NUser>> INUserRepository.GetAll()
         //{
@@ -96,8 +90,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "SELECT * FROM NUser WHERE NUser_Id = @nUser_Id";
-                var param = new { nUser_Id };
-                return _connection.QueryFirst<NUser>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nUser_Id", nUser_Id);
+                return _connection.QueryFirst<NUser>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -118,15 +113,18 @@ namespace BelgianCavesRegister.Dal.Repository
         //    }
         //    return null;
         //}
-        public void RegisterNUser(string pseudo, string email, string passwordHash)
+        public void RegisterNUser(string? pseudo, string? email, string? passwordHash)
         {
             try
             {
                 //byte PswdHash = BCrypt.Net.BCrypt.HashPassword(passwordHash);
                 string sql = "INSERT INTO NUser (Pseudo, Email, PasswordHash)" +
-                    " VALUES (@pseudo, @email, @passwordHash)";
-                var param = new { pseudo, email, passwordHash };
-                _connection.Execute(sql, param);
+                    " VALUES (@pseudo, @email, CONVERT(varbinary(max), @PasswordHash))";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@pseudo", pseudo);
+                parameters.Add("@email", email);
+                parameters.Add("@PasswordHash", passwordHash);
+                _connection.Execute(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -140,8 +138,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
-                var param = new { nUser_Id };
-                return _connection.QueryFirst<NUser>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nUser_Id", nUser_Id);
+                return _connection.QueryFirst<NUser>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -151,11 +150,11 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
 
         }
-        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
+        public NUser? Update(Guid nUser_Id, string? pseudo, string? passwordHash, string? email, int? nPerson_Id, int? role_Id)
         {
             try
             {
-                string sql = "UPDATE NUser SET Pseudo = @pseudo, PasswordHash = @passwordHash, Email = @email, NPerson_Id = @nPerson_Id, Role_Id = @role_Id WHERE NUser_Id = @nUser_Id";
+                string sql = "UPDATE NUser SET Pseudo = @pseudo, PasswordHash = CONVERT(varbinary(max), @PasswordHash), Email = @email, NPerson_Id = @nPerson_Id, Role_Id = @role_Id WHERE NUser_Id = @nUser_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nUser_Id", nUser_Id);
                 parameters.Add("@pseudo", pseudo);

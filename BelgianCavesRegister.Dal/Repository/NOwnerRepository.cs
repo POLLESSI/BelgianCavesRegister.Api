@@ -35,27 +35,27 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return false;
         }
-        //public void CreateNOwner(NOwner nowner)
-        //{
-        //    string sql = "INSERT INTO NOwner (Status, Agreement) " +
-        //        " VALUES (@status, @agreement)";
-        //    //var param = nowner;
-        //    _connection.Query(sql, nowner);
-        //}
+        public void CreateNOwner(NOwner nowner)
+        {
+            try
+            {
+                string sql = "INSERT INTO NOwner (Status, Agreement) " +
+                " VALUES (@status, @agreement)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@status", nowner.Status);
+                parameters.Add("@agreement", nowner.Agreement);
+                _connection.Query(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error CreateNewOwner : {ex.ToString}");
+            }
+            
+        }
         public IEnumerable<NOwner> GetAll()
         {
             string sql = "SELECT * FROM NOwner";
             return _connection.Query<NOwner>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error geting Owners: {ex.ToString}");
-            //}
-            //return Enumerable.Empty<NOwner>();
         }
         //async Task<System.Windows.Documents.IEnumerable<NOwner>> INOwnerRepository.GetAll()
         //{
@@ -73,8 +73,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "SELECT * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
-                var param = new { nOwner_Id };
-                return _connection.QueryFirst<NOwner>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nOwner_Id");
+                return _connection.QueryFirst<NOwner>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -100,8 +101,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "DELETE FROM NOwner WHERE NOwner_Id = @nOwner_Id";
-                var param = new { nOwner_Id };
-                return _connection.QueryFirst<NOwner>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nOwner_Id", nOwner_Id);
+                return _connection.QueryFirst<NOwner>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -115,8 +117,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwner_Id";
-                var param = new { nOwner_Id, status, agreement };
-                return _connection.QueryFirst<NOwner>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@nOwner_Id", nOwner_Id);
+                return _connection.QueryFirst<NOwner>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
             {

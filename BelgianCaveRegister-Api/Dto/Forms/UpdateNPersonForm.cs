@@ -32,15 +32,14 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [DisplayName("Street : ")]
         public string? Address_Street { get; set; }
         [Required(ErrorMessage = "Numero is required")]
-        [MinLength(1)]
         [MaxLength(64)]
         [DisplayName("Numero : ")]
-        public int Address_Nbr { get; set; }
+        public string? Address_Nbr { get; set; }
         [Required(ErrorMessage = "Postal Code is required")]
         [MinLength(3)]
         [MaxLength(6)]
         [DisplayName("Numero : ")]
-        public int PostalCode { get; set; }
+        public string? PostalCode { get; set; }
         [Required(ErrorMessage = "The name of the city is required")]
         [MinLength(3)]
         [MaxLength(64)]
@@ -54,11 +53,11 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(9)]
         [MaxLength(16)]
         [DisplayName("Telephone")]
-        public int Telephone { get; set; }
+        public string? Telephone { get; set; }
         [MinLength(9)]
         [MaxLength(16)]
         [DisplayName("Gsm")]
-        public int Gsm { get; set; }
+        public string? Gsm { get; set; }
     }
 }
 

@@ -20,101 +20,70 @@ namespace BelgianCavesRegister.Dal.Repository
         }
         public bool Create(Site site)
         {
-            try
-            {
-                string sql = "INSERT INTO Site (Site_Name, Site_Description, Latitude, Longitude, Length, Depth, AccessRequirement, PracticalInformation, DonneesLambda_Id, NOwner_Id, ScientificData_Id, Bibliography_Id) VALUES " + "(@Site_Name, @Site_Description, @Latitude, @Longitude, @Length, @Depth, @AccessRequirement, @PracticalInformation, @DonneesLambda_Id, @NOwner_Id, @ScientificData_Id, @Bibliography_Id)";
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@Site_Name", site.Site_Name);
-                parameters.Add("@Site_Description", site.Site_Description);
-                parameters.Add("@Latitude", site.Latitude);
-                parameters.Add("@Longitude", site.Longitude);
-                parameters.Add("@Length", site.Length);
-                parameters.Add("@Depth", site.Depth);
-                parameters.Add("@AccessRequirement", site.AccessRequirement);
-                parameters.Add("@PracticalInformation", site.PracticalInformation);
-                parameters.Add("@Donnees_Lambda_Id", site.DonneesLambda_Id);
-                parameters.Add("@NOwner_Id", site.NOwner_Id);
-                parameters.Add("@ScientificData_Id", site.ScientificData_Id);
-                parameters.Add("@Bibliography_Id", site.Bibliography_Id);
-                return _connection.Execute(sql, parameters) > 0;
-            }
-            catch (Exception ex)
-            {
+            
+                try
+                {
+                    string sql = "INSERT INTO Site (Site_Name, Site_Description, Latitude, Longitude, Length, Depth, AccessRequirement, PracticalInformation, DonneesLambda_Id, NOwner_Id, ScientificData_Id, Bibliography_Id) VALUES " + "(@Site_Name, @Site_Description, @Latitude, @Longitude, @Length, @Depth, @AccessRequirement, @PracticalInformation, @DonneesLambda_Id, @NOwner_Id, @ScientificData_Id, @Bibliography_Id)";
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@Site_Name", site.Site_Name);
+                    parameters.Add("@Site_Description", site.Site_Description);
+                    parameters.Add("@Latitude", site.Latitude);
+                    parameters.Add("@Longitude", site.Longitude);
+                    parameters.Add("@Length", site.Length);
+                    parameters.Add("@Depth", site.Depth);
+                    parameters.Add("@AccessRequirement", site.AccessRequirement);
+                    parameters.Add("@PracticalInformation", site.PracticalInformation);
+                    parameters.Add("@DonneesLambda_Id", site.DonneesLambda_Id);
+                    parameters.Add("@NOwner_Id", site.NOwner_Id);
+                    parameters.Add("@ScientificData_Id", site.ScientificData_Id);
+                    parameters.Add("@Bibliography_Id", site.Bibliography_Id);
 
-                Console.WriteLine($"Error encoding Site : {ex.ToString}");
+                    return _connection.Execute(sql, parameters)> 0;
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Format error during conversion : {ex.Message}");
+                }
+                catch (OverflowException ex)
+                {
+                    Console.WriteLine($"Overflow during conversion : {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    // Use a logging system to record errors
+                    Console.WriteLine($"Error encoding Site : {ex.Message}");
+                }
+                return false;
             }
-            return false;
-        }
-        //public void CreateSite(Site site)
-        //{
-        //    string sql = "INSERT INTO Site (Site_Name, Site_Description, Latitude, Longitude, Length, Depth, AccessRequirement, PracticalInformation, DonneesLambda_Id, NOwner_Id, ScientificData_Id, Bibliography_Id) " +
-        //        "Values (@site_Name, @site_Description, @latitude, @longitude, @length, @depth, @accessRequirement, @practicalInformation, @donneesLambda_Id, @nOwner_Id, @scientificData_Id, @bibliography_Id)";
-        //    //var param = site;
-        //    _connection.Query(sql, site);
-        //}
-        public IEnumerable<Site> GetAll()
+
+        public void CreateSite(Site site)
         {
-            string sql = "SELECT * FROM Site";
-            return _connection.Query<Site>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error geting Sites : {ex.ToString}");
-            //}
-            //return Enumerable.Empty<Site>();
+            string sql = "INSERT INTO Site (Site_Name, Site_Description, Latitude, Longitude, Length, Depth, AccessRequirement, PracticalInformation, DonneesLambda_Id, NOwner_Id, ScientificData_Id, Bibliography_Id) " +
+                "Values (@site_Name, @site_Description, @latitude, @longitude, @length, @depth, @accessRequirement, @practicalInformation, @donneesLambda_Id, @nOwner_Id, @scientificData_Id, @bibliography_Id)";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@site_Name", site.Site_Name);
+            parameters.Add("@site_Description", site.Site_Description);
+            parameters.Add("@latitude", site.Latitude);
+            parameters.Add("@longitude", site.Longitude);
+            parameters.Add("@length", site.Length);
+            parameters.Add("@depth", site.Depth);
+            parameters.Add("@accessRequirement", site.AccessRequirement);
+            parameters.Add("@practicalInformation", site.PracticalInformation);
+            parameters.Add("@donneesLambda_Id", site.DonneesLambda_Id);
+            parameters.Add("@nOwner_Id", site.NOwner_Id);
+            parameters.Add("@scientificData_Id", site.ScientificData_Id);
+            parameters.Add("@bibliography_Id", site.Bibliography_Id);
+            _connection.Query(sql, parameters);
         }
-        //async Task<System.Windows.Documents.IEnumerable<Site>> ISiteRepository.GetAll()
-        //{
-        //    using (HttpClient http = new HttpClient())
-        //    {
-        //        HttpResponseMessage message = await http.GetAsync("https://BelgianCavesRegister.Dal/Entities/site?limit=150");
-        //        if (message.IsSuccessStatusCode)
-        //        {
-        //            Site site = await message.Content.ReadFromJsonAsync<Site>();
-        //        }
-        //    }
-        //}
-        public Site? GetById(int site_Id)
-        {
 
-            //string sql = "SELECT * FROM Site WHERE Site_Id = @site_Id";
-            try
-            {
-                string sql = "SELECT si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation FROM Site si JOIN LambdaData la ON si.LambdaData_Id = la.LambdaData_Id JOIN NOwner no ON si.NOwner_Id = no.NOwner_Id JOIN ScientificData sc ON si.ScientificData_Id = sc.ScientificData_Id JOIN Bibliography bi ON si.Bibliography_Id = bi.Bibliography_Id ";
-                var param = new { site_Id };
-                return _connection.QueryFirst<Site?>(sql, param);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error geting site : {ex.ToString}");
-            }
-            return new Site();
-        }
-        
-        //async Task<Site> ISiteRepository.GetById(int site_Id)
-        //{
-        //    using (HttpClient http =  new HttpClient())
-        //    {
-        //        HttpResponseMessage message = await http.GetAsync($"https://BelgianCavesRegister.Dal/Entities/Site/{site_Id}");
-        //        if (message.IsSuccessStatusCode)
-        //        {
-        //            return await message.Content.ReadFromJsonAsync<Site>();
-        //        }
-        //    }
-        //    return null;
-        //}
         public Site? Delete(int site_Id)
         {
             try
             {
                 string sql = "DELETE FROM Site WHERE Site_Id = @site_Id";
-                var param = new { site_Id };
-                return _connection.QueryFirst<Site>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@site_Id", site_Id);
+                return _connection.QueryFirst<Site>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -123,7 +92,40 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return null;
         }
-        public Site? Update(int site_Id, string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+
+        public IEnumerable<Site> GetAll()
+        {
+            try
+            {
+                string sql = "SELECT * FROM Site";
+                return _connection.Query<Site>(sql);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting Sites : {ex.ToString}");
+            }
+            return Enumerable.Empty<Site>();
+        }
+
+        public Site? GetById(int site_Id)
+        {
+            try
+            {
+                string sql = "SELECT si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation FROM Site si JOIN LambdaData la ON si.LambdaData_Id = la.LambdaData_Id JOIN NOwner no ON si.NOwner_Id = no.NOwner_Id JOIN ScientificData sc ON si.ScientificData_Id = sc.ScientificData_Id JOIN Bibliography bi ON si.Bibliography_Id = bi.Bibliography_Id ";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("site_Id", site_Id);
+                return _connection.QueryFirst<Site?>(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting site : {ex.ToString}");
+            }
+            return new Site();
+        }
+
+        public Site? Update(int site_Id, string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
             try
             {
@@ -155,6 +157,30 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return new Site();
         }
+        //async Task<System.Windows.Documents.IEnumerable<Site>> ISiteRepository.GetAll()
+        //{
+        //    using (HttpClient http = new HttpClient())
+        //    {
+        //        HttpResponseMessage message = await http.GetAsync("https://BelgianCavesRegister.Dal/Entities/site?limit=150");
+        //        if (message.IsSuccessStatusCode)
+        //        {
+        //            Site site = await message.Content.ReadFromJsonAsync<Site>();
+        //        }
+        //    }
+        //}
+       
+        //async Task<Site> ISiteRepository.GetById(int site_Id)
+        //{
+        //    using (HttpClient http =  new HttpClient())
+        //    {
+        //        HttpResponseMessage message = await http.GetAsync($"https://BelgianCavesRegister.Dal/Entities/Site/{site_Id}");
+        //        if (message.IsSuccessStatusCode)
+        //        {
+        //            return await message.Content.ReadFromJsonAsync<Site>();
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }
 

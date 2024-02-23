@@ -11,7 +11,7 @@ namespace BelgianCavesRegister.Bll
     public interface IScientificDataService
     {
         bool Create(ScientificData scientificData);
-        //void CreateScientificData(ScientificData scientificData);
+        void CreateScientificData(ScientificData scientificData);
         IEnumerable<ScientificData> GetAll();
         ScientificData? GetById(int scientificData_Id);
         ScientificData? Delete(int scientificData_Id);

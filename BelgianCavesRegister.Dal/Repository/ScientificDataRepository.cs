@@ -22,7 +22,7 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO ScientificData (DataType, DetailsData, ReferenceData) VALUES " + "(@DataType, @DetailData, @ReferenceData)";
+                string sql = "INSERT INTO ScientificData (DataType, DetailsData, ReferenceData) VALUES " + "(@DataType, @DetailsData, @ReferenceData)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@DataType", scientificdata.DataType);
                 parameters.Add("@DetailsData", scientificdata.DetailsData);
@@ -37,26 +37,19 @@ namespace BelgianCavesRegister.Dal.Repository
             return false;
 
         }
-        //public void CreateScientificData(ScientificData scientificData)
-        //{
-        //    string sql = "INSERT INTO ScientificData (DataType, DetailsData, ReferenceData) VALUES " + "(@dataType, @detailData, @referenceData)";
-        //    //var param = scientificData;
-        //    _connection.Query(sql, scientificData);
-        //}
+        public void CreateScientificData(ScientificData scientificData)
+        {
+            string sql = "INSERT INTO ScientificData (DataType, DetailsData, ReferenceData) VALUES " + "(@dataType, @detailsData, @referenceData)";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@dataType", scientificData.DataType);
+            parameters.Add("@detailsData", scientificData.DetailsData);
+            parameters.Add("@referenceData", scientificData.ReferenceData);
+            _connection.Query(sql, parameters);
+        }
         public IEnumerable<ScientificData> GetAll()
         {
             string sql = "SELECT * FROM ScientificData";
             return _connection.Query<ScientificData>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error geting sientific's datas : {ex.ToString}");
-            //}
-            //return Enumerable.Empty<ScientificData>();
         }
         //async Task<System.Windows.Documents.IEnumerable<ScientificData>> IScientificDataRepository.GetAll()
         //{
@@ -74,8 +67,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
-                var param = new { scientificData_Id };
-                return _connection.QueryFirst<ScientificData>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@scientificDara_Id", scientificData_Id);
+                return _connection.QueryFirst<ScientificData>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -103,8 +97,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "DELETE FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
-                var param = new { scientificData_Id };
-                return _connection.QueryFirst<ScientificData>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@scientificData_Id", scientificData_Id);
+                return _connection.QueryFirst<ScientificData>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -119,8 +114,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "UPDATE ScientificData SET DataType = @dataType, DetailsData = @detailsData, ReferenceData = @referenceData  WHERE ScientificData_Id = @scientificData_Id";
-                var param = new { scientificData_Id, dataType, detailsData, referenceData };
-                return _connection.QueryFirst<ScientificData>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@scientificData_Id", scientificData_Id);
+                return _connection.QueryFirst<ScientificData>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
             {

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BelgianCaveRegister_Api.Dto.Forms
@@ -10,10 +9,10 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(64)]
         [EmailAddress]
         [DisplayName("Email : ")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "The password is required !!!! ")]
         [MaxLength(64)]
         [DisplayName("Password : ")]
-        public byte PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
     }
 }

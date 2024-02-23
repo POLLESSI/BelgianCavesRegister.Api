@@ -22,7 +22,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(64)]
         [DisplayName("Password : ")]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
+        //[RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
         public string? PasswordHash { get; set; }
         [DisplayName("Please confirm your password !")]
         [DataType(DataType.Password)]

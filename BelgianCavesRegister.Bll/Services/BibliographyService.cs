@@ -73,83 +73,79 @@ namespace BelgianCavesRegister.Bll.Services
         //}
         public bool Create(Bibliography bibliography)
         {
-            return _bibliographyRepository.Create(bibliography);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _bibliographyRepository.Create(bibliography);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error creating bibliography: {ex.ToString}");
-            //}
-            //return true;
+                Console.WriteLine($"Error creating bibliography: {ex.ToString}");
+            }
+            return true;
         }
-        //public void CreateBibliography(Bibliography bibliography)
-        //{
-        //    _bibliographyRepository.CreateBibliography(bibliography);
-        //}
+        public void CreateBibliography(Bibliography bibliography)
+        {
+            _bibliographyRepository.CreateBibliography(bibliography);
+        }
         public IEnumerable<Bibliography> GetAll()
         {
             return _bibliographyRepository.GetAll();
         }
         public Bibliography? GetById(int bibliography_Id)
         {
-            return _bibliographyRepository.GetById(bibliography_Id);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _bibliographyRepository.GetById(bibliography_Id);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting bibliography: {ex.ToString}");
-            //}
-            //return new Bibliography();
+                Console.WriteLine($"Error geting bibliography: {ex.ToString}");
+            }
+            return new Bibliography();
         }
         public Bibliography? Delete(int bibliography_Id)
         {
-            return _bibliographyRepository.Delete(bibliography_Id);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _bibliographyRepository.Delete(bibliography_Id);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting bibliography: {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting bibliography: {ex.ToString}");
+            }
+            return null;
         }
 
         public Bibliography? Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
-            var updateBibliography = _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
-            // Mettre à jour l'interface utilisateur ou les données locales avec updatedBibliography si nécessaire
-            return updateBibliography;
-            //try
-            //{
-                
-            //}
-            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            //{
-            //    Console.WriteLine($"Validation error : {ex.Message}");
-            //    // Afficher un message à l'utilisateur indiquant une erreur lors d'un erreur de validation
-            //}
-            //catch (DbUpdateException ex)
-            //{
-            //    Console.WriteLine($"Database update error: {ex.Message}");
-            //    //Journaliser l'erreur pour le suivi ultérieur
-            //    //Afficher un message à l'utilisateur indiquant une erreur lors de la mise à jour des données
-            //}
-            //catch (Exception ex) 
-            //{
-            //    Console.WriteLine($"Error updating bibliography: {ex}");
-            //}
-            //return new Bibliography();
-            ////return _bibliographyrepository.update(bibliography_id, title, author, isbn, datatype, detail);
+            try
+            {
+                var updateBibliography = _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
+                // Mettre à jour l'interface utilisateur ou les données locales avec updatedBibliography si nécessaire
+                return updateBibliography;
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+                Console.WriteLine($"Validation error : {ex.Message}");
+                // Afficher un message à l'utilisateur indiquant une erreur lors d'un erreur de validation
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database update error: {ex.Message}");
+                //Journaliser l'erreur pour le suivi ultérieur
+                //Afficher un message à l'utilisateur indiquant une erreur lors de la mise à jour des données
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating bibliography: {ex}");
+            }
+            return new Bibliography();
+            //return _bibliographyrepository.update(bibliography_id, title, author, isbn, datatype, detail);
         }
 
-        
+
     }
 }

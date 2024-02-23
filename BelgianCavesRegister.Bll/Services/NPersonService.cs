@@ -18,21 +18,29 @@ namespace BelgianCavesRegister.Bll.Services
         }
         public bool Create(NPerson nPerson)
         {
-            return _nPersonRepository.Create(nPerson);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            
+            try
+            {
+                return _nPersonRepository.Create(nPerson);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error creating new person: {ex.ToString}");
-            //}
-            //return true;
+                Console.WriteLine($"Error creating new person: {ex.ToString}");
+            }
+            return false;
         }
         public void CreateNPerson(NPerson nPerson)
         {
-            _nPersonRepository.CreateNPerson(nPerson);
+            try
+            {
+                _nPersonRepository.CreateNPerson(nPerson);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
         public IEnumerable<NPerson> GetAll()
         {
@@ -40,55 +48,52 @@ namespace BelgianCavesRegister.Bll.Services
         }
         public NPerson? GetById(int nPerson_Id)
         {
-            return _nPersonRepository.GetById(nPerson_Id);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _nPersonRepository.GetById(nPerson_Id);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting person: {ex.Message}");
-            //}
-            //return new NPerson();
+                Console.WriteLine($"Error geting person: {ex.Message}");
+            }
+            return new NPerson();
         }
         public NPerson? Delete(int nPerson_Id)
         {
-            return _nPersonRepository.Delete(nPerson_Id);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _nPersonRepository.Delete(nPerson_Id);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error deleting perso: {ex.Message}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting perso: {ex.Message}");
+            }
+            return null;
         }
-        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
+        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
         {
-            var updateNperson = _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthDate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
+            try
+            {
+                var updateNperson = _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthDate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
 
-            return updateNperson;
-            //try
-            //{
-                
-            //}
-            //catch (System.ComponentModel.DataAnnotations.ValidationException ex)
-            //{
+                return updateNperson;
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
 
-            //    Console.WriteLine($"Validation error : {ex.Message}");
-            //}
-            //catch (DbUpdateException ex)
-            //{
-            //    Console.WriteLine($"Database update error : {ex.Message}");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Error updating person : {ex.Message}");
-            //}
-            //return new NPerson();
+                Console.WriteLine($"Validation error : {ex.Message}");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database update error : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating person : {ex.Message}");
+            }
+            return new NPerson();
             //return _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthDate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
         }
     }

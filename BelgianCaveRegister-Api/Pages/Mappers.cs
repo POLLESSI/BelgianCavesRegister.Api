@@ -1,5 +1,6 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
 using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Models;
 
 namespace BelgianCaveRegister_Api.Tools
 {
@@ -62,7 +63,7 @@ namespace BelgianCaveRegister_Api.Tools
                 Address_Country = np.Address_Country,
                 Telephone = np.Telephone,
                 Gsm = np.Gsm,
-                Active = np.Active
+                //Active = np.Active,
             };
         }
         public static NUser NUserToDal(this NUserForm nu) 
@@ -103,6 +104,18 @@ namespace BelgianCaveRegister_Api.Tools
                 NOwner_Id = site.NOwner_Id,
                 ScientificData_Id = site.ScientificData_Id,
                 Bibliography_Id = site.Bibliography_Id,
+            };
+        }
+        public static WeatherForecast WeatherForecastToDal(this WeatherForecastRegisterForm forecast)
+        {
+            return new WeatherForecast
+            {
+                Date = forecast.Date,
+                TemperatureC = forecast.TemperatureC,
+                Summary = forecast.Summary,
+                Description = forecast.Description,
+                Humidity = forecast.Humidity,
+                Precipitation = forecast.Precipitation,
             };
         }
     }

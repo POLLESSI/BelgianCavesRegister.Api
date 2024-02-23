@@ -16,55 +16,44 @@ namespace BelgianCavesRegister.Bll.Services
         {
             _chatRepository = chatRepository;
         }
-
-        //public void AddChat(string newMessage, string author)
-        //{
-        //    _chatRepository.AddChat(newMessage, author);
-        //    //try
-        //    //{
-                
-        //    //}
-        //    //catch (Exception)
-        //    //{
-
-        //    //    throw;
-        //    //}
-
-        //}
-
         public bool Create(Chat chat)
         {
-            return _chatRepository.Create(chat);
-            //try
-            //{
-               
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _chatRepository.Create(chat);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error creating chat: {ex.ToString}");
-            //}
-            //return true;
+                Console.WriteLine($"Error creating chat: {ex.ToString}");
+            }
+            return false;
         }
 
-        //public void CreateChat(Chat chat)
-        //{
-        //    _chatRepository.CreateChat(chat);
-        //}
+        public void CreateChat(Chat chat)
+        {
+            try
+            {
+                _chatRepository.CreateChat(chat);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error CreateChat : {ex.ToString}");
+            }  
+        }
 
         public Chat? Delete(int chat_Id)
         {
-            return _chatRepository.Delete(chat_Id);
-            //try
-            //{
+            try
+            {
+                return _chatRepository.Delete(chat_Id);
+            }
+            catch (Exception ex)
+            {
 
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error deleting chat: {ex.ToString}");
-            //}
-            //return null;
+                Console.WriteLine($"Error deleting chat: {ex.ToString}");
+            }
+            return null;
         }
 
         public IEnumerable<Chat?> GetAll()
@@ -74,17 +63,16 @@ namespace BelgianCavesRegister.Bll.Services
 
         public Chat? GetById(int chat_Id)
         {
-            return _chatRepository.GetById(chat_Id);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                return _chatRepository.GetById(chat_Id);
+            }
+            catch (Exception ex)
+            {
 
-            //    Console.WriteLine($"Error geting chat: {ex.ToString}");
-            //}
-            //return new Chat();
+                Console.WriteLine($"Error geting chat: {ex.ToString}");
+            }
+            return new Chat();
         }
     }
 }

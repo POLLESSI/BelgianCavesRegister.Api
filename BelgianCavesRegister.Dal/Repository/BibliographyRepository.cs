@@ -29,6 +29,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@ISBN", bibliography.ISBN);
                 parameters.Add("@DataType", bibliography.DataType);
                 parameters.Add("@Detail", bibliography.Detail);
+
                 return _connection.Execute(sql, parameters) > 0;
             }
             catch (Exception ex)
@@ -44,10 +45,25 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public void CreateBibliography(Bibliography bibliography)
         {
-            string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail) " +
+            try
+            {
+                string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail) " +
                 "VALUES (@title, @author, @iSBN, @dataType, @detail)";
-            var param = bibliography;
-            _connection.Query(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@title", bibliography.Title);
+                parameters.Add("@author", bibliography.Author);
+                parameters.Add("@iSBN", bibliography.ISBN);
+                parameters.Add("@dataType", bibliography.DataType);
+                parameters.Add("@detail", bibliography.Detail);
+
+                _connection.Query(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Creating Error : {ex.ToString}");
+            }
+            
         }
 
         public Bibliography? Delete(int bibliography_Id)
@@ -55,8 +71,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "DELETE FROM Bibliography WHERE Bibliography_Id = @bibliography_Id";
-                var param = new { bibliography_Id };
-                return _connection.QueryFirst<Bibliography>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@bibliography_Id", bibliography_Id);
+                return _connection.QueryFirst<Bibliography>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -86,8 +103,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "SELECT * FROM BIBLIOGRAPHY WHERE Bibliography_Id = @bibliography_Id";
-                var param = new { bibliography_Id };
-                return _connection.QueryFirst<Bibliography>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@bibliogtaphy_Id", bibliography_Id);
+                return _connection.QueryFirst<Bibliography>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -102,8 +120,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "UPDATE Bibliography SET Bibliography_Id = @bibliography_Id WHERE Bibliography_Id = @bibliography_Id";
-                var param = new { bibliography_Id };
-                return _connection.QueryFirst<Bibliography>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@bibliography_Id", bibliography_Id);
+                return _connection.QueryFirst<Bibliography>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
             {

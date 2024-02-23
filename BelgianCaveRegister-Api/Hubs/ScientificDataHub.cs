@@ -7,22 +7,22 @@ namespace BelgianCaveRegister_Api.Hubs
     {
         public async Task NotifyNewScientificData()
         {
-            if (Clients.All is not null) 
+            if (Clients is not null) 
                 await Clients.All.SendAsync("receiveScientificDataUpdate");
         }
         public async Task RefreshScientificData()
         {
-            if (Clients.All is not null)
+            if (Clients is not null)
                 await Clients.All.SendAsync("notifyNewScientificData");
         }
         public async Task submit()
         {
-            if (Clients.All is not null)
+            if (Clients is not null)
                 await Clients.All.SendAsync("scientificData");
         }
         public async Task GetScientificData()
         {
-            if (Clients.All is not null)
+            if (Clients is not null)
                 await Clients.All.SendAsync("scientificData");
         }
     }

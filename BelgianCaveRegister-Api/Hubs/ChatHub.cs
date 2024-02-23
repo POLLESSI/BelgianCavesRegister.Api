@@ -24,7 +24,7 @@ namespace BelgianCaveRegister_Api.Hubs
         }
         public async Task RefreshChat()
         {
-            if (Clients.All is not null) await Clients.All.SendAsync("notifyNewChat");
+            if (Clients is not null) await Clients.All.SendAsync("notifyNewChat");
         }
     }
 }

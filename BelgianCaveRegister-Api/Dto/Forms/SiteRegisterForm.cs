@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.DataAnnotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BelgianCaveRegister_Api.Dto.Forms
@@ -18,20 +17,20 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         public string? Site_Description { get; set; }
         [Required(ErrorMessage = " The latitude of the site is required")]
         [DisplayName("Latitude : ")]
-        public double Latitude { get; set; }
+        public string? Latitude { get; set; }
         [Required(ErrorMessage = "The longitude of the site is required. A double please")]
         [DisplayName("Longitude : ")]
-        public double Longitude { get; set; }
+        public string? Longitude { get; set; }
         [Required(ErrorMessage = "The Length is required. A double please")]
         [MinLength(1)]
         [MaxLength(25000)]
         [DisplayName("Length : ")]
-        public decimal Length { get; set; }
+        public string? Length { get; set; }
         [Required(ErrorMessage = "The Depth is required. A decimal please")]
         [MinLength(0)]
         [MaxLength(150)]
         [DisplayName("Depth : ")]
-        public decimal Depth { get; set; }
+        public string? Depth { get; set; }
         [Required(ErrorMessage = "The access requirements are required ! ")]
         [MinLength(3)]
         [MaxLength(256)]

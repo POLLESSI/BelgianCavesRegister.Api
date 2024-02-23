@@ -1,0 +1,18 @@
+﻿using BelgianCavesRegister.Dal.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using static BelgianCavesRegister.Dal.Entities.WeatherForecast;
+
+namespace BelgianCavesRegister.Dal.Interfaces
+{
+    public interface IWeatherForecastRepository
+    {
+        bool Create(WeatherForecast weatherForecast);
+        void CreateWeatherForecast(WeatherForecast weatherForecast);
+        IEnumerable<WeatherForecast> GetAll();
+        WeatherForecast? GetById(int weatherForcast_Id);
+        WeatherForecast? Delete(int weatherForcast_Id);
+        WeatherForecast? Update(int weatherForecast_Id, DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation);
+
+    }
+}

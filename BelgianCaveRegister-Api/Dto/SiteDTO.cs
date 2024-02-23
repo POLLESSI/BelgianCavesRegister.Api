@@ -4,10 +4,10 @@
     {
         public string? Site_Name { get; set; }
         public string? Site_Description { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public decimal Length { get; set; }
-        public decimal Depth { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public string? Length { get; set; }
+        public string? Depth { get; set; }
         public string? AccessRequirement { get; set; }
         public string? PracticalInformation { get; set; }
         public int DonneesLambda_Id { get; set; }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BelgianCavesRegister.Models.Services;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 using BelgianCavesRegister.Bll.BllInterfaces;
+using BelgianCavesRegister.Bll.Interfaces;
 
 
 
@@ -49,6 +50,8 @@ builder.Services.AddScoped<IScientificDataService, ScientificDataService>();
 builder.Services.AddScoped<IScientificDataRepository, ScientificDataRepository>();
 builder.Services.AddScoped<ISiteService, SiteService>();
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
+//builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+//builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
 
 builder.Services.AddSignalR();
 
@@ -61,6 +64,7 @@ builder.Services.AddSingleton<NPersonHub>();
 builder.Services.AddSingleton<NUserHub>();
 builder.Services.AddSingleton<ScientificDataHub>();
 builder.Services.AddSingleton<SiteHub>();
+//builder.Services.AddSingleton<WeatherForecastHub>();
 
 builder.Services.AddScoped<TokenGenerator>();
 
@@ -125,6 +129,8 @@ app.MapHub<NPersonHub>("/npersonhub");
 app.MapHub<NUserHub>("/nuserhub");
 app.MapHub<ScientificDataHub>("/scientificdatahub");
 app.MapHub<SiteHub>("/sitehub");
+//app.MapHub<WeatherForecastHub>("/weatherforecasthub");
+//app.MapFallbackToPage("/_Host");
 
 app.Run();
 

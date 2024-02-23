@@ -6,7 +6,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
     public class NUserForm
     {
         
-        public Guid NUser_Id { get; set; }
+        //public Guid NUser_Id { get; set; }
         [Required(ErrorMessage = "Nick Name is required")]
         [MinLength(3)]
         [MaxLength(64)]
@@ -16,10 +16,10 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(6)]
         [MaxLength(64)]
         [DisplayName("Password : ")]
-        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
+        //[RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
         public string? PasswordHash { get; set; }
-        [DisplayName("Security Stamp : ")]
-        public Guid SecurityStamp { get; set; }
+        //[DisplayName("Security Stamp : ")]
+        //public Guid SecurityStamp { get; set; }
         [Required(ErrorMessage = "Email is required")]
         [MinLength(3)]
         [MaxLength(64)]

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.DataAnnotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BelgianCaveRegister_Api.Dto.Forms
@@ -30,15 +29,14 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [DisplayName("Street : ")]
         public string? Address_Street { get; set; }
         [Required(ErrorMessage = "Numero is required")]
-        [MinLength(1)]
         [MaxLength(6)]
         [DisplayName("Numero : ")]
-        public int Address_Nbr { get; set; }
+        public string? Address_Nbr { get; set; }
         [Required(ErrorMessage = "Postal Code is required")]
         [MinLength(3)]
         [MaxLength(6)]
         [DisplayName("Postal Code")]
-        public int PostalCode { get; set; }
+        public string? PostalCode { get; set; }
         [Required(ErrorMessage = "The name of the city is required")]
         [MinLength(3)]
         [MaxLength(64)]
@@ -49,15 +47,12 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(64)]
         [DisplayName("Country")]
         public string? Address_Country { get; set; }
-        [MinLength(9)]
         [MaxLength(16)]
         [DisplayName("Telephone")]
-        public int Telephone { get; set; }
-        [DisplayName("Gsm")]
-        [MinLength(9)]
+        public string? Telephone { get; set; }
         [MaxLength(16)]
-        public int Gsm { get; set; }
-        public bool Active { get; set; }
+        [DisplayName("Gsm")]
+        public string? Gsm { get; set; }
     }
 }
 

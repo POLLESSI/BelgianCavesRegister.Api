@@ -21,7 +21,7 @@ namespace BelgianCaveRegister_Api.Tools
 
             Claim[] userInfo = new[]
              {
-                new Claim(ClaimTypes.Role,nu.Role_Id == 3 ? "Admin" : nu.Role_Id == 2 ? "Modo" : "User"),
+                new Claim(ClaimTypes.Role,nu.Role_Id == 1 ? "Admin" : nu.Role_Id == 2 ? "Modo" : "User"),
                 new Claim(ClaimTypes.Sid, nu.Role_Id.ToString()),
                 new Claim(ClaimTypes.Email, nu.Email)
              };

@@ -39,26 +39,31 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return false;
         }
-        //public void CreateLambdaData(LambdaData lambdaData)
-        //{
-        //    string sql = "INSERT INTO LambdaData(Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) VALUES " + "(@localisation, @topo, @acces, @equipementSheet, @practicalInformation, @description)";
-        //    //var param = lambdaData;
-        //    _connection.Query(sql, lambdaData);
-        //}
+        public void CreateLambdaData(LambdaData lambdaData)
+        {
+            try
+            {
+                string sql = "INSERT INTO LambdaData(Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) VALUES " + "(@localisation, @topo, @acces, @equipementSheet, @practicalInformation, @description)";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@localisation", lambdaData.Localisation);
+                parameters.Add("@topo", lambdaData.Topo);
+                parameters.Add("@acces", lambdaData.Acces);
+                parameters.Add("@equipementSheet", lambdaData.EquipementSheet);
+                parameters.Add("@practicalInformation", lambdaData.PracticalInformation);
+                parameters.Add("@description", lambdaData.Description);
+               _connection.Query(sql, parameters);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error CreateLambdadata : {ex.ToString}");
+            }
+            
+        }
         public IEnumerable<LambdaData> GetAll()
         {
             string sql = "SELECT * FROM LambdaData";
             return _connection.Query<LambdaData>(sql);
-            //try
-            //{
-                
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Console.WriteLine($"Error geting Lambda Datas: {ex.ToString}");
-            //}
-            //return Enumerable.Empty<LambdaData>();
         }
         //async Task<System.Windows.Documents.IEnumerable<LambdaData>> ILambdaDataRepository.GetAll()
         //{
@@ -76,8 +81,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "SELECT * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
-                var param = new { donneesLambda_Id };
-                return _connection.QueryFirst<LambdaData>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@donneesLambda_Id", donneesLambda_Id);
+                return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -103,8 +109,8 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "DELETE FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
-                var param = new { donneesLambda_Id };
-                return _connection.QueryFirst<LambdaData>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -119,8 +125,9 @@ namespace BelgianCavesRegister.Dal.Repository
             try
             {
                 string sql = "UPDATE LambdaData SET DonneesLambda_Id = @lambdaData_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
-                var param = new { donneesLambda_Id };
-                return _connection.QueryFirst<LambdaData>(sql, param);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@donnéesLambda_Id");
+                return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
             {
