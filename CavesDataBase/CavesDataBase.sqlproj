@@ -57,7 +57,6 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Prograrmability" />
-    <Folder Include="StoredProcedures" />
     <Folder Include="Tables" />
     <Folder Include="Prograrmability\Functions" />
     <Folder Include="Prograrmability\Procedures" />
@@ -74,28 +73,8 @@
     <Build Include="Prograrmability\Functions\fHasher.sql" />
     <Build Include="Prograrmability\Procedures\spAuth\sqlNUserLogin.sql" />
     <Build Include="Prograrmability\Procedures\spAuth\sqlNUserRegister.sql" />
-    <Build Include="StoredProcedures\AddLambdaData.sql" />
-    <Build Include="StoredProcedures\AddBibliography.sql" />
-    <Build Include="StoredProcedures\AddNOwner.sql" />
-    <Build Include="StoredProcedures\AddNPerson.sql" />
-    <Build Include="StoredProcedures\AddNUser.sql" />
-    <Build Include="StoredProcedures\AddScientificData.sql" />
-    <Build Include="StoredProcedures\AddSite.sql" />
-    <Build Include="StoredProcedures\DeleteBibliography.sql" />
-    <Build Include="StoredProcedures\DeleteLambdaData.sql" />
-    <Build Include="StoredProcedures\DeleteNOwner.sql" />
-    <Build Include="StoredProcedures\DeleteNPerson.sql" />
-    <Build Include="StoredProcedures\DeleteNUser.sql" />
-    <Build Include="StoredProcedures\DeleteScientificData.sql" />
-    <Build Include="StoredProcedures\DeleteSite.sql" />
-    <Build Include="StoredProcedures\spGetNUserById.sql" />
-    <Build Include="StoredProcedures\UpdateBibliography.sql" />
-    <Build Include="StoredProcedures\UpdateLambdaData.sql" />
-    <Build Include="StoredProcedures\UpdateNOwner.sql" />
-    <Build Include="StoredProcedures\UpdateNPerson.sql" />
-    <Build Include="StoredProcedures\UpdateNUser.sql" />
-    <Build Include="StoredProcedures\UpdateScientificData.sql" />
-    <Build Include="StoredProcedures\UpdateSite.sql" />
+    <Build Include="Tables\WeatherForecast.sql" />
+    <Build Include="Tables\Chat.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

@@ -3,13 +3,28 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace BelgianCaveRegister_Api.Hubs
 {
-    //public class NOwnerHub : Hub
-    //{
-    //    public async Task RefreshNOwner()
-    //    {
-    //        if (Clients.All is not null)
-    //            await Clients.All.SendAsync("notifyNewNOwner");
-    //    }
-    //}
+    public class NOwnerHub : Hub
+    {
+        public async Task NotifyNewNOwner()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("receiveNOwnerUpdate");
+        }
+        public async Task RefreshNOwner()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("notifyNewNOwner");
+        }
+        public async Task submit()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("nowner");
+        }
+        public async Task GetNOwner()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("nowner");
+        }
+    }
 }
 

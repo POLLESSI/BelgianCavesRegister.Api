@@ -3,12 +3,27 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace BelgianCaveRegister_Api.Hubs
 {
-    //public class ScientificDataHub : Hub
-    //{
-    //    public async Task RefreshScientificData()
-    //    {
-    //        if (Clients.All is not null)
-    //            await Clients.All.SendAsync("notifyNewScientificData");
-    //    }
-    //}
+    public class ScientificDataHub : Hub
+    {
+        public async Task NotifyNewScientificData()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("receiveScientificDataUpdate");
+        }
+        public async Task RefreshScientificData()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("notifyNewScientificData");
+        }
+        public async Task submit()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("scientificdata");
+        }
+        public async Task GetScientificData()
+        {
+            if (Clients is not null)
+                await Clients.All.SendAsync("scientificdata");
+        }
+    }
 }

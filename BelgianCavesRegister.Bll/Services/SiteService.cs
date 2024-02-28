@@ -1,14 +1,12 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
+using BelgianCavesRegister.Bll;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
-using System.Security.Policy;
+using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -20,30 +18,84 @@ namespace BelgianCavesRegister.Models.Services
         {
             _siteRepository = siteRepository;
         }
-        public void RegisterSite(string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+
+        public bool Create(Site site)
         {
-            _siteRepository.RegisterSite(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
+            try
+            {
+                return _siteRepository.Create(site);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error creating site: {ex.ToString}");
+            }
+            return false;
         }
 
-        public void Create(string site_Name, string site_Description, double latitude, double longitude, decimal length, decimal depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+        public void CreateSite(Site site)
         {
-            _siteRepository.Create(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
+            try
+            {
+                _siteRepository.CreateSite(site);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error Creation Site: {ex.ToString}");
+            }
         }
-        public IEnumerable<SitePOCO> GetAll()
+
+        public Site? Delete(int site_Id)
         {
-            return _siteRepository.GetAll().Select(x => x.SiDalToBll());
+            try
+            {
+                return _siteRepository.Delete(site_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error deleting site: {ex.ToString}");
+            }
+            return null;
         }
-        public SitePOCO? GetById(int site_Id)
+
+        public IEnumerable<Site?> GetAll()
         {
-            return _siteRepository.GetById(site_Id).SiDalToBll();
+            return _siteRepository.GetAll();
         }
-        public SitePOCO? Delete(int site_Id)
+
+        public Site? GetById(int site_Id)
         {
-            return _siteRepository.Delete(site_Id).SiDalToBll();
+            try
+            {
+                return _siteRepository.GetById(site_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting site: {ex.ToString}");
+            }
+            return null;
         }
-        public SitePOCO? Update(int site_Id)
+
+        public Site? Update(int site_Id, string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_id, int bibliography_Id)
         {
-            return _siteRepository.Update(site_Id).SiDalToBll();
+            try
+            {
+                var updateSite = _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_id, bibliography_Id);
+                return updateSite;
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+
+                Console.WriteLine($"Database update error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating site: {ex}");
+            }
+            return new Site();
         }
     }
 }

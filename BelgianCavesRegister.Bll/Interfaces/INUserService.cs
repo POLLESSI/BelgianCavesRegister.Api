@@ -1,23 +1,23 @@
-﻿using BelgianCavesRegister.Bll.Entities;
-using BelgianCavesRegister.Dal.Entities;
+﻿using BelgianCavesRegister.Dal.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BelgianCavesRegister.Dal.Entities.NUser;
 
 namespace BelgianCavesRegister.Bll
 {
     public interface INUserService
     {
-        void RegisterNUser(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id);
-        void Create(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id);
-        IEnumerable<NUserPOCO> GetAll();
-        NUserPOCO? GetById(Guid nUser_Id);
-        NUserPOCO? Delete(Guid nUser_Id);
-        NUserPOCO? Update(Guid nUser_Id);
-        void UnregisterNUser(Guid nUser_Id);
-        NUserPOCO? LoginNUser(string email, string password);
-        void SetRole(Guid nUser_Id, int role_Id);
+        bool Create(NUser nUser);
+        void CreateNUser(NUser nUser);
+        IEnumerable<NUser?> GetAll();
+        NUser? GetById(Guid nUser_Id);
+        NUser? Delete(Guid nUser_Id);
+        NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id);
+        void RegisterNUser(string pseudo, string email, string passwordHash);
+        NUser? LoginNUser(string email, string passwordHash);
+        void SetRole(Guid nUser_Id, string? role_Id);
     }
 }

@@ -4,18 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BelgianCavesRegister.Dal.Entities;
-using BelgianCavesRegister.Bll.Entities;
+using static BelgianCavesRegister.Dal.Entities.NPerson;
 
 namespace BelgianCavesRegister.Bll
 {
     public interface INPersonService
     {
-        void RegisterNPerson(NPersonDTO newPoco);
-        //void Create(string lastname, string firstname, DateTime birthDate, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm);
-        IEnumerable<NPersonDTO> GetAll();
-        NPersonDTO? GetById(int nPerson_Id);
-        NPersonDTO? Delete(int nPerson_Id);
-        NPersonDTO? Update(int nPerson_Id);
+        bool Create(NPerson nPerson);
+        void CreateNPerson(NPerson nPerson);
+        IEnumerable<NPerson> GetAll();
+        NPerson? GetById(int nPerson_Id);
+        NPerson? Delete(int nPerson_Id);
+        NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthdate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm);
     }
 }

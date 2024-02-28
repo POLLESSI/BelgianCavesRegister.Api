@@ -4,18 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BelgianCavesRegister.Dal;
-using BelgianCavesRegister.Bll.Entities;
+using static BelgianCavesRegister.Dal.Entities.NOwner;
 
 namespace BelgianCavesRegister.Bll
 {
     public interface INOwnerService
     {
-        void RegisterNOwner(string status, string agreement);
-        void Create(string status, string agreement);
-        IEnumerable<NOwnerPOCO> GetAll();
-        NOwnerPOCO? GetById(int nOwner_Id);
-        NOwnerPOCO? Delete(int nOwner_Id);
-        NOwnerPOCO? Update(int nOwner_Id);
+        bool Create(NOwner nOwner);
+        void CreateNOwner(NOwner nOwner);
+        IEnumerable<NOwner?> GetAll();
+        NOwner? GetById(int nOwner_Id);
+        NOwner? Delete(int nOwner_Id);
+        NOwner? Update(int nOwner_Id, string status, string agreement);
     }
 }

@@ -1,11 +1,17 @@
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Repository;
-using System.Data;
+using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Bll;
+using BelgianCavesRegister.Bll.Services;
+using BelgianCaveRegister_Api.Hubs;
 using System.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
-using BelgianCavesRegister.Dal.Interfaces;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BelgianCavesRegister.Models.Services;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
+using BelgianCavesRegister.Bll.Interfaces;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,24 +22,45 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IDbConnection, SqlConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("default")));
+builder.Services.AddCors(o => o.AddPolicy("myPolicy", options => options.WithOrigins("http://localhost:7044", "http://localhost:7234")
+                .AllowCredentials()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
+
+builder.Services.AddScoped<SqlConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 
 // Injections
 
-//builder.Services.AddScoped<IBibliographyService, BibliographyService>();
+builder.Services.AddScoped<IBibliographyService, BibliographyService>();
 builder.Services.AddScoped<IBibliographyRepository, BibliographyRepository>();
-//builder.Services.AddScoped<ILambdaDataService, LambdaDataService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IChatRepository, ChatRepository>();
+builder.Services.AddScoped<ILambdaDataService, LambdaDataService>();
 builder.Services.AddScoped<ILambdaDataRepository, LambdaDataRepository>();
-//builder.Services.AddScoped<INOwnerService, NOwnerService>();
+builder.Services.AddScoped<INOwnerService, NOwnerService>();
 builder.Services.AddScoped<INOwnerRepository, NOwnerRepository>();
-//builder.Services.AddScoped<INPersonService, NPersonService>();
+builder.Services.AddScoped<INPersonService, NPersonService>();
 builder.Services.AddScoped<INPersonRepository, NPersonRepository>();
-//builder.Services.AddScoped<INUserService, NUserService>();
+builder.Services.AddScoped<INUserService, NUserService>();
 builder.Services.AddScoped<INUserRepository, NUserRepository>();
-//builder.Services.AddScoped<IScientificDataService, ScientificDataService>();
+builder.Services.AddScoped<IScientificDataService, ScientificDataService>();
 builder.Services.AddScoped<IScientificDataRepository, ScientificDataRepository>();
-//builder.Services.AddScoped<ISiteService, SiteService>();
+builder.Services.AddScoped<ISiteService, SiteService>();
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
+builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+
+builder.Services.AddSignalR();
+
+builder.Services.AddSingleton<BibliographyHub>();
+builder.Services.AddSingleton<ChatHub>();
+builder.Services.AddSingleton<LambdaDataHub>();
+builder.Services.AddSingleton<NOwnerHub>();
+builder.Services.AddSingleton<NPersonHub>();
+builder.Services.AddSingleton<NUserHub>();
+builder.Services.AddSingleton<ScientificDataHub>();
+builder.Services.AddSingleton<SiteHub>();
+builder.Services.AddSingleton<WeatherForecastHub>();
 
 builder.Services.AddScoped<TokenGenerator>();
 
@@ -68,8 +95,16 @@ if (app.Environment.IsDevelopment())
     //app.UseHsts();
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseExceptionHandler("/Home/Error");
+    //// The default HSTS is 30 days. You want to change this for production scenarios, see https://aka.ms/aspnetcore.hsts.
+    //app.UseHsts();
+    //c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "belgiancavesregister_api");
+    //}
 }
-app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+//app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+app.UseCors("myPolicy");
 
 app.UseHttpsRedirection();
 //app.UseStaticFiles();
@@ -83,6 +118,18 @@ app.UseAuthorization();
        //pattern: "{controller-Home}/{action=Index}/Iid?}"
 //   );
 app.MapControllers();
+
+//app.UseRouting();
+app.MapHub<BibliographyHub>("/bibliography");
+app.MapHub<ChatHub>("/chat");
+app.MapHub<LambdaDataHub>("/lambdadatahub");
+app.MapHub<NOwnerHub>("/nownerhub");
+app.MapHub<NPersonHub>("/npersonhub");
+app.MapHub<NUserHub>("/nuserhub");
+app.MapHub<ScientificDataHub>("/scientificdatahub");
+app.MapHub<SiteHub>("/sitehub");
+app.MapHub<WeatherForecastHub>("/weatherforecasthub");
+//app.MapFallbackToPage("/_Host");
 
 app.Run();
 

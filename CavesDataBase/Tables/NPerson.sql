@@ -6,12 +6,12 @@
 	[BirthDate] DATE NOT NULL,
 	[Email] NVARCHAR(64) NOT NULL UNIQUE,
 	[Address_Street] NVARCHAR(64) NOT NULL,
-	[Address_Nbr] INT NOT NULL,
-	[PostalCode] INT NOT NULL,
+	[Address_Nbr] NVARCHAR(8) NOT NULL,
+	[PostalCode] NVARCHAR(8) NOT NULL,
 	[Address_City] NVARCHAR(64) NOT NULL,
 	[Address_Country] NVARCHAR(64),
-	[Telephone] INT NULL,
-	[Gsm] INT NULL,
+	[Telephone] NVARCHAR(16) NULL,
+	[Gsm] NVARCHAR(16) NULL,
 	[Active] BIT DEFAULT 1
 	
 	CONSTRAINT PK_NPerson PRIMARY KEY ([NPerson_Id])

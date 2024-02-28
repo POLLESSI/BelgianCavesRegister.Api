@@ -3,7 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Dto.Forms;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Entities;
+using BelgianCavesRegister.Bll.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using BelgianCaveRegister_Api.Hubs;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Text.RegularExpressions;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -13,13 +19,14 @@ namespace BelgianCaveRegister_Api.Controllers
     {
         private readonly BelgianCavesRegister.Dal.Interfaces.INUserRepository _userRepository;
         private readonly TokenGenerator _tokenGenerator;
-       //private readonly NUserHub _nUserHub;
+        private readonly NUserHub _nUserHub;
+        private readonly Dictionary<string, string> _currentNUser = new Dictionary<string, string>();
 
-        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator)
+        public NUserController(BelgianCavesRegister.Dal.Interfaces.INUserRepository userRepository, TokenGenerator tokenGenerator, NUserHub nUserHub)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
-            //_nUserHub = nUserHub;
+            _nUserHub = nUserHub;
         }
 
         //[Authorize("ModelPolicy")]
@@ -37,13 +44,13 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         [HttpPost("Login")]
-        public IActionResult Login(NUserDTO nUser)
+        public IActionResult Login(NUserLoginForm nUser)
         {
             try
             {
-                NUserDTO? connectedNUser = _userRepository.LoginNUser(nUser.PasswordHash, nUser.Email);
-                string MdpNUser = nUser.PasswordHash;
-                string hashpwd = connectedNUser.PasswordHash;
+                NUser? connectedNUser = _userRepository.LoginNUser(nUser.Email, nUser.PasswordHash);
+                string? MdpNUser = nUser.PasswordHash;
+                string? hashpwd = connectedNUser.PasswordHash;
                 bool motDePassValide = BCrypt.Net.BCrypt.Verify(MdpNUser, hashpwd);
 
                 if (motDePassValide)
@@ -63,9 +70,9 @@ namespace BelgianCaveRegister_Api.Controllers
         
 
         [HttpPost("register")]
-        public IActionResult Register(NUserDTO nu)
+        public IActionResult Register(NewNUser nu)
         {
-            _userRepository.RegisterNUser( nu);
+            _userRepository.RegisterNUser( nu.Pseudo, nu.Email, nu.PasswordHash);
             return Ok();
         }
         //[HttpPost]
@@ -95,26 +102,54 @@ namespace BelgianCaveRegister_Api.Controllers
         //        modelState.AddModelError(nameof(NUserRegisterForm.PasswordHash), "You need at least one special character.");
         //}
         //[Authorize("ModelPolicy")]
+        [HttpPost]
+        public async Task<IActionResult> Create(NUserForm nUser)
+        {
+            if (!ModelState.IsValid) 
+                return BadRequest();
+            if (_userRepository.Create(nUser.NUserToDal()))
+            {
+                await _nUserHub.RefreshNUser();
+                return Ok();
+            }
+            return BadRequest("Registration Error");
+        }
         [HttpDelete("{NUser_Id}")]
         public IActionResult Delete(Guid nUser_Id)
         {
             _userRepository.Delete(nUser_Id);
             return Ok();
         }
+        [HttpPut("NUser_Id")]
+        public IActionResult Update(Guid nUser_Id, string? pseudo, string? passwordHash, string? email, int nPerson_Id, string? role_Id)
+        {
+            _userRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
+            return Ok();
+        }
+        [HttpPost("update")]
+        public IActionResult ReceiveNUserUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                _currentNUser[item.Key] = item.Value;
+            }
+            return Ok(_currentNUser);
+        }
 
+        //[Authorize("AdminPolicy")]
         [HttpPatch("setRole")]
         public IActionResult ChangeRole(ChangeRole r)
         {
             _userRepository.SetRole(r.NUser_Id, r.Role_Id);
             return Ok();
         }
-        
-        //[HttpPatch("update")]
-        //public IActionResult Update(UpdateNUserForm nu)
-        //{
-        //    _nUserService.Update(nu.Pseudo, nu.Email, nu.Role_Id);
-        //    return Ok();
-        //}
+
+        [HttpPatch("update")]
+        public IActionResult Update(UpdateNUserForm nu)
+        {
+            _userRepository.Update(nu.NUser_Id, nu.Pseudo, nu.PasswordHash, nu.Email, nu.NPerson_Id, nu.Role_Id);
+            return Ok();
+        }
 
         //[HttpPut("{NUser_Id}")]
         //public IActionResult Update(UpdateNUserForm nu)

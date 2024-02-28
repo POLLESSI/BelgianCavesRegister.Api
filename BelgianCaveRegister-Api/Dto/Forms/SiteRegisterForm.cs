@@ -7,47 +7,51 @@ namespace BelgianCaveRegister_Api.Dto.Forms
     public class SiteRegisterForm
     {
         [Required(ErrorMessage = "The name of the site is required")]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(32)]
         [DisplayName("Site name")]
-        public string Site_name { get; set; }
+        public string? Site_Name { get; set; }
         [Required(ErrorMessage = "The situation of the site is required")]
-        [MinLength(3)]
+        [MinLength(4)]
         [MaxLength(256)]
         [DisplayName("Site situation")]
-        public string Site_Description { get; set; }
+        public string? Site_Description { get; set; }
         [Required(ErrorMessage = " The latitude of the site is required")]
         [DisplayName("Latitude")]
-        public double Latitude { get; set; }
-        [Required(ErrorMessage = "Yhe longitude of the site is required")]
+        public string? Latitude { get; set; }
+        [Required(ErrorMessage = "The longitude of the site is required")]
         [DisplayName("Longitude")]
-        public double Longitude { get; set; }
+        public string? Longitude { get; set; }
         [Required(ErrorMessage = "The Length is required")]
         [MinLength(1)]
-        [MaxLength(15000)]
+        [MaxLength(8)]
         [DisplayName("Length")]
-        public decimal Length { get; set; }
+        public string? Length { get; set; }
         [Required(ErrorMessage = "The depth is required")]
-        [MinLength(0)]
-        [MaxLength(150)]
+        [MaxLength(8)]
         [DisplayName("Depth")]
-        public decimal Depth { get; set; }
+        public string? Depth { get; set; }
         [Required(ErrorMessage = "The access requirement is required")]
-        [MinLength(3)]
+        [MinLength(4)]
         [MaxLength(256)]
         [DisplayName("Access requirement")]
-        public string AccessRequirement { get; set; }
+        public string? AccessRequirement { get; set; }
         [Required(ErrorMessage = "The parcticals Informations is required")]
-        [MinLength(3)]
+        [MinLength(4)]
         [MaxLength(512)]
         [DisplayName("Parcticals Infoemations")]
-        public string PracticalInformation { get; set; }
+        public string? PracticalInformation { get; set; }
         [Required(ErrorMessage = "The Lambdas Datas Id is required")]
         [DisplayName("Lambdas Datas id")]
         public int DonneesLambda_Id { get; set; }
         [Required(ErrorMessage = "The id of the owner is required")]
+        [DisplayName("Owner's Id : ")]
         public int NOwner_Id { get; set; }
+        [Required(ErrorMessage = "The id of the scientific data is required")]
+        [DisplayName("Scientific Datas Id : ")]
         public int ScientificData_Id { get; set; }
+        [Required(ErrorMessage = "The bibliography's Id is required")]
+        [DisplayName("Bibliography's Id : ")]
         public int Bibliography_Id { get; set; }
 
     }

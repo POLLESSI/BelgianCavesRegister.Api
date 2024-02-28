@@ -1,6 +1,12 @@
-﻿using BelgianCavesRegister.Bll.Entities;
-using BelgianCavesRegister.Bll.Mappers;
-using BelgianCavesRegister.Dal.Interfaces;
+﻿using BelgianCavesRegister.Dal.Interfaces;
+using BelgianCavesRegister.Dal.Entities;
+using BelgianCavesRegister.Dal.Repository;
+using BelgianCavesRegister.Bll;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BelgianCavesRegister.Bll.Services
 {
@@ -12,29 +18,83 @@ namespace BelgianCavesRegister.Bll.Services
         {
             _nPersonRepository = nPersonRepository;
         }
-        public void RegisterNPerson(NPersonDTO newPoco)
+
+        public bool Create(NPerson nPerson)
         {
-            _nPersonRepository.RegisterNPerson(newPoco.NpBllToDal());
+            try
+            {
+                return _nPersonRepository.Create(nPerson);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error creating new person: {ex.ToString}");
+            }
+            return false;
         }
-        //public void Create(string lastname, string firstname, DateTime birthDate, string address_Street, int address_Nbr, int postalCode, string address_City, string address_Country, int telephone, int gsm)
-        //{
-        //    _nPersonRepository.Create(lastname, firstname, birthDate, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
-        //}
-        public IEnumerable<NPersonPOCO> GetAll()
+
+        public void CreateNPerson(NPerson nPerson)
         {
-            return _nPersonRepository.GetAll().Select(x => x.NpDalToBll());
+            try
+            {
+                _nPersonRepository.CreateNPerson(nPerson);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error CreateNPerson: {ex.ToString}");
+            }
         }
-        public NPersonPOCO? GetById(int nPerson_Id)
+
+        public NPerson? Delete(int nPerson_Id)
         {
-            return _nPersonRepository.GetById(nPerson_Id).NpDalToBll();
+            try
+            {
+                return _nPersonRepository.Delete(nPerson_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error deleting person: {ex.ToString}");
+            }
+            return null;
         }
-        public NPersonPOCO? Delete(int nPerson_Id)
+
+        public IEnumerable<NPerson> GetAll()
         {
-            return _nPersonRepository.Delete(nPerson_Id).NpDalToBll();
+            return _nPersonRepository.GetAll();
         }
-        public NPersonPOCO? Update(int nPerson_Id)
+
+        public NPerson? GetById(int nPerson_Id)
         {
-            return _nPersonRepository.Update(nPerson_Id).NpDalToBll();
+            try
+            {
+                return _nPersonRepository.GetById(nPerson_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting person: {ex.ToString}");
+            }
+            return null;
+        }
+
+        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthdate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
+        {
+            try
+            {
+                var updateNPerson = _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthdate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+
+                Console.WriteLine($"Validation error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating person: {ex.Message}");
+            }
+            return new NPerson();
         }
     }
 }

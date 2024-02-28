@@ -7,15 +7,15 @@ namespace BelgianCaveRegister_Api.Dto.Forms
     public class NOwnerRegisterForm
     {
         [Required(ErrorMessage = "The status is required")]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(256)]
         [DisplayName("Status")]
-        public string Status { get; set; }
+        public string? Status { get; set; }
         [Required(ErrorMessage = "The agreements is required")]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(256)]
         [DisplayName("Agreements")]
-        public string Agreement { get; set; }
+        public string? Agreement { get; set; }
 
     }
 }

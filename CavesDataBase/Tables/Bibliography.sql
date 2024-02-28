@@ -3,7 +3,7 @@
 	[Bibliography_Id] INT IDENTITY, 
     [Title] NVARCHAR(64) NOT NULL, 
     [Author] NVARCHAR(32) NOT NULL, 
-    [ISBN] INT NOT NULL, 
+    [ISBN] NVARCHAR(16) NOT NULL, 
     [DataType] NVARCHAR(32) NOT NULL, 
     [Detail] NVARCHAR(512) NOT NULL,
     [Active] BIT DEFAULT 1

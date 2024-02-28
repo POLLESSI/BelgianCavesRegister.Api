@@ -1,11 +1,9 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll.Entities;
+using BelgianCavesRegister.Bll;
 using System.Linq;
 
 namespace BelgianCavesRegister.Bll.Services
@@ -17,30 +15,71 @@ namespace BelgianCavesRegister.Bll.Services
         {
             _lambdaDataRepository = lambdaDataRepository;
         }
-        public void RegisterLambdaData(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+
+        public bool Create(LambdaData lambdaData)
         {
-            _lambdaDataRepository.RegisterLambdaData(localisation, topo, acces, equipementSheet, practicalInformation, description);
-        }
-        public void Create(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
-        {
-            _lambdaDataRepository.Create(localisation, topo, acces, equipementSheet, practicalInformation, description);
-        }
-        public IEnumerable<LambdaDataPOCO> GetAll()
-        {
-            return _lambdaDataRepository.GetAll().Select(x => x.LaDalToBll());
+            try
+            {
+                return _lambdaDataRepository.Create(lambdaData);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error creating lambda data: {ex.ToString}");
+            }
+            return false;
         }
 
-        public LambdaDataPOCO? GetById(int donneesLambda_Id)
+        public void CreateLambdaData(LambdaData lambdaData)
         {
-            return _lambdaDataRepository.GetById(donneesLambda_Id).LaDalToBll();
+            try
+            {
+                _lambdaDataRepository.Create(lambdaData);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error creating lambda data: {ex.ToString}");
+            }
+            
         }
-        public LambdaDataPOCO? Delete(int donneesLambda_Id)
+
+        public LambdaData? Delete(int donneesLambda_Id)
         {
-            return _lambdaDataRepository.Delete(donneesLambda_Id).LaDalToBll();
+            try
+            {
+                return _lambdaDataRepository.Delete(donneesLambda_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error deleting lambda data: {ex.ToString}");
+            }
+            return null;
         }
-        public LambdaDataPOCO? Update(int donneesLambda_Id)
+
+        public IEnumerable<LambdaData?> GetAll()
         {
-            return _lambdaDataRepository.Update(donneesLambda_Id).LaDalToBll();
+            return _lambdaDataRepository.GetAll();
+        }
+
+        public LambdaData? GetById(int donneesLambda_Id)
+        {
+            try
+            {
+                return _lambdaDataRepository.GetById(donneesLambda_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting lambda data: {ex.ToString}");
+            }
+            return null;
+        }
+
+        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        {
+            throw new NotImplementedException();
         }
     }
 }

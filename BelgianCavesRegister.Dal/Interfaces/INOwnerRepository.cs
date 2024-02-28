@@ -1,15 +1,18 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using static BelgianCavesRegister.Dal.Entities.NOwner;
 
 namespace BelgianCavesRegister.Dal.Interfaces
 {
     public interface INOwnerRepository
     {
-        void RegisterNOwner(NOwnerDTO newDto);
-        IEnumerable<NOwnerDTO> GetAll();
-        NOwnerDTO? GetById(int nOwner_Id);
-        NOwnerDTO? Delete(int nOwner_Id);
-        NOwnerDTO? Update(int nOwner_Id);
-        //bool Create(string status, string agreement);
+        bool Create(NOwner nOwner);
+        void CreateNOwner(NOwner nOwner);
+        IEnumerable<NOwner?> GetAll();
+        NOwner? GetById(int nOwner_Id);
+        NOwner? Delete(int nOwner_Id);
+        NOwner? Update(int nOwner_Id, string status, string agreement);
     }
 }
 

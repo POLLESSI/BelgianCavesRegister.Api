@@ -8,19 +8,19 @@ namespace BelgianCaveRegister_Api.Dto.Forms
     {
         public Guid NUser_Id { get; set; }
         [Required(ErrorMessage = "The nick name is required")]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(64)]
         [DisplayName("Nick name : ")]
-        public string Pseudo { get; set; }
+        public string? Pseudo { get; set; }
         [Required(ErrorMessage = " The password is required")]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(64)]
         [DisplayName("Password : ")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         [Required(ErrorMessage = "Email address is required")]
         [EmailAddress]
-        [MinLength(3)]
+        [MinLength(8)]
         [MaxLength(64)]
         [DisplayName("Email address ; ")]
         public string Email { get; set; }

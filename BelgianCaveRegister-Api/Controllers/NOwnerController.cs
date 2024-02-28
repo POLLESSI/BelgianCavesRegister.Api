@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BelgianCaveRegister_Api.Hubs;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Dal.Entities;
+using Microsoft.AspNetCore.Http;
+using BelgianCaveRegister_Api.Dto.Forms;
+using BelgianCaveRegister_Api.Tools;
+using System.Security.Cryptography;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -10,12 +13,13 @@ namespace BelgianCaveRegister_Api.Controllers
     public class NOwnerController : ControllerBase
     {
         private readonly INOwnerRepository _nOwnerRepository;
-        //private readonly NOwnerHub _nOwnerHub;
+        private readonly NOwnerHub _nOwnerHub;
+        private readonly Dictionary<string, string> _currentNOwner = new Dictionary<string, string>();
 
-        public NOwnerController(INOwnerRepository nOwnerRepository)
+        public NOwnerController(INOwnerRepository nOwnerRepository, NOwnerHub nOwnerHub)
         {
             _nOwnerRepository = nOwnerRepository;
-            //_nOwnerHub = nOwnerHub;
+            _nOwnerHub = nOwnerHub;
         }
 
         [HttpGet]
@@ -30,13 +34,25 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpPost("register")]
-        public IActionResult Post(NOwnerDTO newNOwner)
-        {
-            _nOwnerRepository.RegisterNOwner( newNOwner );
-            return Ok();
-        }
+        //[HttpPost("register")]
+        //public IActionResult Post(NOwner newNOwner)
+        //{
+        //    _nOwnerRepository.RegisterNOwner( newNOwner );
+        //    return Ok();
+        //}
 
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(NOwnerRegisterForm nOwnerRegister)
+        {
+            if (!ModelState.IsValid) 
+                return BadRequest();
+            if (_nOwnerRepository.Create(nOwnerRegister.NOwnerToDal()))
+            {
+                await _nOwnerHub.RefreshNOwner();
+                return Ok(nOwnerRegister);
+            }
+            return BadRequest("Registration error");
+        }
 
         [HttpDelete("{nOwner_Id}")]
         //[ValidationAntiForgeryToken]
@@ -48,15 +64,23 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        //[HttpPut("{NOwner_Id}")]
+        [HttpPut("{NOwner_Id}")]
 
-        //public IActionResult Update(NOwnerRegisterForm no)
-        //{
-        //    _nOwnerService.Update(no.Status, no.Agreement);
-        //    return Ok();
-        //}
-            
+        public IActionResult Update(int nOwner_Id, string status, string agreement)
+        {
+            _nOwnerRepository.Update(nOwner_Id, status, agreement);
+            return Ok();
+        }
 
+        [HttpPost("update")]
+        public IActionResult ReceiveNOwnerUpdate(Dictionary<string, string> newUpdate)
+        {
+            foreach (var item in newUpdate)
+            {
+                _currentNOwner[item.Key] = item.Value;
+            }
+            return Ok(_currentNOwner);
+        }
 
         //[HttpPatch("Update")]
         //public IActionResult Update(UpdateNOwnerForm no)

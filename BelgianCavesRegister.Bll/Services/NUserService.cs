@@ -1,14 +1,12 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
+using BelgianCavesRegister.Bll;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
+using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -19,45 +17,116 @@ namespace BelgianCavesRegister.Models.Services
         {
             _nUserRepository = nUserRepository;
         }
-        public void RegisterNUser(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
+
+        public bool Create(NUser nUser)
         {
-            _nUserRepository.RegisterNUser(pseudo, passwordHash, email, nPerson_Id, role_Id);
-        }
-        public void Create(string pseudo, string passwordHash, string email, int? nPerson_Id, int? role_Id)
-        {
-            _nUserRepository.Create(pseudo, passwordHash, email, nPerson_Id, role_Id);
+            try
+            {
+                return _nUserRepository.Create(nUser);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error creating new user; {ex.ToString}");
+            }
+            return false;
         }
 
-        public NUserPOCO? LoginNUser(string email, string password)
+        public void CreateNUser(NUser nUser)
         {
-            return _nUserRepository.LoginNUser(email, password).NuDalTaBll();
+            _nUserRepository.CreateNUser(nUser);
         }
 
-        public void SetRole(Guid nUser_Id, int role_Id)
+        public NUser? Delete(Guid nUser_Id)
         {
-            _nUserRepository.SetRole(nUser_Id, role_Id);
-        }
-        public void UnregisterNUser(Guid nUser_Id)
-        {
-            throw new System.NotImplementedException();
+            try
+            {
+                return _nUserRepository.Delete(nUser_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error deleting user: {ex.ToString}");
+            }
+            return null;
         }
 
-        public IEnumerable<NUserPOCO> GetAll()
+        public IEnumerable<NUser?> GetAll()
         {
-            return _nUserRepository.GetAll().Select(x => x.NuDalTaBll());
+            return _nUserRepository.GetAll();
         }
 
-        public NUserPOCO? GetById(Guid nUser_Id)
+        public NUser? GetById(Guid nUser_Id)
         {
-            return _nUserRepository.GetById(nUser_Id).NuDalTaBll();
+            try
+            {
+                return _nUserRepository.GetById(nUser_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting user: {ex.ToString}");
+            }
+            return null;
         }
-        public NUserPOCO? Delete(Guid nUser_Id)
+
+        public NUser? LoginNUser(string? email, string? passwordHash)
         {
-            return _nUserRepository.Delete(nUser_Id).NuDalTaBll();
+            try
+            {
+                return _nUserRepository.LoginNUser(email, passwordHash);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error loging: {ex.ToString}");
+            }
+            return null;
         }
-        public NUserPOCO? Update(Guid nUser_Id)
+
+        public void RegisterNUser(string? pseudo, string? email, string? passwordHash)
         {
-            return _nUserRepository.Update(nUser_Id).NuDalTaBll();
+            try
+            {
+                _nUserRepository.RegisterNUser(pseudo, email, passwordHash);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error registring new user: {ex.ToString}");
+            }
+        }
+
+        public void SetRole(Guid nUser_Id, string? role_Id)
+        {
+            try
+            {
+                _nUserRepository.SetRole(nUser_Id, role_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error changing rôle: {ex.ToString}");
+            }
+        }
+
+        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
+        {
+            try
+            {
+                var updateNUser = _nUserRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
+                return updateNUser;
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+
+                Console.WriteLine($"Validation error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating user: {ex}");
+            }
+            return new NUser();
         }
     }
 }

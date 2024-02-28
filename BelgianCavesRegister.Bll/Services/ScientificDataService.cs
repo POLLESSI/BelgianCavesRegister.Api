@@ -1,13 +1,12 @@
 ﻿using BelgianCavesRegister.Dal.Entities;
 using BelgianCavesRegister.Dal.Interfaces;
 using BelgianCavesRegister.Dal.Repository;
-using BelgianCavesRegister.Bll.Mappers;
+using BelgianCavesRegister.Bll;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-//using Microsoft.Data.SqlClient;
-using BelgianCavesRegister.Bll;
-using BelgianCavesRegister.Bll.Entities;
-using System.Linq;
+using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BelgianCavesRegister.Models.Services
 {
@@ -18,29 +17,84 @@ namespace BelgianCavesRegister.Models.Services
         {
             _scientificDataRepository = scientificDataRepository;
         }
-        public void RegisterScientificData(string dataType, string detailData, string referenceData)
+
+        public bool Create(ScientificData scientificData)
         {
-            _scientificDataRepository.RegisterScientificData(dataType, detailData, referenceData);
+            try
+            {
+                return _scientificDataRepository.Create(scientificData);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error creating scientific data: {ex.ToString}");
+            }
+            return false;
         }
-        public void Create(string dataType, string detailData, string referenceData)
+
+        public void CreateScientificData(ScientificData scientificData)
         {
-            _scientificDataRepository.Create(dataType, detailData, referenceData);
+            try
+            {
+                _scientificDataRepository.CreateScientificData(scientificData);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error Creation Scientific data: {ex.ToString}");
+            }
         }
-        public IEnumerable<ScientificDataPOCO> GetAll()
+
+        public ScientificData? Delete(int scientificData_Id)
         {
-            return _scientificDataRepository.GetAll().Select(x => x.ScDalToBll());
+            try
+            {
+                return _scientificDataRepository.Delete(scientificData_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error deleting scientific data: {ex.ToString}");
+            }
+            return null;
         }
-        public ScientificDataPOCO? GetById(int scientificData_Id)
+
+        public IEnumerable<ScientificData?> GetAll()
         {
-            return _scientificDataRepository.GetById(scientificData_Id).ScDalToBll();
+            return _scientificDataRepository.GetAll();
         }
-        public ScientificDataPOCO? Delete(int scientificData_Id)
+
+        public ScientificData? GetById(int scientificData_Id)
         {
-            return _scientificDataRepository.Delete(scientificData_Id).ScDalToBll();
+            try
+            {
+                return _scientificDataRepository.GetById(scientificData_Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error geting scientific data: {ex.ToString}");
+            }
+            return null;
         }
-        public ScientificDataPOCO? Update(int scientificData_Id)
+
+        public ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
         {
-            return _scientificDataRepository.Update(scientificData_Id).ScDalToBll();
+            try
+            {
+                var updateScientificData = _scientificDataRepository.Update(scientificData_Id, dataType, detailsData, referenceData);
+                return updateScientificData;
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+
+                Console.WriteLine($"Validation error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating scientific data: {ex}");
+            }
+            return new ScientificData();
         }
     }
 }
