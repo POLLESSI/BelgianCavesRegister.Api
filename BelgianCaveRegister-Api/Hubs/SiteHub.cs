@@ -8,12 +8,12 @@ namespace BelgianCaveRegister_Api.Hubs
         public async Task NotifyNewSite()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("receiveSiteUpdate");
+                await Clients.All.SendAsync("receivesiteupdate");
         }
         public async Task RefreshSite()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("notiftNewSite");
+                await Clients.All.SendAsync("notifynewsite");
         }
         public async Task submit()
         {

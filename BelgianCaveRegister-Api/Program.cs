@@ -22,7 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(o => o.AddPolicy("myPolicy", options => options.WithOrigins("http://localhost:7044", "http://localhost:7234")
+builder.Services.AddCors(o => o.AddPolicy("mypolicy", options => options.WithOrigins("http://localhost:7044", "http://localhost:7234")
                 .AllowCredentials()
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
@@ -65,11 +65,12 @@ builder.Services.AddSingleton<WeatherForecastHub>();
 builder.Services.AddScoped<TokenGenerator>();
 
 //Declaration des différents niveaux de sécurité à mettre en place dans le controller grâce à l'attribut [Authorize("nom_de_la_police")]
+
 builder.Services.AddAuthorization(o =>
 {
-    o.AddPolicy("AdminPolicy", option => option.RequireRole("Admin"));
-    o.AddPolicy("ModoPolicy", option => option.RequireRole("Admin", "Modo"));
-    o.AddPolicy("UserPolicy", option => option.RequireAuthenticatedUser());
+    o.AddPolicy("adminpolicy", option => option.RequireRole("admin"));
+    o.AddPolicy("modopolicy", option => option.RequireRole("admin", "modo"));
+    o.AddPolicy("userpolicy", option => option.RequireAuthenticatedUser());
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -104,7 +105,7 @@ if (app.Environment.IsDevelopment())
     //}
 }
 //app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
-app.UseCors("myPolicy");
+app.UseCors("mypolicy");
 
 app.UseHttpsRedirection();
 //app.UseStaticFiles();

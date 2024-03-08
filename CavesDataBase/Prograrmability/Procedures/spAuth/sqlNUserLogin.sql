@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[sqlUtilisateurLogin]
+﻿CREATE PROCEDURE [dbo].[sqlNUserLogin]
 	@Email NVARCHAR(64),
 	@Password NVARCHAR(64)
 AS

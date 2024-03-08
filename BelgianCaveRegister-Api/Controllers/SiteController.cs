@@ -27,7 +27,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_siteRepository.GetAll());
         }
 
-        [HttpGet("{Site_Id}")]
+        [HttpGet("{site_id}")]
         public IActionResult GetById(int site_Id)
         {
             return Ok(_siteRepository.GetById(site_Id));
@@ -40,7 +40,7 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-        [HttpPost("Create")]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(SiteRegisterForm site)
         {
             if (!ModelState.IsValid) 
@@ -54,7 +54,7 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpDelete("{Site_Id}")]
+        [HttpDelete("{site_id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int site_Id)
         {
@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        [HttpPut("{Site_Id}")]
+        [HttpPut("{site_id}")]
         public IActionResult Ûpdate(int site_Id, string? site_Name, string? site_Description, string? latitude, string? longitude, string? length, string? depth, string? accessRequirement, string? pratcicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
             _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, pratcicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
@@ -88,10 +88,27 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
+        [HttpOptions("{site_id}")]
 
-
-
-
+        IActionResult PrefligthRoute(int site_Id)
+        {
+            return NoContent();
+        }
+        // OPTIONS: api/Site
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("site_id")]
+        IActionResult PutTodoItem(int site_Id)
+        {
+            if (site_Id < 1)
+            {
+                return BadRequest();
+            }
+            return Ok(site_Id);
+        }
     }
 }
 

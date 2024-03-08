@@ -5,6 +5,7 @@ using BelgianCavesRegister.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
+using System.Reflection.Metadata.Ecma335;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             return Ok(_chatRepository.GetAll());
         }
-        [HttpGet("{Chat_Id}")]
+        [HttpGet("{chat_id}")]
         public IActionResult GetById(int chat_Id) 
         {
             return Ok(_chatRepository.GetById(chat_Id));
@@ -51,11 +52,31 @@ namespace BelgianCaveRegister_Api.Controllers
             }
             return BadRequest("Registration error");
         }
-        [HttpDelete("{Chat_Id}")]
+        [HttpDelete("{chat_id}")]
         public IActionResult Delete(int chat_Id)
         {
             _chatRepository.Delete(chat_Id);
             return Ok();
+        }
+        [HttpOptions("{chat_id}")]
+        IActionResult PrefligthRoute(int chat_Id)
+        {
+            return NoContent();
+        }
+        // OPTIONS: api/Chat
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("chat_id")]
+        IActionResult PutTodoItem(int chat_Id)
+        {
+            if (chat_Id < 1)
+            {
+                return BadRequest();
+            }
+            return Ok(chat_Id);
         }
     }
 }

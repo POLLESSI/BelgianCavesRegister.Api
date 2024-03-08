@@ -27,7 +27,7 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             return Ok(_nOwnerRepository.GetAll());
         }
-        [HttpGet("{nOwner_Id}")]
+        [HttpGet("{nowner_id}")]
         public IActionResult GetById(int nOwner_Id)
         {
             return Ok(_nOwnerRepository.GetById(nOwner_Id));
@@ -54,7 +54,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration error");
         }
 
-        [HttpDelete("{nOwner_Id}")]
+        [HttpDelete("{nowner_id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int nOwner_Id)
         {
@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        [HttpPut("{NOwner_Id}")]
+        [HttpPut("{nowner_id}")]
 
         public IActionResult Update(int nOwner_Id, string status, string agreement)
         {
@@ -88,6 +88,25 @@ namespace BelgianCaveRegister_Api.Controllers
         //    _nOwnerService.Update(no.Status, no.Agreement);
         //    return Ok();
         //} 
-
+        [HttpOptions("{nowner_id}")]
+        IActionResult PrefligthRoute(int nOwner_Id)
+        {
+            return NoContent();
+        }
+        // OPTIONS: api/NOwner
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("nowner_id")]
+        IActionResult PutTodaItem(int nOwner_Id)
+        {
+            if (nOwner_Id < 1) 
+            {
+                return BadRequest();
+            }
+            return Ok(nOwner_Id);
+        }
     }
 }

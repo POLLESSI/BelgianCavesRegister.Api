@@ -11,10 +11,10 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(32)]
         [DisplayName("Site name")]
         public string? Site_Name { get; set; }
-        [Required(ErrorMessage = "The situation of the site is required")]
+        [Required(ErrorMessage = "The description of the site is required")]
         [MinLength(4)]
         [MaxLength(256)]
-        [DisplayName("Site situation")]
+        [DisplayName("Site description")]
         public string? Site_Description { get; set; }
         [Required(ErrorMessage = " The latitude of the site is required")]
         [DisplayName("Latitude")]
@@ -39,10 +39,10 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [Required(ErrorMessage = "The parcticals Informations is required")]
         [MinLength(4)]
         [MaxLength(512)]
-        [DisplayName("Parcticals Infoemations")]
+        [DisplayName("Parcticals Informations")]
         public string? PracticalInformation { get; set; }
         [Required(ErrorMessage = "The Lambdas Datas Id is required")]
-        [DisplayName("Lambdas Datas id")]
+        [DisplayName("Lambdas Datas id : ")]
         public int DonneesLambda_Id { get; set; }
         [Required(ErrorMessage = "The id of the owner is required")]
         [DisplayName("Owner's Id : ")]

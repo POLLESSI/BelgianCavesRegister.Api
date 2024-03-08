@@ -34,7 +34,7 @@ namespace BelgianCaveRegister_Api.Controllers
             _hub = hub;
             this._currentWeatherForecast = currentWeatherForecast;
         }
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "getweatherforecast")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -58,7 +58,7 @@ namespace BelgianCaveRegister_Api.Controllers
         //{
         //    return Ok(_forecastRepository.GetAll());
         //}
-        [HttpGet("WeatherForecast_Id")]
+        [HttpGet("weatherforecast_id")]
         public IActionResult GetById(int weatherForecast_Id)
         {
             return Ok(_forecastRepository.GetById(weatherForecast_Id));
@@ -82,19 +82,19 @@ namespace BelgianCaveRegister_Api.Controllers
             {
                 _currentWeatherForecast[item.Key] = item.Value;
             }
-            await _hub.Clients.All.SendAsync("ReceiveWeatherUpdate", new WeatherForecast
+            await _hub.Clients.All.SendAsync("receiveweatherupdate", new WeatherForecast
             {
                 Date = DateTime.Now,
-                TemperatureC = _currentWeatherForecast["Temperature C : "],
-                Summary = _currentWeatherForecast["Summary : "],
-                Description = _currentWeatherForecast["Description : "],
-                Humidity = _currentWeatherForecast["Humidity : "],
-                Precipitation = _currentWeatherForecast["Precipitation : "]
+                TemperatureC = _currentWeatherForecast["temperature c : "],
+                Summary = _currentWeatherForecast["summary : "],
+                Description = _currentWeatherForecast["description : "],
+                Humidity = _currentWeatherForecast["humidity : "],
+                Precipitation = _currentWeatherForecast["precipitation : "]
             });
             return Ok(_currentWeatherForecast);
 
             // OPTIONS: api/WeatherForecast/5
-            [HttpOptions("{WeatherForecast_Id}")]
+            [HttpOptions("{weatherforecast_id}")]
             IActionResult PrefligthRoute(int weatherForecast_Id)
             {
                 return NoContent();
@@ -105,14 +105,15 @@ namespace BelgianCaveRegister_Api.Controllers
             //{
             //    return NoContent();
             //}
-            //[HttpPut("weatherforecast_Id")]
-            //IActionResult PutTodoItem(int weatherForecast_Id)
-            //{
-            //    if (weatherForecast_Id < 1)
-            //    {
-            //        return BadRequest();
-            //    }
-            //}
+            [HttpPut("weatherforecast_id")]
+            IActionResult PutTodoItem(int weatherForecast_Id)
+            {
+                if (weatherForecast_Id < 1)
+                {
+                    return BadRequest();
+                }
+                return Ok(weatherForecast_Id);
+            }
         }
     }
 }

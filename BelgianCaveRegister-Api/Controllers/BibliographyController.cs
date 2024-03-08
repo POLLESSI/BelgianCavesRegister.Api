@@ -29,7 +29,7 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpGet("{Bibliography_Id}")]
+        [HttpGet("{bibliography_id}")]
         public IActionResult GetById(int bibliography_Id)
         {
             return Ok(_bibliographyRepository.GetById(bibliography_Id));
@@ -56,7 +56,7 @@ namespace BelgianCaveRegister_Api.Controllers
         //}
 
 
-        [HttpDelete("{Bibliography_Id}")]
+        [HttpDelete("{bibliography_id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int Bibliography_id) 
         {
@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();        
         }
 
-        [HttpPut("{Bibliography_Id}")]
+        [HttpPut("{bibliography_id}")]
         public IActionResult Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
             _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
@@ -88,6 +88,27 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
+        [HttpOptions("{bibliography_id}")]
+        IActionResult PrefligthRoute(int Bibliography_id)
+        {
+            return NoContent();
+        }
+
+        // OPTIONS: api/Bibliography
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("bibliography_id")]
+        IActionResult PutTodoItem(int bibliography_Id)
+        {
+            if (bibliography_Id < 1)
+            {
+                return BadRequest();
+            }
+            return Ok(bibliography_Id);
+        }
 
     }
 }

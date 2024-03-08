@@ -26,7 +26,7 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             return Ok(_LambdaDataRepository.GetAll());
         }
-        [HttpGet("{DonneesLambda_Id}")]
+        [HttpGet("{donneeslambda_id}")]
         public IActionResult GetById(int donneesLambda_Id)
         {
             return Ok(_LambdaDataRepository.GetById(donneesLambda_Id));
@@ -52,7 +52,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration error");
         }
 
-        [HttpDelete("{DonneesLambda_Id}")]
+        [HttpDelete("{donneeslambda_id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int donneesLambda_Id)
         {
@@ -62,7 +62,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        [HttpPut("{DonneesLambda_Id}")]
+        [HttpPut("{donneeslambda_id}")]
         public IActionResult Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
             _LambdaDataRepository.Update(donneesLambda_Id, localisation, topo, acces, equipementSheet, practicalInformation, description);
@@ -88,9 +88,26 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-
-
-
+        [HttpOptions("{donneeslambda_id}")]
+        IActionResult PrefligthRoute(int donneesLambda_Id)
+        {
+            return NoContent();
+        }
+        // OPTIONS: api/LambdaData
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("donneeslambda_id")]
+        IActionResult PutTodoItem(int donneesLambda_Id)
+        {
+            if (donneesLambda_Id < 1)
+            {
+                return BadRequest();
+            }
+            return Ok(donneesLambda_Id);
+        }
     }
 }
 

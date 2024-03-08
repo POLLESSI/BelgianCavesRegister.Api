@@ -27,14 +27,23 @@ namespace BelgianCavesRegister.Models.Services
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Error creating new user; {ex.ToString}");
+                Console.WriteLine($"Error creating new user : {ex.ToString}");
             }
             return false;
         }
 
         public void CreateNUser(NUser nUser)
         {
-            _nUserRepository.CreateNUser(nUser);
+            try
+            {
+                _nUserRepository.CreateNUser(nUser);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error CreateNUser : {ex.ToString}");
+            }
+            
         }
 
         public NUser? Delete(Guid nUser_Id)

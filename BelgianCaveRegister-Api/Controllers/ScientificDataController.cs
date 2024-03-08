@@ -27,7 +27,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_scientificDataRepository.GetAll());
         }
 
-        [HttpGet("{ScientificData_Id}")]
+        [HttpGet("{scientificdata_id}")]
         public IActionResult GetById(int scientificData_Id)
         {
             return Ok(_scientificDataRepository.GetById(scientificData_Id));
@@ -59,7 +59,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration Error");
         }
 
-        [HttpDelete("{ScientificData_Id}")]
+        [HttpDelete("{scientificdata_id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int scientificData_Id)
         {
@@ -101,9 +101,26 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-
-
-
+        [HttpOptions("{scientificdata_id}")]
+        IActionResult PrefligthRoute(int scientificData_Id)
+        {
+            return NoContent();
+        }
+        // OPTIONS: api/ScientifiData
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("scientificdata_id")]
+        IActionResult PutTodoItem(int scientificData_Id)
+        {
+            if (scientificData_Id < 1)
+            {
+                return BadRequest();
+            }
+            return Ok(scientificData_Id);
+        }
     }
 }
 

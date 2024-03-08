@@ -54,18 +54,18 @@ namespace BelgianCavesRegister.Dal.Repository
                 string sql = "INSERT INTO NPerson (Lastname, Firstname, BirthDate, Email, Address_Street, Address_Nbr, PostalCode, Address_City, Address_Country, Telephone, Gsm) " +
                     "VALUES (@lastname, @firstname, @birthDate, @email, @address_Street, @address_Nbr, @postalCode, @address_City, @address_Country, @telephone, @gsm)";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("lastname", person.Lastname);
-                parameters.Add("firstname", person.Firstname);
-                parameters.Add("birthDate", person.BirthDate);
-                parameters.Add("email", person.Email);
-                parameters.Add("address_Street", person.Address_Street);
-                parameters.Add("address_Nbr", person.Address_Nbr);
-                parameters.Add("postalCode", person.PostalCode);
-                parameters.Add("address_City", person.Address_City);
+                parameters.Add("@lastname", person.Lastname);
+                parameters.Add("@firstname", person.Firstname);
+                parameters.Add("@birthDate", person.BirthDate);
+                parameters.Add("@email", person.Email);
+                parameters.Add("@address_Street", person.Address_Street);
+                parameters.Add("@address_Nbr", person.Address_Nbr);
+                parameters.Add("@postalCode", person.PostalCode);
+                parameters.Add("@address_City", person.Address_City);
                 parameters.Add("@address_Country", person.Address_Country);
                 parameters.Add("@telephone", person.Telephone);
                 parameters.Add("@gsm", person.Gsm);
-                _connection.Execute(sql, parameters);
+                _connection.Query<NPerson?>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "Update NPerson SET Lastname = @lastname, Firstname = @firstname, BirthDate = @birthdate, Email = @email, Address_Street = @address_Street, Address_Nbr = @address_Nbr, PostalCode = @postalCode, Address_City = @address_City, Address_Country = @address_Country, Telephone = @telephone, Gsm = @gsm WHERE NPerson_Id = @nPerson_Id";
+                string sql = "UPDATE NPerson SET Lastname = @lastname, Firstname = @firstname, BirthDate = @birthdate, Email = @email, Address_Street = @address_Street, Address_Nbr = @address_Nbr, PostalCode = @postalCode, Address_City = @address_City, Address_Country = @address_Country, Telephone = @telephone, Gsm = @gsm WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nPerson_Id", nPerson_Id);
                 parameters.Add("@lastname", lastname);

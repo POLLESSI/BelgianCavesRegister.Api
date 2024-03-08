@@ -60,7 +60,7 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public IEnumerable<NPerson> GetAll()
+        public IEnumerable<NPerson?> GetAll()
         {
             return _nPersonRepository.GetAll();
         }

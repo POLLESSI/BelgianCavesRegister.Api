@@ -9,12 +9,12 @@ namespace BelgianCaveRegister_Api.Hubs
         {
             // Send weather update to all connected clients
             if (Clients is not null)
-                await Clients.All.SendAsync("receiveWeatherForecastUpdate");
+                await Clients.All.SendAsync("receiveweatherforecastupdate");
         }
         public async Task RefreshWeatherForecast()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("notifyNewWeatherForecast");
+                await Clients.All.SendAsync("notifynewweatherforecast");
         }
         public async Task submit()
         {

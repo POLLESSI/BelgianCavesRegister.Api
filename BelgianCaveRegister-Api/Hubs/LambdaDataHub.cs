@@ -8,22 +8,22 @@ namespace BelgianCaveRegister_Api.Hubs
         public async Task NotifyNewLambdaData()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("receiveLambdaDataUpdate");
+                await Clients.All.SendAsync("receivelambdadataupdate");
         }
         public async Task RefreshLambdaData()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("notifyNewLambdaData");
+                await Clients.All.SendAsync("notifynewlambdaData");
         }
         public async Task submit()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("lambdaData");
+                await Clients.All.SendAsync("lambdadata");
         }
         public async Task GetLambdaData()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("lambdaData");
+                await Clients.All.SendAsync("lambdadata");
         }
     }
 }

@@ -19,7 +19,7 @@
 
 GO
 
-CREATE TRIGGER [dbo].[OnDeleteUser]
+CREATE TRIGGER [dbo].[OnDeleteNUser]
 	ON [dbo].[NUser]
 	INSTEAD OF DELETE
 	AS

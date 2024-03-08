@@ -82,7 +82,7 @@ namespace BelgianCavesRegister.Dal.Repository
         public IEnumerable<NUser?> GetAll()
         {
             string sql = "SELECT * FROM NUser";
-            return _connection.Query<NUser?>(sql, null);
+            return _connection.Query<NUser?>(sql);
         }
 
         public NUser? GetById(Guid nUser_Id)

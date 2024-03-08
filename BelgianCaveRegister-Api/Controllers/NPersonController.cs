@@ -28,7 +28,7 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpGet("{NPerson_Id}")]
+        [HttpGet("{nperson_id}")]
         public IActionResult GetById(int nPerson_Id)
         {
             return Ok(_nPersonRepository.GetById(nPerson_Id));
@@ -40,7 +40,7 @@ namespace BelgianCaveRegister_Api.Controllers
         //    _nPersonRepository.RegisterNPerson( newNPerson);
         //    return Ok();
         //}
-        [HttpPost("Create")]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(NPersonForm newPerson)
         {
             if (!ModelState.IsValid) 
@@ -54,18 +54,18 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpDelete("{NPerson_Id}")]
+        [HttpDelete("{nperson_id}")]
         //[ValidationAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int nPerson_Id)
         {
-            _nPersonRepository.Delete(id);
+            _nPersonRepository.Delete(nPerson_Id);
             return Ok();
         }
 
 
 
-        [HttpPut("{NPerson_Id}")]
-        public IActionResult Update(int nPerson_Id, string? lastname, string? firstname, DateTime birthDate, string? email, string? address_Street, string? address_Nbr, string? postalCode, string? address_City, string? address_Country, string? telephone, string? gsm)
+        [HttpPut("{nperson_id}")]
+        public IActionResult Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
         {
             _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthDate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
             return Ok();
@@ -88,8 +88,26 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-
-
+        [HttpOptions("{nperson_id}")]
+        IActionResult PrefligthRoute(int nPerson_Id)
+        {
+            return NoContent();
+        }
+        // OPTIONS: api/Scientificdata
+        [HttpOptions]
+        IActionResult PrefligthRoute()
+        {
+            return NoContent();
+        }
+        [HttpPut("scientificdata_id")]
+        IActionResult PutTodoItem(int nPerson_Id)
+        {
+            if (nPerson_Id < 1)
+            {
+                return BadRequest();
+            }
+            return Ok(nPerson_Id);
+        }
     }
 }
 

@@ -11,13 +11,13 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(64)]
         [DataType(DataType.EmailAddress)]
         [DisplayName("Email Address.")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Password is Required")]
         [MinLength(8)]
         [MaxLength(64)]
         [DisplayName("Password : ")]
         [DataType(DataType.Password)]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
     }
 }
 

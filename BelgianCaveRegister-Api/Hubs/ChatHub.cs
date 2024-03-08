@@ -7,7 +7,7 @@ namespace BelgianCaveRegister_Api.Hubs
     {
         public async Task SendMessage(Message message)
         {
-            await Clients.All.SendAsync("receiveMessage", message);
+            await Clients.All.SendAsync("receivemessage", message);
         }
         public async Task JoinGroup(string groupName, string pseudo)
         {
@@ -20,12 +20,12 @@ namespace BelgianCaveRegister_Api.Hubs
         }
         public async Task SendToGroup(Message message, string groupName)
         {
-            await Clients.Group(groupName).SendAsync("messageFromGroup", message);
+            await Clients.Group(groupName).SendAsync("messagefromgroup", message);
         }
         public async Task RefreshChat()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("notifyNewChat");
+                await Clients.All.SendAsync("notifynewchat");
         }
     }
 }

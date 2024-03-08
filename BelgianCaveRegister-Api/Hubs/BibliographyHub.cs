@@ -9,13 +9,13 @@ namespace BelgianCaveRegister_Api.Hubs
         {
             if (Clients is not null)
             {
-                await Clients.All.SendAsync("receiveBibliographyUpdate");
+                await Clients.All.SendAsync("receivebibliographyupdate");
             }
         }
         public async Task RefreshBibliography()
         {
             if (Clients is not null)
-                await Clients.All.SendAsync("notifyNewBibliography");
+                await Clients.All.SendAsync("notifynewbibliography");
         }
         public async Task submit()
         {
