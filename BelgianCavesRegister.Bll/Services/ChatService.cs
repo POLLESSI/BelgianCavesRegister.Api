@@ -46,7 +46,7 @@ namespace BelgianCavesRegister.Bll.Services
             }
         }
 
-        public Chat? Delete(int chat_Id)
+        public Chat Delete(int chat_Id)
         {
             try
             {
@@ -60,13 +60,14 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public IEnumerable<Chat?> GetAll()
+        public IEnumerable<Chat> GetAll()
         {
             return _chatRepository.GetAll();
         }
 
-        public Chat? GetById(int chat_Id)
+        public Chat GetById(int chat_Id)
         {
+
             try
             {
                 return _chatRepository.GetById(chat_Id);

@@ -62,8 +62,10 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public NUser? Delete(Guid nUser_Id)
+        public NUser Delete(Guid nUser_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM NUser WHERE NUser_Id = @nUser_Id";
@@ -85,8 +87,10 @@ namespace BelgianCavesRegister.Dal.Repository
             return _connection.Query<NUser?>(sql);
         }
 
-        public NUser? GetById(Guid nUser_Id)
+        public NUser GetById(Guid nUser_Id)
         {
+
+
             try
             {
                 string sql = "SELECT * FROM NUser WHERE NUser_Id";
@@ -102,7 +106,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NUser? LoginNUser(string email, string passwordHash)
+        public NUser LoginNUser(string email, string passwordHash)
         {
             try
             {
@@ -141,14 +145,14 @@ namespace BelgianCavesRegister.Dal.Repository
             return;
         }
 
-        public void SetRole(Guid nUser_Id, string role_id)
+        public void SetRole(Guid nUser_Id, string role_Id)
         {
             try
             {
                 string sql = "UPDATE NUser SET Role_Id = @role_Id WHERE NUser_Id = @nUser_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nUser_Id", nUser_Id);
-                parameters.Add("@role_Id", role_id);
+                parameters.Add("@role_Id", role_Id);
                 _connection.Execute(sql, parameters);
             }
             catch (Exception ex)
@@ -158,7 +162,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
+        public NUser Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
         {
             try
             {

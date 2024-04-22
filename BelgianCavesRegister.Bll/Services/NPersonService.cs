@@ -46,7 +46,7 @@ namespace BelgianCavesRegister.Bll.Services
             }
         }
 
-        public NPerson? Delete(int nPerson_Id)
+        public NPerson Delete(int nPerson_Id)
         {
             try
             {
@@ -60,13 +60,14 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public IEnumerable<NPerson?> GetAll()
+        public IEnumerable<NPerson> GetAll()
         {
             return _nPersonRepository.GetAll();
         }
 
-        public NPerson? GetById(int nPerson_Id)
+        public NPerson GetById(int nPerson_Id)
         {
+
             try
             {
                 return _nPersonRepository.GetById(nPerson_Id);
@@ -79,7 +80,7 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthdate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
+        public NPerson Update(int nPerson_Id, string lastname, string firstname, DateTime birthdate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
         {
             try
             {

@@ -29,10 +29,10 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpGet("{bibliography_id}")]
+        [HttpGet("{bibliography_Id}")]
         public IActionResult GetById(int bibliography_Id)
         {
-            return Ok(_bibliographyRepository.GetById(bibliography_Id));
+            return Ok (_bibliographyRepository.GetById(bibliography_Id));
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace BelgianCaveRegister_Api.Controllers
         //}
 
 
-        [HttpDelete("{bibliography_id}")]
+        [HttpDelete("{bibliography_Id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int Bibliography_id) 
         {
@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();        
         }
 
-        [HttpPut("{bibliography_id}")]
+        [HttpPut("{bibliography_Id}")]
         public IActionResult Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
             _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
@@ -88,27 +88,27 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-        [HttpOptions("{bibliography_id}")]
-        IActionResult PrefligthRoute(int Bibliography_id)
-        {
-            return NoContent();
-        }
+        //[HttpOptions("{bibliography_Id}")]
+        //IActionResult PrefligthRoute(int bibliography_id)
+        //{
+        //    return NoContent();
+        //}
 
-        // OPTIONS: api/Bibliography
-        [HttpOptions]
-        IActionResult PrefligthRoute()
-        {
-            return NoContent();
-        }
-        [HttpPut("bibliography_id")]
-        IActionResult PutTodoItem(int bibliography_Id)
-        {
-            if (bibliography_Id < 1)
-            {
-                return BadRequest();
-            }
-            return Ok(bibliography_Id);
-        }
+        //// OPTIONS: api/Bibliography
+        //[HttpOptions]
+        //IActionResult PrefligthRoute()
+        //{
+        //    return NoContent();
+        //}
+        //[HttpPut("bibliography_Id")]
+        //IActionResult PutTodoItem(int bibliography_Id)
+        //{
+        //    if (bibliography_Id < 1)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(bibliography_Id);
+        //}
 
     }
 }

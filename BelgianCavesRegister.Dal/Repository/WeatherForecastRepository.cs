@@ -55,14 +55,16 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public WeatherForecast? Delete(int weatherForecast_Id)
+        public WeatherForecast Delete(int weatherForecast_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM WeatherForecast WHERE WeatherForecast_Id = @weatherForecast_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@weatherForecast_Id", weatherForecast_Id);
-                return _connection.QueryFirst<WeatherForecast>(sql, parameters);
+                return _connection.QueryFirst<WeatherForecast>(sql, weatherForecast_Id);
             }
             catch (Exception ex)
             {
@@ -72,29 +74,21 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<WeatherForecast?> GetAll()
+        public IEnumerable<WeatherForecast> GetAll()
         {
-            try
-            {
-                string sql = "SELECT * FROM WeatherForecast";
-                return _connection.Query<WeatherForecast?>(sql);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error geting Weather Forecasts: {ex.ToString}");
-            }
-            return Enumerable.Empty<WeatherForecast?>();
+            string sql = "SELECT * FROM WeatherForecast";
+            return _connection.Query<WeatherForecast?>(sql);
         }
 
-        public WeatherForecast? GetById(int weatherForecast_Id)
+        public WeatherForecast GetById(int weatherForecast_Id)
         {
             try
             {
                 string sql = "SELECT * FROM WEATHERFORECAST WHERE WeatherForecast_Id = @weatherForecast_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@weatherForecast_Id", weatherForecast_Id);
-            }
+				return _connection.QueryFirst<WeatherForecast?>(sql, parameters);
+			}
             catch (Exception ex)
             {
 
@@ -103,7 +97,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public WeatherForecast? Update(int weatherForecast_Id, DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation)
+        public WeatherForecast Update(int weatherForecast_Id, DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation)
         {
             try
             {

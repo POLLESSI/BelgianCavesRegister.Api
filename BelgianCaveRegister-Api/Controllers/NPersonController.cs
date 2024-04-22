@@ -28,10 +28,10 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpGet("{nperson_id}")]
+        [HttpGet("{nPerson_Id}")]
         public IActionResult GetById(int nPerson_Id)
         {
-            return Ok(_nPersonRepository.GetById(nPerson_Id));
+            return Ok (_nPersonRepository.GetById(nPerson_Id));
         }
 
         //[HttpPost("register")]
@@ -54,7 +54,7 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
 
-        [HttpDelete("{nperson_id}")]
+        [HttpDelete("{nPerson_Id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int nPerson_Id)
         {
@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        [HttpPut("{nperson_id}")]
+        [HttpPut("{nPerson_Id}")]
         public IActionResult Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
         {
             _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthDate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
@@ -88,26 +88,26 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-        [HttpOptions("{nperson_id}")]
-        IActionResult PrefligthRoute(int nPerson_Id)
-        {
-            return NoContent();
-        }
-        // OPTIONS: api/Scientificdata
-        [HttpOptions]
-        IActionResult PrefligthRoute()
-        {
-            return NoContent();
-        }
-        [HttpPut("scientificdata_id")]
-        IActionResult PutTodoItem(int nPerson_Id)
-        {
-            if (nPerson_Id < 1)
-            {
-                return BadRequest();
-            }
-            return Ok(nPerson_Id);
-        }
+        //[HttpOptions("{nPerson_Id}")]
+        //IActionResult PrefligthRoute(int nPerson_Id)
+        //{
+        //    return NoContent();
+        //}
+        //// OPTIONS: api/Scientificdata
+        //[HttpOptions]
+        //IActionResult PrefligthRoute()
+        //{
+        //    return NoContent();
+        //}
+        //[HttpPut("nPerson_Id")]
+        //IActionResult PutTodoItem(int nPerson_Id)
+        //{
+        //    if (nPerson_Id < 1)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(nPerson_Id);
+        //}
     }
 }
 

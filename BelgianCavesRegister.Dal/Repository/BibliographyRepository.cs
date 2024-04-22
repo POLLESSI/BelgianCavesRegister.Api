@@ -64,8 +64,10 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public Bibliography? Delete(int bibliography_Id)
+        public Bibliography Delete(int bibliography_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM Bibliography WHERE Bibliography_Id = @bibliography_Id";
@@ -81,29 +83,22 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<Bibliography?> GetAll()
+        public IEnumerable<Bibliography> GetAll()
         {
-            try
-            {
-                string sql = "SELECT * FROM Bibliography";
-                return _connection.Query<Bibliography?>(sql);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error geting Bibliographies: {ex.ToString}");
-            }
-            return Enumerable.Empty<Bibliography?>();
+            string sql = "SELECT * FROM Bibliography";
+            return _connection.Query<Bibliography?>(sql);
         }
 
-        public Bibliography? GetById(int bibliography_Id)
+        public Bibliography GetById(int bibliography_Id)
         {
+
+
             try
             {
                 string sql = "SELECT * FROM BIBLIOGRAPHY WHERE Bibliography_Id = @bibliography_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@bibliography_Id", bibliography_Id);
-                return _connection.QueryFirst<Bibliography?>(sql, parameters); 
+                parameters.Add("@bibliography_Id", parameters);
+                return _connection.QueryFirst<Bibliography>(sql, new { bibliography_Id });
             }
             catch (Exception ex)
             {
@@ -112,8 +107,8 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return null;
         }
-
-        public Bibliography? Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
+			
+        public Bibliography Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
             try
             {
@@ -139,7 +134,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return new Bibliography();
         }
 
-        public Bibliography? Update(Bibliography bibliography)
+        public Bibliography Update(Bibliography bibliography)
         {
             throw new NotImplementedException();
         }

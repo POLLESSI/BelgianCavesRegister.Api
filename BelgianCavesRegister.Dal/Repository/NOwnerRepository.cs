@@ -56,8 +56,10 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public NOwner? Delete(int nOwner_Id)
+        public NOwner Delete(int nOwner_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM NOwner WHERE NOwner_Id = @nOwner_Id";
@@ -73,20 +75,22 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<NOwner?> GetAll()
+        public IEnumerable<NOwner> GetAll()
         {
             string sql = "SELECT * FROM NOwner";
             return _connection.Query<NOwner?>(sql);
         }
 
-        public NOwner? GetById(int nOwner_Id)
+        public NOwner GetById(int nOwner_Id)
         {
+
+
             try
             {
                 string sql = "SELECT * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nOwner_Id", nOwner_Id);
-                return _connection.QueryFirst<NOwner?>(sql, parameters);
+                return _connection.QueryFirst<NOwner?>(sql, new { nOwner_Id });
             }
             catch (Exception ex)
             {
@@ -96,7 +100,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NOwner? Update(int nOwner_Id, string status, string agreement)
+        public NOwner Update(int nOwner_Id, string status, string agreement)
         {
             try
             {

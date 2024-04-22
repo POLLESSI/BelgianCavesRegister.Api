@@ -2,9 +2,9 @@
 (
 	[DonneesLambda_Id] INT IDENTITY, 
     [Localisation] NVARCHAR(128) NOT NULL, 
-    [Topo] NVARCHAR(MAX) NOT NULL, 
+    [Topo] NVARCHAR(2048) NOT NULL, 
     [Acces] NVARCHAR(256) NOT NULL, 
-    [EquipementSheet] NVARCHAR(MAX) NULL, 
+    [EquipementSheet] NVARCHAR(2048) NULL, 
     [PracticalInformation] NVARCHAR(512) NOT NULL, 
     [Description] NVARCHAR(128) NOT NULL,
     [Active] BIT DEFAULT 1

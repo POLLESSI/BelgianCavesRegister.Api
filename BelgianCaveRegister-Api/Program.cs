@@ -22,11 +22,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(o => o.AddPolicy("mypolicy", options => options.WithOrigins("http://localhost:7044", "http://localhost:7234")
-                .AllowCredentials()
-                .AllowAnyHeader()
-                .AllowAnyMethod()));
+//builder.Services.AddCors(o => o.AddPolicy("mypolicy", options => options.WithOrigins("http://localhost:7044", "https://localhost:7267")
+//                .AllowCredentials()
+//                .AllowAnyHeader()
+//                .AllowAnyMethod()));
 
+builder.Services.AddCors(
+//    opt =>
+//{
+//    opt.AddPolicy(name: "mypolicy", builder =>
+//    {
+//        builder.WithOrigins(new string[] { "http://localhost:7044", "https://localhost:7267" })
+//        .WithHeaders(new string[] { "bibliography", "chat", "lambdada", "nowner", "nperson", "nuser", "scientificdata", "site", "weatherforecast" })
+//        .WithMethods(new string[] { "notifynewbibliography", "notifynewchat", "notifynewlambdaData", "notifynewnowner", "notifynewnperson", "notifynewnuser", "notifynewscientificdata", "notifynewsite", "notifynewweatherforecast" });
+//    });
+//});
+);
 builder.Services.AddScoped<SqlConnection>(sp => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 
 // Injections
@@ -105,7 +116,7 @@ if (app.Environment.IsDevelopment())
     //}
 }
 //app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
-app.UseCors("mypolicy");
+app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 //app.UseStaticFiles();
@@ -121,8 +132,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 //app.UseRouting();
-app.MapHub<BibliographyHub>("/bibliography");
-app.MapHub<ChatHub>("/chat");
+app.MapHub<BibliographyHub>("/bibliographyhub");
+app.MapHub<ChatHub>("/chathub");
 app.MapHub<LambdaDataHub>("/lambdadatahub");
 app.MapHub<NOwnerHub>("/nownerhub");
 app.MapHub<NPersonHub>("/npersonhub");
@@ -130,7 +141,6 @@ app.MapHub<NUserHub>("/nuserhub");
 app.MapHub<ScientificDataHub>("/scientificdatahub");
 app.MapHub<SiteHub>("/sitehub");
 app.MapHub<WeatherForecastHub>("/weatherforecasthub");
-//app.MapFallbackToPage("/_Host");
 
 app.Run();
 

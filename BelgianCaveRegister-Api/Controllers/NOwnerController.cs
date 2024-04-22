@@ -27,10 +27,10 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             return Ok(_nOwnerRepository.GetAll());
         }
-        [HttpGet("{nowner_id}")]
+        [HttpGet("{nOwner_Id}")]
         public IActionResult GetById(int nOwner_Id)
         {
-            return Ok(_nOwnerRepository.GetById(nOwner_Id));
+            return Ok (_nOwnerRepository.GetById(nOwner_Id));
         }
 
 
@@ -54,7 +54,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration error");
         }
 
-        [HttpDelete("{nowner_id}")]
+        [HttpDelete("{nOwner_Id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int nOwner_Id)
         {
@@ -64,7 +64,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        [HttpPut("{nowner_id}")]
+        [HttpPut("{nOwner_Id}")]
 
         public IActionResult Update(int nOwner_Id, string status, string agreement)
         {
@@ -88,25 +88,25 @@ namespace BelgianCaveRegister_Api.Controllers
         //    _nOwnerService.Update(no.Status, no.Agreement);
         //    return Ok();
         //} 
-        [HttpOptions("{nowner_id}")]
-        IActionResult PrefligthRoute(int nOwner_Id)
-        {
-            return NoContent();
-        }
-        // OPTIONS: api/NOwner
-        [HttpOptions]
-        IActionResult PrefligthRoute()
-        {
-            return NoContent();
-        }
-        [HttpPut("nowner_id")]
-        IActionResult PutTodaItem(int nOwner_Id)
-        {
-            if (nOwner_Id < 1) 
-            {
-                return BadRequest();
-            }
-            return Ok(nOwner_Id);
-        }
+        //[HttpOptions("{nOwner_Id}")]
+        //IActionResult PrefligthRoute(int nOwner_Id)
+        //{
+        //    return NoContent();
+        //}
+        //// OPTIONS: api/NOwner
+        //[HttpOptions]
+        //IActionResult PrefligthRoute()
+        //{
+        //    return NoContent();
+        //}
+        //[HttpPut("nOwner_Id")]
+        //IActionResult PutTodaItem(int nOwner_Id)
+        //{
+        //    if (nOwner_Id < 1) 
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(nOwner_Id);
+        //}
     }
 }

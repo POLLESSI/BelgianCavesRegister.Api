@@ -10,12 +10,12 @@ namespace BelgianCavesRegister.Bll.Models
 {
     public class NUserLogin
     {
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         [MaxLength(64)]
         [DisplayName("Email : ")]
         public string? Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [MinLength(8)]
         [MaxLength(64)]
         [DisplayName("Password : ")]

@@ -27,10 +27,10 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_scientificDataRepository.GetAll());
         }
 
-        [HttpGet("{scientificdata_id}")]
+        [HttpGet("{scientificData_Id}")]
         public IActionResult GetById(int scientificData_Id)
         {
-            return Ok(_scientificDataRepository.GetById(scientificData_Id));
+            return Ok (_scientificDataRepository.GetById(scientificData_Id));
         }
 
         //[HttpPost("create")]
@@ -59,7 +59,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration Error");
         }
 
-        [HttpDelete("{scientificdata_id}")]
+        [HttpDelete("{scientificData_Id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int scientificData_Id)
         {
@@ -101,26 +101,26 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok();
         }
 
-        [HttpOptions("{scientificdata_id}")]
-        IActionResult PrefligthRoute(int scientificData_Id)
-        {
-            return NoContent();
-        }
-        // OPTIONS: api/ScientifiData
-        [HttpOptions]
-        IActionResult PrefligthRoute()
-        {
-            return NoContent();
-        }
-        [HttpPut("scientificdata_id")]
-        IActionResult PutTodoItem(int scientificData_Id)
-        {
-            if (scientificData_Id < 1)
-            {
-                return BadRequest();
-            }
-            return Ok(scientificData_Id);
-        }
+        //[HttpOptions("{scientificData_Id}")]
+        //IActionResult PrefligthRoute(int scientificData_Id)
+        //{
+        //    return NoContent();
+        //}
+        //// OPTIONS: api/ScientifiData
+        //[HttpOptions]
+        //IActionResult PrefligthRoute()
+        //{
+        //    return NoContent();
+        //}
+        //[HttpPut("scientificData_Id")]
+        //IActionResult PutTodoItem(int scientificData_Id)
+        //{
+        //    if (scientificData_Id < 1)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(scientificData_Id);
+        //}
     }
 }
 

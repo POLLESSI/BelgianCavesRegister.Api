@@ -64,8 +64,10 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public LambdaData? Delete(int donneesLambda_Id)
+        public LambdaData Delete(int donneesLambda_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
@@ -80,23 +82,15 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<LambdaData?> GetAll()
+        public IEnumerable<LambdaData> GetAll()
         {
-            try
-            {
-                string sql = "SELECT * FROM LambdaData";
-                return _connection.Query<LambdaData>(sql);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error geting Lambda Datas: {ex.ToString}");
-            }
-            return Enumerable.Empty<LambdaData?>();
+            string sql = "SELECT * FROM LambdaData";
+            return _connection.Query<LambdaData>(sql);
         }
 
-        public LambdaData? GetById(int donneesLambda_Id)
+        public LambdaData GetById(int donneesLambda_Id)
         {
+
             try
             {
                 string sql = "SELECT * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
@@ -104,15 +98,15 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@donneesLambda_Id", donneesLambda_Id);
                 return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
-            catch (Exception ex)
-            {
+			catch (Exception ex)
+			{
 
                 Console.WriteLine($"Error geting Lambda Data: {ex.ToString}");
             }
             return null;
         }
 
-        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public LambdaData Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
             try
             {

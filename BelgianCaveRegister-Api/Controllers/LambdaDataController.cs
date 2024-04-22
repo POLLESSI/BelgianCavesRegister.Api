@@ -26,10 +26,10 @@ namespace BelgianCaveRegister_Api.Controllers
         {
             return Ok(_LambdaDataRepository.GetAll());
         }
-        [HttpGet("{donneeslambda_id}")]
+        [HttpGet("{donneeslambda_Id}")]
         public IActionResult GetById(int donneesLambda_Id)
         {
-            return Ok(_LambdaDataRepository.GetById(donneesLambda_Id));
+            return Ok (_LambdaDataRepository.GetById(donneesLambda_Id));
         }
 
         //[HttpPost("register")]
@@ -52,7 +52,7 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration error");
         }
 
-        [HttpDelete("{donneeslambda_id}")]
+        [HttpDelete("{donneeslambda_Id}")]
         //[ValidationAntiForgeryToken]
         public IActionResult Delete(int donneesLambda_Id)
         {
@@ -62,7 +62,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
 
-        [HttpPut("{donneeslambda_id}")]
+        [HttpPut("{donneeslambda_Id}")]
         public IActionResult Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
             _LambdaDataRepository.Update(donneesLambda_Id, localisation, topo, acces, equipementSheet, practicalInformation, description);
@@ -88,26 +88,26 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-        [HttpOptions("{donneeslambda_id}")]
-        IActionResult PrefligthRoute(int donneesLambda_Id)
-        {
-            return NoContent();
-        }
-        // OPTIONS: api/LambdaData
-        [HttpOptions]
-        IActionResult PrefligthRoute()
-        {
-            return NoContent();
-        }
-        [HttpPut("donneeslambda_id")]
-        IActionResult PutTodoItem(int donneesLambda_Id)
-        {
-            if (donneesLambda_Id < 1)
-            {
-                return BadRequest();
-            }
-            return Ok(donneesLambda_Id);
-        }
+        //[HttpOptions("{donneeslambda_Id}")]
+        //IActionResult PrefligthRoute(int donneesLambda_Id)
+        //{
+        //    return NoContent();
+        //}
+        //// OPTIONS: api/LambdaData
+        //[HttpOptions]
+        //IActionResult PrefligthRoute()
+        //{
+        //    return NoContent();
+        //}
+        //[HttpPut("donneeslambda_Id")]
+        //IActionResult PutTodoItem(int donneesLambda_Id)
+        //{
+        //    if (donneesLambda_Id < 1)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(donneesLambda_Id);
+        //}
     }
 }
 

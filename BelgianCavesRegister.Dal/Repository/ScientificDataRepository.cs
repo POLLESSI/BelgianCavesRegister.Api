@@ -58,14 +58,16 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public ScientificData? Delete(int scientificData_Id)
+        public ScientificData Delete(int scientificData_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM ScientificData WHERE ScientificData_Id = @scientificData_ID";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@csientificData_Id", scientificData_Id);
-                return _connection.QueryFirst<ScientificData?>(sql, parameters);
+                return _connection.QueryFirst<ScientificData?>(sql, scientificData_Id);
             }
             catch (Exception ex)
             {
@@ -75,30 +77,32 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<ScientificData?> GetAll()
+        public IEnumerable<ScientificData> GetAll()
         {
             string sql = "SELECT * FROM ScientificData";
             return _connection.Query<ScientificData?>(sql);
         }
 
-        public ScientificData? GetById(int scientificData_Id)
+        public ScientificData GetById(int scientificData_Id)
         {
-            try
-            {
-                string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@scientificData_Id", scientificData_Id);
-                return _connection.QueryFirst<ScientificData?>(sql, parameters);
-            }
-            catch (Exception ex)
-            {
+            string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
+            return _connection.QueryFirst<ScientificData?>(sql, new { scientificData_Id });
+            //try
+            //{
+                
+            //    DynamicParameters parameters = new DynamicParameters();
+            //    parameters.Add("@scientificData_Id", scientificData_Id);
+                
+            //}
+            //catch (Exception ex)
+            //{
 
-                Console.WriteLine($"Error geting scientific data: {ex.ToString}");
-            }
-            return null;
+            //    Console.WriteLine($"Error geting scientific data: {ex.ToString}");
+            //}
+            //return null;
         }
 
-        public ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
+        public ScientificData Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
         {
             try
             {

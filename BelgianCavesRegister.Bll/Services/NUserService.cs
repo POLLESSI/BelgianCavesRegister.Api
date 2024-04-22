@@ -46,7 +46,7 @@ namespace BelgianCavesRegister.Models.Services
             
         }
 
-        public NUser? Delete(Guid nUser_Id)
+        public NUser Delete(Guid nUser_Id)
         {
             try
             {
@@ -60,13 +60,14 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public IEnumerable<NUser?> GetAll()
+        public IEnumerable<NUser> GetAll()
         {
             return _nUserRepository.GetAll();
         }
 
-        public NUser? GetById(Guid nUser_Id)
+        public NUser GetById(Guid nUser_Id)
         {
+
             try
             {
                 return _nUserRepository.GetById(nUser_Id);
@@ -79,7 +80,7 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public NUser? LoginNUser(string? email, string? passwordHash)
+        public NUser LoginNUser(string email, string passwordHash)
         {
             try
             {
@@ -93,7 +94,7 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public void RegisterNUser(string? pseudo, string? email, string? passwordHash)
+        public void RegisterNUser(string pseudo, string email, string passwordHash)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace BelgianCavesRegister.Models.Services
             }
         }
 
-        public void SetRole(Guid nUser_Id, string? role_Id)
+        public void SetRole(Guid nUser_Id, string role_Id)
         {
             try
             {
@@ -119,7 +120,7 @@ namespace BelgianCavesRegister.Models.Services
             }
         }
 
-        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
+        public NUser Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
         {
             try
             {

@@ -47,7 +47,7 @@ namespace BelgianCavesRegister.Bll.Services
             }
         }
 
-        public WeatherForecast? Delete(int weatherForecast_Id)
+        public WeatherForecast Delete(int weatherForecast_Id)
         {
             try
             {
@@ -61,12 +61,12 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public IEnumerable<WeatherForecast?> GetAll()
+        public IEnumerable<WeatherForecast> GetAll()
         {
             return _weatherForecastRepository.GetAll();
         }
 
-        public WeatherForecast? GetById(int weatherForecast_Id)
+        public WeatherForecast GetById(int weatherForecast_Id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public WeatherForecast? Update(int weatherForecast_Id, DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation)
+        public WeatherForecast Update(int weatherForecast_Id, DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation)
         {
             try
             {

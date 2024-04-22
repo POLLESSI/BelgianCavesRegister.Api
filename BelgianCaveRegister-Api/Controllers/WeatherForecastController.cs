@@ -27,12 +27,11 @@ namespace BelgianCaveRegister_Api.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly WeatherForecastHub _hub;
         private readonly Dictionary<string, string> _currentWeatherForecast = new Dictionary<string, string>();
-        public WeatherForecastController(IWeatherForecastRepository forecastRepository, ILogger<WeatherForecastController> logger, WeatherForecastHub hub, Dictionary<string, string> currentWeatherForecast)
+        public WeatherForecastController(IWeatherForecastRepository forecastRepository, ILogger<WeatherForecastController> logger, WeatherForecastHub hub)
         {
             _forecastRepository = forecastRepository;
             _logger = logger;
             _hub = hub;
-            this._currentWeatherForecast = currentWeatherForecast;
         }
         [HttpGet(Name = "getweatherforecast")]
         public IEnumerable<WeatherForecast> Get()
@@ -58,10 +57,10 @@ namespace BelgianCaveRegister_Api.Controllers
         //{
         //    return Ok(_forecastRepository.GetAll());
         //}
-        [HttpGet("weatherforecast_id")]
+        [HttpGet("weatherForecast_Id")]
         public IActionResult GetById(int weatherForecast_Id)
         {
-            return Ok(_forecastRepository.GetById(weatherForecast_Id));
+            return Ok (_forecastRepository.GetById(weatherForecast_Id));
         }
         //[HttpPost]
         //public async Task<IActionResult> Create(WeatherForecastRegisterForm weatherregisterForm)
@@ -94,26 +93,26 @@ namespace BelgianCaveRegister_Api.Controllers
             return Ok(_currentWeatherForecast);
 
             // OPTIONS: api/WeatherForecast/5
-            [HttpOptions("{weatherforecast_id}")]
-            IActionResult PrefligthRoute(int weatherForecast_Id)
-            {
-                return NoContent();
-            }
-            // OPTIONS: api/WeatherForecast
-            //[HttpOptions]
-            //IActionResult PrefligthRoute()
+            //[HttpOptions("{weatherForecast_Id}")]
+            //IActionResult PrefligthRoute(int weatherForecast_Id)
             //{
             //    return NoContent();
             //}
-            [HttpPut("weatherforecast_id")]
-            IActionResult PutTodoItem(int weatherForecast_Id)
-            {
-                if (weatherForecast_Id < 1)
-                {
-                    return BadRequest();
-                }
-                return Ok(weatherForecast_Id);
-            }
+            //// OPTIONS: api/WeatherForecast
+            //[HttpOptions]
+            ////IActionResult PrefligthRoute()
+            ////{
+            ////    return NoContent();
+            ////}
+            //[HttpPut("weatherForecast_Id")]
+            //IActionResult PutTodoItem(int weatherForecast_Id)
+            //{
+            //    if (weatherForecast_Id < 1)
+            //    {
+            //        return BadRequest();
+            //    }
+            //    return Ok(weatherForecast_Id);
+            //}
         }
     }
 }

@@ -85,8 +85,10 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public Site? Delete(int site_Id)
+        public Site Delete(int site_Id)
         {
+
+
             try
             {
                 string sql = "DELETE FROM Site WHERE Site_Id = @site_Id";
@@ -104,27 +106,20 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public IEnumerable<Site?> GetAll()
         {
-            try
-            {
-                string sql = "SELECT * FROM Site";
-                return _connection.Query<Site?>(sql);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error geting Sites: {ex.ToString}");
-            }
-            return Enumerable.Empty<Site?>();
+            string sql = "SELECT * FROM Site";
+            return _connection.Query<Site?>(sql);
         }
 
-        public Site? GetById(int site_Id)
+        public Site GetById(int site_Id)
         {
+
+
             try
             {
                 string sql = "SELECT si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation FROM Site si JOIN LambdaData la ON si.DonneesLambda_Id = la.DonneesLambda_Id JOIN NOwner no si.NOwner_Id = no.NOwner_Id JOIN ScientificData_Id = sc.ScientificData_Id JOIN Bibliography bi ON si.Bibliography_Id = bi.Bibliography_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("site_Id", site_Id);
-                return _connection.QueryFirst<Site?>(sql, parameters);
+                return _connection.QueryFirst<Site?>(sql, new { site_Id });
             }
             catch (Exception ex)
             {
@@ -134,7 +129,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public Site? Update(int site_Id, string site_Name, string site_Decription, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+        public Site Update(int site_Id, string site_Name, string site_Decription, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
             try
             {

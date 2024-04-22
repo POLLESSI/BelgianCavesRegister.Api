@@ -37,33 +37,33 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         //[Authorize("ModelPolicy")]
-        [HttpGet("{nuser_id}")]
+        [HttpGet("{nUser_Id}")]
         public IActionResult GetById(Guid nUser_Id)
         {
-            return Ok(_userRepository.GetById(nUser_Id));
+            return Ok (_userRepository.GetById(nUser_Id));
         }
 
         [HttpPost("login")]
         public IActionResult Login(NUserLoginForm nUser)
         {
-            try
-            {
-                NUser? connectedNUser = _userRepository.LoginNUser(nUser.Email, nUser.PasswordHash);
-                if (connectedNUser != null)
-                {
-                    var token = _tokenGenerator.GenerateToken(connectedNUser);
-                    return Ok(new { Token = token, Role = connectedNUser.Role_Id });
-                }
-                else
-                {
-                    return BadRequest("Invalid cerdentials");
-                }
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //    NUser? connectedNUser = _userRepository.LoginNUser(nUser.Email, nUser.PasswordHash);
+            //    if (connectedNUser != null)
+            //    {
+            //        var token = _tokenGenerator.GenerateToken(connectedNUser);
+            //        return Ok(new { Token = token, Role = connectedNUser.Role_Id });
+            //    }
+            //    else
+            //    {
+            //        return BadRequest("Invalid cerdentials");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
 
-                return BadRequest(ex.Message);
-            }
+            //    return BadRequest(ex.Message);
+            //}
 
             try
             {
@@ -133,14 +133,14 @@ namespace BelgianCaveRegister_Api.Controllers
             }
             return BadRequest("Registration Error");
         }
-        [HttpDelete("{nuser_id}")]
+        [HttpDelete("{nUser_Id}")]
         public IActionResult Delete(Guid nUser_Id)
         {
             _userRepository.Delete(nUser_Id);
             return Ok();
         }
-        [HttpPut("nuser_id")]
-        public IActionResult Update(Guid nUser_Id, string? pseudo, string? passwordHash, string? email, int nPerson_Id, string? role_Id)
+        [HttpPut("nUser_Id")]
+        public IActionResult Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
         {
             _userRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
             return Ok();
@@ -177,25 +177,25 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
 
-        [HttpOptions("{nuser_id}")]
-        IActionResult PrefligthRoute(Guid nUser_Id)
-        {
-            return NoContent();
-        }
-        // OPTIONS: api/NUser
-        [HttpOptions]
-        IActionResult PrefligthRoute()
-        {
-            return NoContent();
-        }
-        [HttpPut("nuser_id")]
-        IActionResult PutTodoItem(Guid nUser_Id)
-        {
-            if (nUser_Id == Guid.Empty)
-            {
-                return BadRequest();
-            }
-            return Ok(nUser_Id);
-        }
+        //[HttpOptions("{nUser_Id}")]
+        //IActionResult PrefligthRoute(Guid nUser_Id)
+        //{
+        //    return NoContent();
+        //}
+        //// OPTIONS: api/NUser
+        //[HttpOptions]
+        //IActionResult PrefligthRoute()
+        //{
+        //    return NoContent();
+        //}
+        //[HttpPut("nUser_Id")]
+        //IActionResult PutTodoItem(Guid nUser_Id)
+        //{
+        //    if (nUser_Id == Guid.Empty)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(nUser_Id);
+        //}
     }
 }
