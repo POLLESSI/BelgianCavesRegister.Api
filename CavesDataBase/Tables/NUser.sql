@@ -6,7 +6,7 @@
     [SecurityStamp] UNIQUEIDENTIFIER NULL,
     [Email] NVARCHAR(64) NOT NULL UNIQUE, 
     [NPerson_Id] INT NOT NULL,
-    [Role_Id] INT NOT NULL DEFAULT 3,
+    [Role_Id] NVARCHAR(1) NULL DEFAULT 3,
     [Active] BIT DEFAULT 1
 
     CONSTRAINT [CK_NUser_Email] CHECK (Email like '__%@__%_%'),

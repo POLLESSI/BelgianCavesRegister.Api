@@ -156,7 +156,7 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         //[Authorize("AdminPolicy")]
-        [HttpPatch("setrole")]
+        [HttpPatch("setRole")]
         public IActionResult ChangeRole(ChangeRole r)
         {
             _userRepository.SetRole(r.NUser_Id, r.Role_Id);

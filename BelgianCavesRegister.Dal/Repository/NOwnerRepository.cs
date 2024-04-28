@@ -56,7 +56,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public NOwner Delete(int nOwner_Id)
+        public NOwner? Delete(int nOwner_Id)
         {
 
 
@@ -75,13 +75,13 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<NOwner> GetAll()
+        public IEnumerable<NOwner?> GetAll()
         {
             string sql = "SELECT * FROM NOwner";
             return _connection.Query<NOwner?>(sql);
         }
 
-        public NOwner GetById(int nOwner_Id)
+        public NOwner? GetById(int nOwner_Id)
         {
 
 
@@ -100,7 +100,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NOwner Update(int nOwner_Id, string status, string agreement)
+        public NOwner? Update(int nOwner_Id, string status, string agreement)
         {
             try
             {

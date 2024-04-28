@@ -85,7 +85,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public Site Delete(int site_Id)
+        public Site? Delete(int site_Id)
         {
 
 
@@ -110,7 +110,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return _connection.Query<Site?>(sql);
         }
 
-        public Site GetById(int site_Id)
+        public Site? GetById(int site_Id)
         {
 
 
@@ -129,7 +129,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public Site Update(int site_Id, string site_Name, string site_Decription, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+        public Site? Update(int site_Id, string site_Name, string site_Decription, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
         {
             try
             {

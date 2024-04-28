@@ -64,7 +64,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public Bibliography Delete(int bibliography_Id)
+        public Bibliography? Delete(int bibliography_Id)
         {
 
 
@@ -83,13 +83,13 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<Bibliography> GetAll()
+        public IEnumerable<Bibliography?> GetAll()
         {
             string sql = "SELECT * FROM Bibliography";
             return _connection.Query<Bibliography?>(sql);
         }
 
-        public Bibliography GetById(int bibliography_Id)
+        public Bibliography? GetById(int bibliography_Id)
         {
 
 
@@ -108,7 +108,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 			
-        public Bibliography Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
+        public Bibliography? Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
         {
             try
             {

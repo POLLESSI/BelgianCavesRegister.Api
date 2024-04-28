@@ -64,7 +64,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public LambdaData Delete(int donneesLambda_Id)
+        public LambdaData? Delete(int donneesLambda_Id)
         {
 
 
@@ -82,13 +82,13 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<LambdaData> GetAll()
+        public IEnumerable<LambdaData?> GetAll()
         {
             string sql = "SELECT * FROM LambdaData";
             return _connection.Query<LambdaData>(sql);
         }
 
-        public LambdaData GetById(int donneesLambda_Id)
+        public LambdaData? GetById(int donneesLambda_Id)
         {
 
             try
@@ -106,7 +106,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public LambdaData Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
             try
             {

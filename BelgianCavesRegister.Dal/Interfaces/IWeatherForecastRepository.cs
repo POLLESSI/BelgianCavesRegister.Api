@@ -11,9 +11,9 @@ namespace BelgianCavesRegister.Dal.Interfaces
     {
         bool Create(WeatherForecast weatherForecast);
         void CreateWeatherForecast(WeatherForecast weatherForecast);
-        IEnumerable<WeatherForecast> GetAll();
-        WeatherForecast GetById(int weatherForecast_Id);
-        WeatherForecast Delete(int weatherForecast_Id);
-        WeatherForecast Update(int weatherForecast_Id, DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation);
+        IEnumerable<WeatherForecast?> GetAll();
+        WeatherForecast? GetById(int weatherForecast_Id);
+        WeatherForecast? Delete(int weatherForecast_Id);
+        WeatherForecast? Update(int weatherForecast_Id, DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation);
     }
 }

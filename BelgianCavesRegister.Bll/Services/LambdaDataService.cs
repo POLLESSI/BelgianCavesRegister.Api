@@ -46,7 +46,7 @@ namespace BelgianCavesRegister.Bll.Services
             
         }
 
-        public LambdaData Delete(int donneesLambda_Id)
+        public LambdaData? Delete(int donneesLambda_Id)
         {
             try
             {
@@ -60,12 +60,12 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public IEnumerable<LambdaData> GetAll()
+        public IEnumerable<LambdaData?> GetAll()
         {
             return _lambdaDataRepository.GetAll();
         }
 
-        public LambdaData GetById(int donneesLambda_Id)
+        public LambdaData? GetById(int donneesLambda_Id)
         {
 
             try
@@ -80,7 +80,7 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public LambdaData Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
         {
             throw new NotImplementedException();
         }

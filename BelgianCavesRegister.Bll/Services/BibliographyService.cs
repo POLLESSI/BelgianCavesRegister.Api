@@ -47,7 +47,7 @@ namespace BelgianCavesRegister.Bll.Services
             
         }
 
-        public Bibliography Delete(int bibliography_Id)
+        public Bibliography? Delete(int bibliography_Id)
         {
             try
             {
@@ -61,12 +61,12 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public IEnumerable<Bibliography> GetAll()
+        public IEnumerable<Bibliography?> GetAll()
         {
             return _bibliographyRepository.GetAll();
         }
 
-        public Bibliography GetById(int bibliography_Id)
+        public Bibliography? GetById(int bibliography_Id)
         {
 
             try
@@ -81,7 +81,7 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public Bibliography Update(string title, string author, string iSBN, string dataType, string detail, int bibliography_Id)
+        public Bibliography? Update(string title, string author, string iSBN, string dataType, string detail, int bibliography_Id)
         {
             try
             {

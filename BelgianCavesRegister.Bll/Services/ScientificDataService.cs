@@ -45,7 +45,7 @@ namespace BelgianCavesRegister.Models.Services
             }
         }
 
-        public ScientificData Delete(int scientificData_Id)
+        public ScientificData? Delete(int scientificData_Id)
         {
             try
             {
@@ -59,12 +59,12 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public IEnumerable<ScientificData> GetAll()
+        public IEnumerable<ScientificData?> GetAll()
         {
             return _scientificDataRepository.GetAll();
         }
 
-        public ScientificData GetById(int scientificData_Id)
+        public ScientificData? GetById(int scientificData_Id)
         {
 
             try
@@ -79,7 +79,7 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public ScientificData Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
+        public ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
         {
             try
             {

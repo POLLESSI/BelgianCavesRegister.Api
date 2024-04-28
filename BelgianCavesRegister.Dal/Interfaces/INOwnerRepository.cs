@@ -11,10 +11,10 @@ namespace BelgianCavesRegister.Dal.Interfaces
     {
         bool Create(NOwner nOwner);
         void CreateNOwner(NOwner nOwner);
-        IEnumerable<NOwner> GetAll();
-        NOwner GetById(int nOwner_Id);
-        NOwner Delete(int nOwner_Id);
-        NOwner Update(int nOwner_Id, string status, string agreement);
+        IEnumerable<NOwner?> GetAll();
+        NOwner? GetById(int nOwner_Id);
+        NOwner? Delete(int nOwner_Id);
+        NOwner? Update(int nOwner_Id, string status, string agreement);
     }
 }
 

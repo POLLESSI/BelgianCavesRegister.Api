@@ -56,7 +56,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public Chat Delete(int chat_Id)
+        public Chat? Delete(int chat_Id)
         {
 
 
@@ -75,13 +75,13 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<Chat> GetAll()
+        public IEnumerable<Chat?> GetAll()
         {
             string sql = "SELECT * FROM Chat";
             return _connection.Query<Chat>(sql);    
         }
 
-        public Chat GetById(int chat_Id)
+        public Chat? GetById(int chat_Id)
         {
 
 

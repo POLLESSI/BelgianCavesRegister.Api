@@ -11,8 +11,8 @@ namespace BelgianCavesRegister.Dal.Interfaces
     {
         bool Create(Chat chat);
         void CreateChat(Chat chat);
-        IEnumerable<Chat> GetAll();
-        Chat GetById(int chat_Id);
-        Chat Delete(int chat_Id);
+        IEnumerable<Chat?> GetAll();
+        Chat? GetById(int chat_Id);
+        Chat? Delete(int chat_Id);
     }
 }

@@ -62,7 +62,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public NUser Delete(Guid nUser_Id)
+        public NUser? Delete(Guid nUser_Id)
         {
 
 
@@ -87,7 +87,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return _connection.Query<NUser?>(sql);
         }
 
-        public NUser GetById(Guid nUser_Id)
+        public NUser? GetById(Guid nUser_Id)
         {
 
 
@@ -106,7 +106,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NUser LoginNUser(string email, string passwordHash)
+        public NUser? LoginNUser(string? email, string? passwordHash)
         {
             try
             {
@@ -121,10 +121,9 @@ namespace BelgianCavesRegister.Dal.Repository
 
                 throw new InvalidOperationException($"Non-existent user : {ex.ToString}");
             }
-            return null;
         }
 
-        public void RegisterNUser(string pseudo, string email, string passwordHash)
+        public void RegisterNUser(string? pseudo, string? email, string? passwordHash)
         {
             try
             {
@@ -144,8 +143,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return;
         }
-
-        public void SetRole(Guid nUser_Id, string role_Id)
+        public void SetRole(Guid nUser_Id, string? role_Id)
         {
             try
             {
@@ -162,7 +160,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public NUser Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
+        public NUser? Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
         {
             try
             {

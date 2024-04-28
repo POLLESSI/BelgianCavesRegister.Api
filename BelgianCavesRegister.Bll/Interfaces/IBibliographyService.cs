@@ -12,10 +12,10 @@ namespace BelgianCavesRegister.Bll
     {
         bool Create(Bibliography bibliography);
         void CreateBibliography(Bibliography bibliography);
-        IEnumerable<Bibliography> GetAll();
-        Bibliography GetById(int bibliography_Id);
-        Bibliography Delete(int bibliography_Id);
-        Bibliography Update(string title, string author, string iSBN, string dataType, string detail, int bibliography_Id);
+        IEnumerable<Bibliography?> GetAll();
+        Bibliography? GetById(int bibliography_Id);
+        Bibliography? Delete(int bibliography_Id);
+        Bibliography? Update(string title, string author, string iSBN, string dataType, string detail, int bibliography_Id);
     }
 }
 

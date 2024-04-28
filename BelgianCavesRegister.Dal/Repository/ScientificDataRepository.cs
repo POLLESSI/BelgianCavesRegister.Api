@@ -58,7 +58,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
         }
 
-        public ScientificData Delete(int scientificData_Id)
+        public ScientificData? Delete(int scientificData_Id)
         {
 
 
@@ -77,13 +77,13 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<ScientificData> GetAll()
+        public IEnumerable<ScientificData?> GetAll()
         {
             string sql = "SELECT * FROM ScientificData";
             return _connection.Query<ScientificData?>(sql);
         }
 
-        public ScientificData GetById(int scientificData_Id)
+        public ScientificData? GetById(int scientificData_Id)
         {
             string sql = "SELECT * FROM ScientificData WHERE ScientificData_Id = @scientificData_Id";
             return _connection.QueryFirst<ScientificData?>(sql, new { scientificData_Id });
@@ -102,7 +102,7 @@ namespace BelgianCavesRegister.Dal.Repository
             //return null;
         }
 
-        public ScientificData Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
+        public ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
         {
             try
             {

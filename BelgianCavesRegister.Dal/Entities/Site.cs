@@ -3,6 +3,7 @@ namespace BelgianCavesRegister.Dal.Entities
 {
     public class Site
     {
+        public int Site_Id { get; set; }
         public string? Site_Name { get; set; }
         public string? Site_Description { get; set; }
         public string? Latitude { get; set; }
