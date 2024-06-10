@@ -5,9 +5,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class UpdateSiteForm
     {
-        [Required(ErrorMessage = "The Site's Id is required")]
-        [DisplayName("Site's Id : ")]
-        public int Site_Id { get; set; }
         [Required(ErrorMessage = "The name of the site is required")]
         [MinLength(2)]
         [MaxLength(32)]
@@ -43,19 +40,9 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(512)]
         [DisplayName("¨Practicals Informations : ")]
         public string? PracticalInformation { get; set; }
-        [Required(ErrorMessage = "The Lambda datas Id is required")]
-        [DisplayName("Lambda Datas Id :")]
-        public int DonneesLambda_Id { get; set; }
-        [Required(ErrorMessage = "The id of the owner is required")]
-        [DisplayName("Owner's Id : ")]
-
-        public int NOwner_Id { get; set; }
-        [Required(ErrorMessage = "The Id of the scientific datas is required")]
-        [DisplayName("Scientific Datas Id : ")]
-        public int ScientificData_Id { get; set; }
-        [Required(ErrorMessage = "The bibliography's Id is required")]
-        [DisplayName("Bibliography's Id : ")]
-        public int Bibliography_Id { get; set; }
+        [Required(ErrorMessage = "The Site's Id is required")]
+        [DisplayName("Site's Id : ")]
+        public int Site_Id { get; set; }
 
     }
 }

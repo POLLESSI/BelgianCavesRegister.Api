@@ -23,8 +23,8 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO LambdaData (Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) VALUES " +
-                    "(@Localisation, @Topo, @Acces, @EquipementSheet, @PracticalInformation, @Description)";
+                string sql = "INSERT INTO LambdaData (Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description, Site_Id) VALUES " +
+                    "(@Localisation, @Topo, @Acces, @EquipementSheet, @PracticalInformation, @Description, @Site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Localisation", lambdaData.Localisation);
                 parameters.Add("@Topo", lambdaData.Topo);
@@ -32,6 +32,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@EquipementSheet", lambdaData.EquipementSheet);
                 parameters.Add("@PracticalInformation", lambdaData.PracticalInformation);
                 parameters.Add("@Description", lambdaData.Description);
+                parameters.Add("@Site_Id", lambdaData.Site_Id);
                 return _connection.Execute(sql, parameters) > 0;
             }
             catch (Exception ex)
@@ -41,12 +42,11 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return false;
         }
-
-        public void CreateLambda(LambdaData lambdaData)
+        public void CreateLambdaData(LambdaData lambdaData)
         {
             try
             {
-                string sql = "INSERT INTO LambdaData(Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description) VALUES " +
+                string sql = "INSERT INTO LambdaData(Localisation, Topo, Acces, EquipementSheet, PracticalInformation, Description, Site_Id) VALUES " +
                     "(@localisation, @topo, @acces, @equipementSheet, @pracricalInformation, @description)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@localisation", lambdaData.Localisation);
@@ -55,6 +55,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@equipementSheet", lambdaData.EquipementSheet);
                 parameters.Add("@practicalInformation", lambdaData.PracticalInformation);
                 parameters.Add("@description", lambdaData.Description);
+                parameters.Add("@site_Id", lambdaData.Site_Id);
                 _connection.Query(sql, parameters);
             }
             catch (Exception ex)
@@ -70,7 +71,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "DELETE FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
+                string sql = "DELETE * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
@@ -93,7 +94,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
+                string sql = "SELECT la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description, la.Site_Id FROM LambdaData la JOIN Site si ON la.Site_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@donneesLambda_Id", donneesLambda_Id);
                 return _connection.QueryFirst<LambdaData>(sql, parameters);
@@ -106,18 +107,20 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public LambdaData? Update(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description, int site_Id, int donneesLambda_Id)
         {
             try
             {
-                string sql = "UPDATE LambdaData SET DonneesLambda_Id = @lambdaData_Id WHERE DonneesLambda_Id = @donneesLambda_Id, Localisation = @localisation, Topo = @topo, Acces = @acces, EquipementSheet = @equipementSheet, PracticalInformation = @practicalInformation, Description = @description";
+                string sql = "UPDATE LambdaData SET  Localisation = @localisation, Topo = @topo, Acces = @acces, EquipementSheet = @equipementSheet, PracticalInformation = @practicalInformation, Description = @description, Site_Id = @site_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@donneesLambda_Id", donneesLambda_Id);
                 parameters.Add("@localisation", localisation);
                 parameters.Add("@topo", topo);
                 parameters.Add("@acces", acces);
                 parameters.Add("@equipementSheet", equipementSheet);
-                parameters.Add("Description", description);
+                parameters.Add("@description", description);
+                parameters.Add("@site_Id", site_Id);
+                parameters.Add("@donneesLambda_Id", donneesLambda_Id);
+
                 return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

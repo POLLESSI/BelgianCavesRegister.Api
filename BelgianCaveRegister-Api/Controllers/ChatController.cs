@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Reflection.Metadata.Ecma335;
+using BelgianCavesRegister.Dal.Entities;
+using BelgianCaveRegister_Api.Dto.Forms;
 
 namespace BelgianCaveRegister_Api.Controllers
 {
@@ -16,7 +18,7 @@ namespace BelgianCaveRegister_Api.Controllers
         private readonly IChatRepository _chatRepository;
         private readonly ChatHub _hub;
 
-        public ChatController(IChatRepository chatRepository , ChatHub hub)
+        public ChatController(IChatRepository chatRepository, ChatHub hub)
         {
             _chatRepository = chatRepository;
             _hub = hub;
@@ -29,17 +31,17 @@ namespace BelgianCaveRegister_Api.Controllers
         //    return Ok();
         //}
         [HttpGet]
-        public IActionResult GetAll() 
+        public IActionResult GetAll()
         {
             return Ok(_chatRepository.GetAll());
         }
         [HttpGet("{chat_Id}")]
-        public IActionResult GetById(int chat_Id) 
+        public IActionResult GetById(int chat_Id)
         {
-            return Ok (_chatRepository.GetById(chat_Id));
+            return Ok(_chatRepository.GetById(chat_Id));
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Message newMessage)
+        public async Task<IActionResult> Create(ChatRegisterForm newMessage)
         {
             if (!ModelState.IsValid)
             {

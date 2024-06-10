@@ -66,9 +66,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
         [HttpPut("{nOwner_Id}")]
 
-        public IActionResult Update(int nOwner_Id, string status, string agreement)
+        public IActionResult Update(string status, string agreement, int site_Id, int nOwner_Id)
         {
-            _nOwnerRepository.Update(nOwner_Id, status, agreement);
+            _nOwnerRepository.Update(status, agreement, site_Id, nOwner_Id);
             return Ok();
         }
 

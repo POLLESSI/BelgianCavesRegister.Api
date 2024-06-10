@@ -54,7 +54,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         public string? Telephone { get; set; }
         [DisplayName("Gsm")]
         [MinLength(8)]
-        [MaxLength(14)]
+        [MaxLength(16)]
         public string? Gsm { get; set; }
 
     }

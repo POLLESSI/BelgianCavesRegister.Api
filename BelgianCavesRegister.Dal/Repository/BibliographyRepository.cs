@@ -23,14 +23,15 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail) VALUES " +
-                    "(@Title, @Author, @ISBN, @DataType, @Detail)";
+                string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail, Site_Id) VALUES " +
+                    "(@Title, @Author, @ISBN, @DataType, @Detail, @Site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Title", bibliography.Title);
                 parameters.Add("@Author", bibliography.Author);
                 parameters.Add("ISBN", bibliography.ISBN);
                 parameters.Add("@DataType", bibliography.DataType);
                 parameters.Add("@Detail", bibliography.Detail);
+                parameters.Add("Site_Id", bibliography.Site_Id);
 
                 return _connection.Execute(sql, parameters) > 0;
             }
@@ -46,14 +47,15 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail) " +
-                    "VALUES (@title, @author, @iSBN, @dataType, @detail)";
+                string sql = "INSERT INTO Bibliography (Title, Author, ISBN, DataType, Detail, Site_Id) " +
+                    "VALUES (@title, @author, @iSBN, @dataType, @detail, @site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@title", bibliography.Title);
                 parameters.Add("@author", bibliography.Author);
                 parameters.Add("@iSBN", bibliography.ISBN);
                 parameters.Add("@dataType", bibliography.DataType);
                 parameters.Add("@detail", bibliography.Detail);
+                parameters.Add("@site_id", bibliography.Site_Id);
 
                 _connection.Query(sql, parameters);
             }
@@ -70,7 +72,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "DELETE FROM Bibliography WHERE Bibliography_Id = @bibliography_Id";
+                string sql = "DELETE * FROM Bibliography WHERE Bibliography_Id = @bibliography_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@bibliography_Id", bibliography_Id);
                 return _connection.QueryFirst<Bibliography>(sql, parameters);
@@ -95,7 +97,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT * FROM BIBLIOGRAPHY WHERE Bibliography_Id = @bibliography_Id";
+                string sql = "SELECT bi.Title, bi.Author, bi.ISBN, bi.DataType, bi.Detail, bi.Site_Id FROM Bibliography bi JOIN Site si ON bi.Site_Id = si.Site_Id WHERE Bibliography_Id = @bibliography_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@bibliography_Id", parameters);
                 return _connection.QueryFirst<Bibliography>(sql, new { bibliography_Id });
@@ -108,18 +110,19 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 			
-        public Bibliography? Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
+        public Bibliography? Update(string title, string author, string iSBN, string dataType, string detail, int site_Id, int bibliography_Id)
         {
             try
             {
-                string sql = "UPDATE Bibliography SET Title = @title, Author = @author, ISBN = @iSBN, DataType = @dataType, Detail = @detail WHERE Bibliography_Id = @bibliography_Id";
+                string sql = "UPDATE Bibliography SET Title = @title, Author = @author, ISBN = @iSBN, DataType = @dataType, Detail = @detail, Site_Id = @site_Id WHERE Bibliography_Id = @bibliography_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@bibliography_Id");
                 parameters.Add("@title", title);
                 parameters.Add("@author", author);
                 parameters.Add("@iSBN", iSBN);
                 parameters.Add("@dataType", dataType);
                 parameters.Add("@detail", detail);
+                parameters.Add("@site_Id", site_Id);
+                parameters.Add("@bibliography_Id", bibliography_Id);
                 return _connection.QueryFirst<Bibliography?>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

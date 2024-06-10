@@ -6,9 +6,11 @@
     [ISBN] NVARCHAR(16) NOT NULL, 
     [DataType] NVARCHAR(32) NOT NULL, 
     [Detail] NVARCHAR(512) NOT NULL,
+    [Site_Id] INT NULL,
     [Active] BIT DEFAULT 1
 
-    CONSTRAINT PK_Biography PRIMARY KEY ([Bibliography_Id]),
+    CONSTRAINT PK_Bibliography PRIMARY KEY ([Bibliography_Id]),
+    CONSTRAINT FK_Bibliography_Site FOREIGN KEY (Site_Id) REFERENCES [Site]([Site_Id])
 )
 
 GO

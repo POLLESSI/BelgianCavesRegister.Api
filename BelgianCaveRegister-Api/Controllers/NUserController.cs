@@ -38,7 +38,7 @@ namespace BelgianCaveRegister_Api.Controllers
 
         //[Authorize("ModelPolicy")]
         [HttpGet("{nUser_Id}")]
-        public IActionResult GetById(Guid nUser_Id)
+        public IActionResult GetById(int nUser_Id)
         {
             return Ok (_userRepository.GetById(nUser_Id));
         }
@@ -68,8 +68,8 @@ namespace BelgianCaveRegister_Api.Controllers
             try
             {
                 NUser? connectedNUser = _userRepository.LoginNUser(nUser.Email, nUser.PasswordHash);
-                string? MdpNUser = nUser.PasswordHash;
-                string? hashpwd = connectedNUser.PasswordHash;
+                string MdpNUser = nUser.PasswordHash;
+                string hashpwd = connectedNUser.PasswordHash;
                 bool motDePassValide = BCrypt.Net.BCrypt.Verify(MdpNUser, hashpwd);
 
                 if (motDePassValide)
@@ -86,12 +86,18 @@ namespace BelgianCaveRegister_Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
 
         [HttpPost("register")]
+        //public async Task<IActionResult> Register(string pseudo, string passwordHash, string email)
+        //{
+        //    var user = await _userRepository.RegisterNUserAsync(
+        //        pseudo, email, passwordHash);
+        //    return Ok(user);
+        //}
         public IActionResult Register(NewNUser nu)
         {
-            _userRepository.RegisterNUser( nu.Pseudo, nu.Email, nu.PasswordHash);
+            _userRepository.RegisterNUser(nu.Pseudo, nu.Email, nu.PasswordHash);
             return Ok();
         }
         //[HttpPost]
@@ -134,15 +140,15 @@ namespace BelgianCaveRegister_Api.Controllers
             return BadRequest("Registration Error");
         }
         [HttpDelete("{nUser_Id}")]
-        public IActionResult Delete(Guid nUser_Id)
+        public IActionResult Delete(int nUser_Id)
         {
             _userRepository.Delete(nUser_Id);
             return Ok();
         }
         [HttpPut("nUser_Id")]
-        public IActionResult Update(Guid nUser_Id, string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id)
+        public IActionResult Update(string pseudo, string passwordHash, string email, int nPerson_Id, string role_Id, int nUser_Id)
         {
-            _userRepository.Update(nUser_Id, pseudo, passwordHash, email, nPerson_Id, role_Id);
+            _userRepository.Update(pseudo, passwordHash, email, nPerson_Id, role_Id, nUser_Id);
             return Ok();
         }
         [HttpPost("update")]
@@ -159,14 +165,14 @@ namespace BelgianCaveRegister_Api.Controllers
         [HttpPatch("setRole")]
         public IActionResult ChangeRole(ChangeRole r)
         {
-            _userRepository.SetRole(r.NUser_Id, r.Role_Id);
+            _userRepository.SetRole(r.Role_Id, r.NUser_Id);
             return Ok();
         }
 
         [HttpPatch("update")]
         public IActionResult Update(UpdateNUserForm nu)
         {
-            _userRepository.Update(nu.NUser_Id, nu.Pseudo, nu.PasswordHash, nu.Email, nu.NPerson_Id, nu.Role_Id);
+            _userRepository.Update(nu.Pseudo, nu.PasswordHash, nu.Email, nu.NPerson_Id, nu.Role_Id, nu.NUser_Id);
             return Ok();
         }
 

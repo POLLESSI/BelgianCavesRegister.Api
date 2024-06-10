@@ -23,7 +23,7 @@ namespace BelgianCavesRegister.Bll.Mapper
                 Role_Id = model.Role_Id
             };
         }
-        internal static NUserModel DalToBll(this NUser entity)
+        internal static NUserModel? DalToBll(this NUser entity)
         {
             if (entity is null) return null;
             return new NUserModel()

@@ -1,7 +1,7 @@
 using BelgianCaveRegister_Api.Tools;
 using BelgianCavesRegister.Dal.Repository;
 using BelgianCavesRegister.Dal.Interfaces;
-using BelgianCavesRegister.Bll;
+using BelgianCavesRegister.Bll.Interfaces;
 using BelgianCavesRegister.Bll.Services;
 using BelgianCaveRegister_Api.Hubs;
 using System.Data.SqlClient;
@@ -9,9 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BelgianCavesRegister.Models.Services;
-using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
-using BelgianCavesRegister.Bll.Interfaces;
-
+using BelgianCavesRegister.Bll;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,7 +66,7 @@ builder.Services.AddSingleton<ChatHub>();
 builder.Services.AddSingleton<LambdaDataHub>();
 builder.Services.AddSingleton<NOwnerHub>();
 builder.Services.AddSingleton<NPersonHub>();
-builder.Services.AddSingleton<NUserHub>();
+//builder.Services.AddSingleton<NUserHub>();
 builder.Services.AddSingleton<ScientificDataHub>();
 builder.Services.AddSingleton<SiteHub>();
 builder.Services.AddSingleton<WeatherForecastHub>();
@@ -115,13 +113,13 @@ if (app.Environment.IsDevelopment())
     //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "belgiancavesregister_api");
     //}
 }
-//app.UseCors(o => o.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 //app.UseStaticFiles();
 
 //app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

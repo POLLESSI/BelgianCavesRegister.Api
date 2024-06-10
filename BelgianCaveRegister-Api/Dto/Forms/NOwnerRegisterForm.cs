@@ -16,6 +16,8 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(256)]
         [DisplayName("Agreements")]
         public string? Agreement { get; set; }
-
+        [Required]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
     }
 }

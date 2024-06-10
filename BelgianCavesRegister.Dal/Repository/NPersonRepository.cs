@@ -78,7 +78,7 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "DELETE FROM NPerson WHERE NPerson_Id = @nPerson_Id";
+                string sql = "DELETE * FROM NPerson WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nPerson_Id", nPerson_Id);
                 return _connection.QueryFirst<NPerson>(sql, nPerson_Id);
@@ -103,7 +103,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT * FROM NPerson WHERE NPerson_Id = @nPerson_Id";
+                string sql = "SELECT pe.Lastname, pe.Firstname, pe.BirthDate, pe.Email, pe.Address_Street, pe.Address_Nbr, pe.PostalCode, pe.Address_City, pe.Address_Country, pe.Telephone, pe.Gsm FROM NPerson pe WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nPerson_Id", nPerson_Id);
                 return _connection.QueryFirst<NPerson?>(sql, parameters);
@@ -116,13 +116,12 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthDate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
+        public NPerson? Update(string lastname, string firstname, DateTime birthDate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm, int nPerson_Id)
         {
             try
             {
                 string sql = "UPDATE NPerson SET Lastname = @lastname, Firstname = @firstname, BirthDate = @birthdate, Email = @email, Address_Street = @address_Street, Address_Nbr = @address_Nbr, PostalCode = @postalCode, Address_City = @address_City, Address_Country = @address_Country, Telephone = @telephone, Gsm = @gsm WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@nPerson_Id", nPerson_Id);
                 parameters.Add("@lastname", lastname);
                 parameters.Add("@firstname", firstname);
                 parameters.Add("@birthDate", birthDate);
@@ -134,6 +133,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@address_Country", address_Country);
                 parameters.Add("@telephone", telephone);
                 parameters.Add("@gsm", gsm);
+                parameters.Add("@nPerson_Id", nPerson_Id);
                 return _connection.QueryFirst<NPerson>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

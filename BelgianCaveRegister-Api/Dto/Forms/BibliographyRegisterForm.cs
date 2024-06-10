@@ -30,5 +30,8 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(512)]
         [DisplayName("Details")]
         public string? Detail { get; set; }
+        [Required]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
     }
 }

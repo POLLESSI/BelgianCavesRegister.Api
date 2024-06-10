@@ -23,11 +23,12 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO NOwner (Status, Agreement) VALUES " +
-                    "(@Status, @Agreement)";
+                string sql = "INSERT INTO NOwner (Status, Agreement, Site_Id) VALUES " +
+                    "(@Status, @Agreement, @Site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Status", nOwner.Status);
                 parameters.Add("@Agreement", nOwner.Agreement);
+                parameters.Add("@Site_Id", nOwner.Site_Id);
                 return _connection.Execute(sql, parameters) > 0;
             }
             catch (Exception ex)
@@ -42,11 +43,12 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO NOwner (Status, Agrement) " +
-                    " VALUES (@status, @agreement)";
+                string sql = "INSERT INTO NOwner (Status, Agrement, Site_Id) " +
+                    " VALUES (@status, @agreement, @site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@status", nOwner.Status);
                 parameters.Add("@agreement", nOwner.Agreement);
+                parameters.Add("@site_id", nOwner.Site_Id);
                 _connection.Query(sql, parameters);
             }
             catch (Exception ex)
@@ -62,7 +64,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "DELETE FROM NOwner WHERE NOwner_Id = @nOwner_Id";
+                string sql = "DELETE * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nOwner_Id", nOwner_Id);
                 return _connection.QueryFirst<NOwner?>(sql, parameters);
@@ -87,7 +89,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT * FROM NOwner WHERE NOwner_Id = @nOwner_Id";
+                string sql = "SELECT no.Status, no.Agreement, no.Site_Id FROM NOwner no JOIN Site si ON no.Site_Id WHERE NOwner_Id = @nOwner_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nOwner_Id", nOwner_Id);
                 return _connection.QueryFirst<NOwner?>(sql, new { nOwner_Id });
@@ -100,15 +102,16 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NOwner? Update(int nOwner_Id, string status, string agreement)
+        public NOwner? Update(string status, string agreement, int site_Id, int nOwner_Id)
         {
             try
             {
-                string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement WHERE NOwner_Id = @nOwber_Id";
+                string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement, Site_Id = @site_Id WHERE NOwner_Id = @nOwber_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@nOwner_Id", nOwner_Id);
                 parameters.Add("@status", status);
                 parameters.Add("@agreement", agreement);
+                parameters.Add("@site_Id", site_Id);
+                parameters.Add("@nOwner_Id", nOwner_Id);
                 return _connection.QueryFirst<NOwner?>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

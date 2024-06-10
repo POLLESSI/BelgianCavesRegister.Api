@@ -5,9 +5,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class UpdateBibliographyForm
     {
-        [Required(ErrorMessage = "Id is required")]
-        [DisplayName("Bibliography Id")]
-        public int Bibliography_Id { get; set; }
         [Required(ErrorMessage = "Title is required")]
         [MinLength(4)]
         [MaxLength(32)]
@@ -33,6 +30,12 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(512)]
         [DisplayName("Details")]
         public string? Detail { get; set; }
+        [Required]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
+        [Required(ErrorMessage = "Id is required")]
+        [DisplayName("Bibliography Id")]
+        public int Bibliography_Id { get; set; }
     }
 }
 

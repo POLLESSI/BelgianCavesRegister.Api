@@ -15,5 +15,8 @@ namespace BelgianCaveRegister_Api.Models
         [MaxLength(64)]
         [DisplayName("Author : ")]
         public string? Author { get; set; }
+        [Required]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
     }
 }

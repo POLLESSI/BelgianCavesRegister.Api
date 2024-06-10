@@ -11,6 +11,7 @@ namespace BelgianCavesRegister.Dal.Entities
         public string? Description { get; set;}
         public string? Humidity { get; set; }
         public string? Precipitation { get; set; }
+        public int Site_Id { get; set; }
         public bool Active { get; set; }
     }
 }

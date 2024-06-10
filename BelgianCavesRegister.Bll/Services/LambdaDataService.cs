@@ -80,9 +80,22 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public LambdaData? Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public LambdaData? Update(string? localisation, string? topo, string? acces, string? equipementSheet, string? practicalInformation, string? description, int site_Id, int donneesLambda_Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var updateLambdaData = _lambdaDataRepository.Update(localisation, topo, acces, equipementSheet, practicalInformation, description, site_Id, donneesLambda_Id);
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+
+                Console.WriteLine($"Validation error : {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating lambda data : {ex}");
+            }
+            return new LambdaData();
         }
     }
 }

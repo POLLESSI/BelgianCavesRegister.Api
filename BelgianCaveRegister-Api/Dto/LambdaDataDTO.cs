@@ -8,6 +8,7 @@ public class LambdaDataDTO
     public string? EquipementSheet { get; set; }
     public string? PracticalInformation { get; set; }
     public string? Description { get; set; }
+    public int Site_Id { get; set; }
     public bool Active { get; set; }
 }
 

@@ -8,9 +8,11 @@
 	[Description] NVARCHAR(256) NOT NULL,
 	[Humidity] FLOAT NOT NULL,
 	[Precipitation] FLOAT NULL,
+	[Site_Id] INT NULL,
 	[Active] BIT DEFAULT 1
 
-	CONSTRAINT PK_WeatherForecast PRIMARY KEY ([WeatherForecast_Id])
+	CONSTRAINT PK_WeatherForecast PRIMARY KEY ([WeatherForecast_Id]),
+	CONSTRAINT FK_WeatherForecast_Site FOREIGN KEY (Site_Id) REFERENCES [Site]([Site_Id])
 )
 
 GO

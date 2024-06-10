@@ -4,9 +4,11 @@
     [DataType] NVARCHAR(128) NOT NULL, 
     [DetailsData] NVARCHAR(512) NULL, 
     [ReferenceData] NVARCHAR(256) NOT NULL,
+	[Site_Id] INT NULL,
     [Active] BIT DEFAULT 1
 
     CONSTRAINT PK_ScientificData PRIMARY KEY ([ScientificData_Id]),
+	CONSTRAINT FK_ScientificData_Site FOREIGN KEY (Site_Id) REFERENCES [Site]([Site_Id]),
 )
 
 GO

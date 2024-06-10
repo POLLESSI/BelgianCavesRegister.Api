@@ -80,11 +80,11 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public WeatherForecast? Update(int weatherForecast_Id, DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation)
+        public WeatherForecast? Update(DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation,int site_Id, int weatherForecast_Id)
         {
             try
             {
-                var updateWeatherForecast = _weatherForecastRepository.Update( weatherForecast_Id, date, temperatureC, temperatureF, summary, description, humidity, precipitation);
+                var updateWeatherForecast = _weatherForecastRepository.Update(date, temperatureC, temperatureF, summary, description, humidity, precipitation, site_Id, weatherForecast_Id);
                 return updateWeatherForecast;
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

@@ -5,9 +5,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class UpdateNOwnerForm
     {
-        [Required(ErrorMessage = "The Owner Id is required")]
-        [DisplayName("Owner Id")]
-        public int NOwner_Id { get; set; }
         [Required(ErrorMessage = "The status is required")]
         [MinLength(4)]
         [MaxLength(256)]
@@ -17,6 +14,12 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(256)]
         [DisplayName("Agreements")]
         public string? Agreement { get; set; }
+        [Required(ErrorMessage = "Site Id is required")]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
+        [Required(ErrorMessage = "The Owner Id is required")]
+        [DisplayName("Owner Id")]
+        public int NOwner_Id { get; set; }
     }
 }
 

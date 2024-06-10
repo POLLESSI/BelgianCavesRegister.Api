@@ -80,11 +80,11 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public Site? Update(int site_Id, string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_id, int bibliography_Id)
+        public Site? Update(string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int site_Id)
         {
             try
             {
-                var updateSite = _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, donneesLambda_Id, nOwner_Id, scientificData_id, bibliography_Id);
+                var updateSite = _siteRepository.Update(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, practicalInformation, site_Id);
                 return updateSite;
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

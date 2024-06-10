@@ -41,19 +41,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(512)]
         [DisplayName("Parcticals Informations")]
         public string? PracticalInformation { get; set; }
-        [Required(ErrorMessage = "The Lambdas Datas Id is required")]
-        [DisplayName("Lambdas Datas id : ")]
-        public int DonneesLambda_Id { get; set; }
-        [Required(ErrorMessage = "The id of the owner is required")]
-        [DisplayName("Owner's Id : ")]
-        public int NOwner_Id { get; set; }
-        [Required(ErrorMessage = "The id of the scientific data is required")]
-        [DisplayName("Scientific Datas Id : ")]
-        public int ScientificData_Id { get; set; }
-        [Required(ErrorMessage = "The bibliography's Id is required")]
-        [DisplayName("Bibliography's Id : ")]
-        public int Bibliography_Id { get; set; }
-
     }
 }
 

@@ -79,11 +79,11 @@ namespace BelgianCavesRegister.Models.Services
             return null;
         }
 
-        public ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData)
+        public ScientificData? Update(string dataType, string detailsData, string referenceData, int site_Id, int scientificData_Id)
         {
             try
             {
-                var updateScientificData = _scientificDataRepository.Update(scientificData_Id, dataType, detailsData, referenceData);
+                var updateScientificData = _scientificDataRepository.Update(dataType, detailsData, referenceData, site_Id, scientificData_Id);
                 return updateScientificData;
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

@@ -10,15 +10,9 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(64)]
         [DisplayName("Nick name : ")]
         public string? Pseudo { get; set; }
-        [Required(ErrorMessage = "Email address is required")]
-        [MinLength(8)]
-        [MaxLength(64)]
-        [DataType(DataType.EmailAddress)]
-        [DisplayName("Email Address : ")]
-        public string? Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [MinLength(8)]
-        [MaxLength(64)]
+        [MaxLength(4000)]
         [DataType(DataType.Password)]
         [DisplayName("Password : ")]
         public string? PasswordHash { get; set; }
@@ -27,6 +21,12 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [DataType(DataType.Password)]
         [Compare(nameof(PasswordHash))]
         public string? SecondPassword { get; set; }
+        [Required(ErrorMessage = "Email address is required")]
+        [MinLength(8)]
+        [MaxLength(64)]
+        [DataType(DataType.EmailAddress)]
+        [DisplayName("Email Address : ")]
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Person's Id is required ! ")]
         [DisplayName("Person's Id : ")]
         public int NPerson_Id { get; set; }

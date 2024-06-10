@@ -88,7 +88,8 @@ namespace BelgianCaveRegister_Api.Controllers
                 Summary = _currentWeatherForecast["summary : "],
                 Description = _currentWeatherForecast["description : "],
                 Humidity = _currentWeatherForecast["humidity : "],
-                Precipitation = _currentWeatherForecast["precipitation : "]
+                Precipitation = _currentWeatherForecast["precipitation : "],
+                //Site_Id = _currentWeatherForecast["site id : "]
             });
             return Ok(_currentWeatherForecast);
 

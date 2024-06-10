@@ -68,9 +68,9 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult Update(int scientificData_Id, string? dataType, string? detailsdata, string? referenceData)
+        public IActionResult Update(string? dataType, string? detailsdata, string? referenceData, int site_Id, int scientificData_Id)
         {
-            _scientificDataRepository.Update(scientificData_Id, dataType, detailsdata, referenceData);
+            _scientificDataRepository.Update(dataType, detailsdata, referenceData, site_Id, scientificData_Id);
             return Ok();
         }
 
@@ -97,7 +97,7 @@ namespace BelgianCaveRegister_Api.Controllers
         [HttpPatch("update")]
         public IActionResult Update(UpdateScientificDataForm sc)
         {
-            _scientificDataRepository.Update(sc.ScientificData_Id, sc.DataType, sc.DetailsData, sc.ReferenceData);
+            _scientificDataRepository.Update(sc.DataType, sc.DetailsData, sc.ReferenceData, sc.Site_Id, sc.ScientificData_Id);
             return Ok();
         }
 

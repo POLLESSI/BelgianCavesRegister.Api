@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[99]Toolbox", "[99]Toolbox"
 		Toolbox.csproj = Toolbox.csproj
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Crypto", "Tools.Crypto\Tools.Crypto.csproj", "{1067F465-469E-4A9A-82E6-3D9DB7C36F78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{75DB2BAA-5FC7-4375-880D-7008ABA0A46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75DB2BAA-5FC7-4375-880D-7008ABA0A46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75DB2BAA-5FC7-4375-880D-7008ABA0A46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1067F465-469E-4A9A-82E6-3D9DB7C36F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1067F465-469E-4A9A-82E6-3D9DB7C36F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1067F465-469E-4A9A-82E6-3D9DB7C36F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1067F465-469E-4A9A-82E6-3D9DB7C36F78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{ACA24408-3994-4A7E-AC3F-15D46DE97168} = {7867CDF6-7E58-4D59-9296-2EDBF3C185AA}
 		{AB97CDAA-6C05-4B1F-A61F-ED9454F26BD1} = {B098F1C8-561F-45B1-9EFA-E262CB85DC2F}
 		{75DB2BAA-5FC7-4375-880D-7008ABA0A46D} = {D7FCF09C-32D5-425A-B7CC-E748A76107D8}
+		{1067F465-469E-4A9A-82E6-3D9DB7C36F78} = {D7FCF09C-32D5-425A-B7CC-E748A76107D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A9DCF26-1878-42F5-AF8C-F5D40DEE1444}

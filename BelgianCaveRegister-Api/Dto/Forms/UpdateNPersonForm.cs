@@ -5,10 +5,6 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class UpdateNPersonForm
     {
-        [Required(ErrorMessage = "The Person Id is required")]
-        [DisplayName("Person Id")]
-
-        public int NPerson_Id { get; set; }
         [Required(ErrorMessage = "The last name is required")]
         [MinLength(2)]
         [MaxLength(32)]
@@ -60,6 +56,10 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(16)]
         [DisplayName("Gsm")]
         public string? Gsm { get; set; }
+        [Required(ErrorMessage = "The Person Id is required")]
+        [DisplayName("Person Id")]
+
+        public int NPerson_Id { get; set; }
     }
 }
 

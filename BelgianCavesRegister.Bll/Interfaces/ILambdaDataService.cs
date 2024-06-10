@@ -15,7 +15,7 @@ namespace BelgianCavesRegister.Bll
         IEnumerable<LambdaData?> GetAll();
         LambdaData? GetById(int donneesLambda_Id);
         LambdaData? Delete(int donneesLambda_Id);
-        LambdaData? Update(int donneesLambda_Id, string? localisation, string? topo, string? acces, string? equipementSheet, string? practicalInformation, string? description);
+        LambdaData? Update(string? localisation, string? topo, string? acces, string? equipementSheet, string? practicalInformation, string? description, int site_Id, int donneesLambda_Id);
     }
 }
 

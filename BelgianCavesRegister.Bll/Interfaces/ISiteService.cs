@@ -15,7 +15,7 @@ namespace BelgianCavesRegister.Bll
         IEnumerable<Site?> GetAll();
         Site? GetById(int site_Id);
         Site? Delete(int site_Id);
-        Site? Update(int site_Id, string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_id, int bibliography_Id);
+        Site? Update(string site_Name, string site_Description, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int site_Id);
     }
 }
 

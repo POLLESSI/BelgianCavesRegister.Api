@@ -35,5 +35,8 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(8)]
         [DisplayName("Precipitation : ")]
         public string? Precipitation { get; set; }
+        [Required]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
     }
 }

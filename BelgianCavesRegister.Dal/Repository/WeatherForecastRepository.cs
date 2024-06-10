@@ -23,8 +23,8 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO WeatherForecast (Date, TemperatureC, TemperatureF, Summary, Description, Humidity, Precipitation) VALUES " +
-                    "(@Date, @TemperatureC, TemperatureF, Summary, Description, Humidity, Precipitation)";
+                string sql = "INSERT INTO WeatherForecast (Date, TemperatureC, TemperatureF, Summary, Description, Humidity, Precipitation, Site_Id) VALUES " +
+                    "(@Date, @TemperatureC, @TemperatureF, @Summary, @Description, @Humidity, @Precipitation, @Site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Date", weatherForecast.Date);
                 parameters.Add("@TemperatureC", weatherForecast.TemperatureC);
@@ -32,6 +32,8 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@Summary", weatherForecast.Summary);
                 parameters.Add("@Description", weatherForecast.Description);
                 parameters.Add("@Precipitation", weatherForecast.Precipitation);
+                parameters.Add("@Site_Id", weatherForecast.Site_Id);
+
                 return _connection.Execute(sql, parameters) > 0;
             }
             catch (Exception ex)
@@ -46,8 +48,8 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO WeatherForecast (Date, TemperatureC, TemperatureF, Summary, Description, Humidity, Precipitation)" +
-                    " VALUES (@date, @temperatureC, @temperatureF, @summary, @description, @humidity, @precipitation)";
+                string sql = "INSERT INTO WeatherForecast (Date, TemperatureC, TemperatureF, Summary, Description, Humidity, Precipitation, Site_Id)" +
+                    " VALUES (@date, @temperatureC, @temperatureF, @summary, @description, @humidity, @precipitation, @site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@date", weatherForecast.Date);
                 parameters.Add("@temperatureC", weatherForecast.TemperatureC);
@@ -56,6 +58,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@description", weatherForecast.Description);
                 parameters.Add("@humidity", weatherForecast.Humidity);
                 parameters.Add("@precipitation", weatherForecast.Precipitation);
+                parameters.Add("@site_Id", weatherForecast.Site_Id);
 
                 _connection.Query(sql, parameters);
             }
@@ -72,7 +75,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "DELETE FROM WeatherForecast WHERE WeatherForecast_Id = @weatherForecast_Id";
+                string sql = "DELETE * FROM WeatherForecast WHERE WeatherForecast_Id = @weatherForecast_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@weatherForecast_Id", weatherForecast_Id);
                 return _connection.QueryFirst<WeatherForecast>(sql, parameters);
@@ -95,7 +98,7 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "SELECT * FROM WeatherForecast WHERE WeatherForecast_Id = @weatherForecast_Id";
+                string sql = "SELECT we.Date, we.TemperatureC, we.TemperatureF, we.Summary, we.Description, we.Humidity, we.Precipitation, we.Site_Id FROM WeatherForecast we JOIN Site si ON we.Site_Id WHERE WeatherForecast_Id = @weatherForecast_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@weatherForecast_Id", weatherForecast_Id);
 				return _connection.QueryFirst<WeatherForecast?>(sql, parameters);
@@ -108,13 +111,12 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public WeatherForecast? Update(int weatherForecast_Id, DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation)
+        public WeatherForecast? Update(DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation, int site_Id, int weatherForecast_Id)
         {
             try
             {
-                string sql = "UPDATE WeatherForecast SET WeatherForecast_Id = @weatherForecast_Id WHERE WeatherForecast_Id = @weatherForecast_Id";
+                string sql = "UPDATE WeatherForecast SET Date = @date, TemperatureC = @temperatureC, TemperatureF = @temperatureF, Summary = @summary, Description = @description, Humidity = @humidity, Presipitation = @presipitation, Site_Id = @site_Id WHERE WeatherForecast_Id = @weatherForecast_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@weatherForecast_Id", weatherForecast_Id);
                 parameters.Add("@date", date);
                 parameters.Add("@temperatureC", temperatureC);
                 parameters.Add("@temperatureF", temperatureF);
@@ -122,6 +124,9 @@ namespace BelgianCavesRegister.Dal.Repository
                 parameters.Add("@description", description);
                 parameters.Add("@humidity", humidity);
                 parameters.Add("@presipitation", presipitation);
+                parameters.Add("@site_Id", site_Id);
+                parameters.Add("@weatherForecast_Id", weatherForecast_Id);
+
                 return _connection.QueryFirst<WeatherForecast>(sql, parameters);
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)

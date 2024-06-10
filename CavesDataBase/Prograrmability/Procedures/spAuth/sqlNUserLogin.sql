@@ -8,7 +8,7 @@ BEGIN
 
 	DECLARE @PasswordHash BINARY(64), @SecurityStamp UNIQUEIDENTIFIER;
 
-	SET @SecurityStamp = (SELECT SecurityStamp FROM [NUser] where Email = @Email)
+	SET @SecurityStamp = (SELECT SecurityStamp FROM [NUser] WHERE Email = @Email)
 	SET @PasswordHash = dbo.fHasher(@PasswordHash, @SecurityStamp)
 
 	IF EXISTS (SELECT TOP 1 * FROM [NUser] WHERE Email = @Email AND PasswordHash = @PasswordHash)

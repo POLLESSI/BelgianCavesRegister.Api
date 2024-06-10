@@ -63,9 +63,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
         [HttpPut("{donneesLambda_Id}")]
-        public IActionResult Update(int donneesLambda_Id, string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description)
+        public IActionResult Update(string localisation, string topo, string acces, string equipementSheet, string practicalInformation, string description, int site_Id, int donneesLambda_Id)
         {
-            _LambdaDataRepository.Update(donneesLambda_Id, localisation, topo, acces, equipementSheet, practicalInformation, description);
+            _LambdaDataRepository.Update(localisation, topo, acces, equipementSheet, practicalInformation, description, site_Id, donneesLambda_Id);
             return Ok();
         }
 

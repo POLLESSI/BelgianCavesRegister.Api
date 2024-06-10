@@ -20,6 +20,8 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MaxLength(256)]
         [DisplayName("references of the datas")]
         public string? ReferenceData { get; set; }
-
+        [Required]
+        [DisplayName("Site Id : ")]
+        public int Site_Id { get; set; }
     }
 }

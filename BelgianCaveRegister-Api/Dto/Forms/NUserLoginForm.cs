@@ -14,7 +14,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         public string? Email { get; set; }
         [Required(ErrorMessage = "Password is Required")]
         [MinLength(8)]
-        [MaxLength(64)]
+        [MaxLength(4000)]
         [DisplayName("Password : ")]
         [DataType(DataType.Password)]
         public string? PasswordHash { get; set; }

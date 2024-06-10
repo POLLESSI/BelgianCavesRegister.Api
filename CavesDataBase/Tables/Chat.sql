@@ -1,11 +1,14 @@
 ﻿CREATE TABLE [dbo].[Chat]
 (
 	[Chat_Id] INT IDENTITY,
-	[NewMessage] NVARCHAR(32) NULL,
+	[NewMessage] NVARCHAR(128) NULL,
 	[Author] NVARCHAR(32) NOT NULL,
+	[Site_Id] INT NULL,
+	[SendingDate] DATE DEFAULT GETDATE(),
 	[Active] BIT DEFAULT 1
 
-	CONSTRAINT PK_Chat PRIMARY KEY ([Chat_Id])
+	CONSTRAINT PK_Chat PRIMARY KEY ([Chat_Id]),
+	CONSTRAINT FK_Chat_Site FOREIGN KEY (Site_Id) REFERENCES [Site]([Site_Id]),
 )
 
 GO

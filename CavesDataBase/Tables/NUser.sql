@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[NUser]
 (
-	[NUser_Id] UNIQUEIDENTIFIER DEFAULT NEWID(), 
+	[NUser_Id] INT IDENTITY, 
     [Pseudo] NVARCHAR(64) NOT NULL UNIQUE, 
-    [PasswordHash] BINARY(64) NULL,
+    [PasswordHash] BINARY(64),
     [SecurityStamp] UNIQUEIDENTIFIER NULL,
     [Email] NVARCHAR(64) NOT NULL UNIQUE, 
     [NPerson_Id] INT NOT NULL,
@@ -10,8 +10,8 @@
     [Active] BIT DEFAULT 1
 
     CONSTRAINT [CK_NUser_Email] CHECK (Email like '__%@__%_%'),
-    CONSTRAINT PK_NUser PRIMARY KEY ([NUser_Id]),
-    CONSTRAINT [FK_NUser_NPerson] FOREIGN Key (NPerson_Id) REFERENCES [NPerson] ([NPerson_Id]),
+    CONSTRAINT [PK_NUser] PRIMARY KEY ([NUser_Id]),
+    CONSTRAINT [FK_NUser_NPerson] FOREIGN KEY (NPerson_Id) REFERENCES [NPerson] ([NPerson_Id]),
     --ON DELETE CASCADE
     --ON UPDATE CASCADE
 

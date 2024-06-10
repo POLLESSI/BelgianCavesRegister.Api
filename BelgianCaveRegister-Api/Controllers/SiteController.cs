@@ -65,9 +65,9 @@ namespace BelgianCaveRegister_Api.Controllers
 
 
         [HttpPut("{site_Id}")]
-        public IActionResult Ûpdate(int site_Id, string? site_Name, string? site_Description, string? latitude, string? longitude, string? length, string? depth, string? accessRequirement, string? pratcicalInformation, int donneesLambda_Id, int nOwner_Id, int scientificData_Id, int bibliography_Id)
+        public IActionResult Ûpdate(string? site_Name, string? site_Description, string? latitude, string? longitude, string? length, string? depth, string? accessRequirement, string? pratcicalInformation, int site_Id)
         {
-            _siteRepository.Update(site_Id, site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, pratcicalInformation, donneesLambda_Id, nOwner_Id, scientificData_Id, bibliography_Id);
+            _siteRepository.Update(site_Name, site_Description, latitude, longitude, length, depth, accessRequirement, pratcicalInformation, site_Id);
             return Ok();
         }
 
@@ -84,7 +84,7 @@ namespace BelgianCaveRegister_Api.Controllers
         [HttpPatch("update")]
         public IActionResult Update(UpdateSiteForm si)
         {
-            _siteRepository.Update(si.Site_Id,si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation, si.DonneesLambda_Id, si.NOwner_Id, si.ScientificData_Id, si.Bibliography_Id);
+            _siteRepository.Update(si.Site_Name, si.Site_Description, si.Latitude, si.Longitude, si.Length, si.Depth, si.AccessRequirement, si.PracticalInformation, si.Site_Id);
             return Ok();
         }
 

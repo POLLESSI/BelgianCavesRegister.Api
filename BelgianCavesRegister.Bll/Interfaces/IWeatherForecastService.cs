@@ -15,6 +15,6 @@ namespace BelgianCavesRegister.Bll.Interfaces
         IEnumerable<WeatherForecast?> GetAll();
         WeatherForecast? GetById(int weatherForecast_Id);
         WeatherForecast? Delete(int weatherForecast_Id);
-        WeatherForecast? Update(int weatherForecast_Id, DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation);
+        WeatherForecast? Update(DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string precipitation, int site_Id, int weatherForecast_Id);
     }
 }

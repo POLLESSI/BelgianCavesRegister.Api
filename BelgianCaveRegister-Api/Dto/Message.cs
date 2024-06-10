@@ -2,9 +2,9 @@
 {
     public class Message
     {
-        public string? Sender { get; set; }
-        public string? Content { get; set; }
-        public DateTime SendingDate { get; set; }
-        public bool IsPrivate { get; set; }
+        public string? NewMessage { get; set; }
+        public string? Author { get; set; }
+        public int Site_Id { get; set; }
+        public bool Active { get; set; }
     }
 }

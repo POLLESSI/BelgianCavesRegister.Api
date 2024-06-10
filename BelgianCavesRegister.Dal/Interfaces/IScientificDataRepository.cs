@@ -14,7 +14,7 @@ namespace BelgianCavesRegister.Dal.Interfaces
         IEnumerable<ScientificData?> GetAll();
         ScientificData? GetById(int scientificData_Id);
         ScientificData? Delete(int scientificData_Id);
-        ScientificData? Update(int scientificData_Id, string dataType, string detailsData, string referenceData);
+        ScientificData? Update(string? dataType, string? detailsData, string? referenceData, int site_Id, int scientificData_Id);
         
     }
 }

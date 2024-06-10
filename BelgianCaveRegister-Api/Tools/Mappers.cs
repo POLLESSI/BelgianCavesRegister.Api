@@ -15,15 +15,17 @@ namespace BelgianCaveRegister_Api.Tools
                 ISBN = bi.ISBN,
                 DataType = bi.DataType,
                 Detail = bi.Detail,
+                Site_Id = bi.Site_Id,
                 //Active = bi.Active
             };
         }
-        public static Chat ChatToDal(this Message ch)
+        public static Chat ChatToDal(this ChatRegisterForm ch)
         {
             return new Chat
             {
                 NewMessage = ch.NewMessage,
                 Author = ch.Author,
+                Site_Id= ch.Site_Id,
             };
         }
         public static LambdaData LambdaDataToDal(this LambdaDataRegisterForm la)
@@ -36,6 +38,7 @@ namespace BelgianCaveRegister_Api.Tools
                 EquipementSheet = la.EquipementSheet,
                 PracticalInformation = la.PracticalInformation,
                 Description = la.Description,
+                Site_Id = la.Site_Id,
                 //Active = la.Active,
             };
         }
@@ -45,6 +48,7 @@ namespace BelgianCaveRegister_Api.Tools
             {
                 Status = no.Status,
                 Agreement = no.Agreement,
+                Site_Id = no.Site_Id,
                 //Active = no.Active,
             };
         }
@@ -85,6 +89,7 @@ namespace BelgianCaveRegister_Api.Tools
                 DataType = sc.DataType,
                 DetailsData = sc.DetailsData,
                 ReferenceData = sc.ReferenceData,
+                Site_Id = sc.Site_Id,
                 //Active = sc.Active,
             };
         }
@@ -100,10 +105,6 @@ namespace BelgianCaveRegister_Api.Tools
                 Depth = site.Depth,
                 AccessRequirement = site.AccessRequirement,
                 PracticalInformation = site.PracticalInformation,
-                DonneesLambda_Id = site.DonneesLambda_Id,
-                NOwner_Id = site.NOwner_Id,
-                ScientificData_Id = site.ScientificData_Id,
-                Bibliography_Id = site.Bibliography_Id,
             };
         }
         public static WeatherForecast WeatherForecastToDal(this WeatherForecastRegisterForm forecast)
@@ -116,6 +117,7 @@ namespace BelgianCaveRegister_Api.Tools
                 Description = forecast.Description,
                 Humidity = forecast.Humidity,
                 Precipitation = forecast.Precipitation,
+                Site_Id = forecast.Site_Id,
             };
         }
     }

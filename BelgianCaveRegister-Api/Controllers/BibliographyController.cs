@@ -65,9 +65,9 @@ namespace BelgianCaveRegister_Api.Controllers
         }
 
         [HttpPut("{bibliography_Id}")]
-        public IActionResult Update(int bibliography_Id, string title, string author, string iSBN, string dataType, string detail)
+        public IActionResult Update(string title, string author, string iSBN, string dataType, string detail, int site_Id, int bibliography_Id)
         {
-            _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
+            _bibliographyRepository.Update(title, author, iSBN, dataType, detail, site_Id, bibliography_Id);
             return Ok();
         }
 

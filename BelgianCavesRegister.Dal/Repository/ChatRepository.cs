@@ -23,11 +23,12 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO Chat (NewMessage, Author) VALUES " +
-                    "(@NewMessage, @Author)";
+                string sql = "INSERT INTO Chat (NewMessage, Author, Site_Id) VALUES " +
+                    "(@NewMessage, @Author, @Site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@NewMessage", chat.NewMessage);
                 parameters.Add("@Author", chat.Author);
+                parameters.Add("@Site_Id", chat.Site_Id);
                 return _connection.Execute(sql, parameters) > 0;
             }
             catch (Exception ex)
@@ -42,11 +43,12 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO Chat (NewMessage, Author) " +
-                    "VALUES (@newMessage, @author)";
+                string sql = "INSERT INTO Chat (NewMessage, Author, Site_Id) " +
+                    "VALUES (@newMessage, @author, @site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@newMessage", chat.NewMessage);
                 parameters.Add("@author", chat.Author);
+                parameters.Add("@site_Id", chat.Site_Id);
                 _connection.Query(sql, parameters);
             }
             catch (Exception ex)
@@ -62,7 +64,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "DELETE FROM Chat WHERE Chat_Id = @chat_Id";
+                string sql = "DELETE * FROM Chat WHERE Chat_Id = @chat_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@chat_Id", chat_Id);
                 return _connection.QueryFirst<Chat?>(sql, parameters);
@@ -78,7 +80,7 @@ namespace BelgianCavesRegister.Dal.Repository
         public IEnumerable<Chat?> GetAll()
         {
             string sql = "SELECT * FROM Chat";
-            return _connection.Query<Chat>(sql);    
+            return _connection.Query<Chat>(sql);
         }
 
         public Chat? GetById(int chat_Id)

@@ -6,7 +6,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class NUserViewModel
     {
-        public Guid NUser_Id { get; set; }
+        public int NUser_Id { get; set; }
         [Required(ErrorMessage = "The nick name is required")]
         [MinLength(2)]
         [MaxLength(64)]
@@ -23,7 +23,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         [MinLength(8)]
         [MaxLength(64)]
         [DisplayName("Email address ; ")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public bool Role_Id { get; set; }
 
     }

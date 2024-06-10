@@ -81,11 +81,11 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public Bibliography? Update(string title, string author, string iSBN, string dataType, string detail, int bibliography_Id)
+        public Bibliography? Update(string title, string author, string iSBN, string dataType, string detail, int site_Id, int bibliography_Id)
         {
             try
             {
-                var updateBibliography = _bibliographyRepository.Update(bibliography_Id, title, author, iSBN, dataType, detail);
+                var updateBibliography = _bibliographyRepository.Update(title, author, iSBN, dataType, detail, site_Id, bibliography_Id);
                 return updateBibliography;
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
@@ -95,7 +95,7 @@ namespace BelgianCavesRegister.Bll.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating bibliography: {ex}");
+                Console.WriteLine($"Error updating bibliography : {ex}");
             }
             return new Bibliography();
         }

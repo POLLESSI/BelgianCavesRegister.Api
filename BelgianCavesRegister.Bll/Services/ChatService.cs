@@ -63,6 +63,7 @@ namespace BelgianCavesRegister.Bll.Services
         public IEnumerable<Chat?> GetAll()
         {
             return _chatRepository.GetAll();
+
         }
 
         public Chat? GetById(int chat_Id)

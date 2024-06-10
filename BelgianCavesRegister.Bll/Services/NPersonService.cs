@@ -80,11 +80,12 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public NPerson? Update(int nPerson_Id, string lastname, string firstname, DateTime birthdate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm)
+        public NPerson? Update(string lastname, string firstname, DateTime birthdate, string email, string address_Street, string address_Nbr, string postalCode, string address_City, string address_Country, string telephone, string gsm, int nPerson_Id)
         {
             try
             {
-                var updateNPerson = _nPersonRepository.Update(nPerson_Id, lastname, firstname, birthdate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm);
+                var updateNPerson = _nPersonRepository.Update( lastname, firstname, birthdate, email, address_Street, address_Nbr, postalCode, address_City, address_Country, telephone, gsm, nPerson_Id);
+                return updateNPerson;
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
             {

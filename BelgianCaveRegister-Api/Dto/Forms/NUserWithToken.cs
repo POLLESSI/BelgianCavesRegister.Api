@@ -5,7 +5,7 @@ namespace BelgianCaveRegister_Api.Dto.Forms
 {
     public class NUserWithToken
     {
-        public Guid NUser_Id { get; set; }
+        public int NUser_Id { get; set; }
         [Required(ErrorMessage = "Nick name is required")]
         [MinLength(2)]
         [MaxLength(64)]
@@ -13,7 +13,8 @@ namespace BelgianCaveRegister_Api.Dto.Forms
         public string? Pseudo { get; set; }
         [Required(ErrorMessage = "Password is required.")]
         [MinLength(2)]
-        [MaxLength(64)]
+        [MaxLength(4000)]
+        [DataType(DataType.Password)]
         [DisplayName("Password")]
         //[RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\-\.=+*@?]).*$", ErrorMessage = "The format is too simple for security.")]
         public string? Password { get; set; }

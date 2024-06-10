@@ -9,6 +9,7 @@ namespace BelgianCavesRegister.Dal.Entities
         public string? ISBN { get; set; }
         public string? DataType { get; set; }
         public string? Detail { get; set; }
+        public int Site_Id { get; set; }
         public bool Active { get; set; }
     }
 }
