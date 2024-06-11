@@ -14,7 +14,7 @@ namespace BelgianCavesRegister.Dal.Interfaces
         IEnumerable<NOwner?> GetAll();
         NOwner? GetById(int nOwner_Id);
         NOwner? Delete(int nOwner_Id);
-        NOwner? Update(string status, string agreement, int site_Id, int nOwner_Id);
+        NOwner? Update(string status, string agreement, int nPerson_Id, int site_Id, int nOwner_Id);
     }
 }
 

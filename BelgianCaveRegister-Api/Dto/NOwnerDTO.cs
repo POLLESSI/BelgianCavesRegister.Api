@@ -4,6 +4,7 @@ public class NOwnerDTO
 {
     public string? Status { get; set; }
     public string? Agreement { get; set; }
+    public int NPerson_Id { get; set; }
     public int Site_Id { get; set; }
     public bool Active { get; set; }
 }

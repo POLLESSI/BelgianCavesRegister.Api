@@ -23,11 +23,12 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO NOwner (Status, Agreement, Site_Id) VALUES " +
-                    "(@Status, @Agreement, @Site_Id)";
+                string sql = "INSERT INTO NOwner (Status, Agreement, NPerson_Id, Site_Id) VALUES " +
+                    "(@Status, @Agreement, @NPerson_Id, @Site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Status", nOwner.Status);
                 parameters.Add("@Agreement", nOwner.Agreement);
+                parameters.Add("@NPerson_Id", nOwner.NPerson_Id);
                 parameters.Add("@Site_Id", nOwner.Site_Id);
                 return _connection.Execute(sql, parameters) > 0;
             }
@@ -43,11 +44,12 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "INSERT INTO NOwner (Status, Agrement, Site_Id) " +
-                    " VALUES (@status, @agreement, @site_Id)";
+                string sql = "INSERT INTO NOwner (Status, Agrement, MPerson_Id, Site_Id) " +
+                    " VALUES (@status, @agreement, @nPerson_Id, @site_Id)";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@status", nOwner.Status);
                 parameters.Add("@agreement", nOwner.Agreement);
+                parameters.Add("@nPerson_Id", nOwner.NPerson_Id);
                 parameters.Add("@site_id", nOwner.Site_Id);
                 _connection.Query(sql, parameters);
             }
@@ -89,7 +91,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT no.Status, no.Agreement, no.Site_Id FROM NOwner no JOIN Site si ON no.Site_Id WHERE NOwner_Id = @nOwner_Id";
+                string sql = "SELECT no.Status, no.Agreement, no.Site_Id FROM NOwner no JOIN Site si ON no.Site_Id WHERE NOwner_Id = @nOwner_Id JOIN NPerson pe ON no.NPerson_Id WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nOwner_Id", nOwner_Id);
                 return _connection.QueryFirst<NOwner?>(sql, new { nOwner_Id });
@@ -102,14 +104,15 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public NOwner? Update(string status, string agreement, int site_Id, int nOwner_Id)
+        public NOwner? Update(string status, string agreement, int nPerson_Id, int site_Id, int nOwner_Id)
         {
             try
             {
-                string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement, Site_Id = @site_Id WHERE NOwner_Id = @nOwber_Id";
+                string sql = "UPDATE NOwner SET Status = @status, Agreement = @agreement, NPerson_Id = @nPerson_Id, Site_Id = @site_Id WHERE NOwner_Id = @nOwner_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@status", status);
                 parameters.Add("@agreement", agreement);
+                parameters.Add("@nPerson_Id", nPerson_Id);
                 parameters.Add("@site_Id", site_Id);
                 parameters.Add("@nOwner_Id", nOwner_Id);
                 return _connection.QueryFirst<NOwner?>(sql, parameters);

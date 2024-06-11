@@ -48,6 +48,7 @@ namespace BelgianCaveRegister_Api.Tools
             {
                 Status = no.Status,
                 Agreement = no.Agreement,
+                NPerson_Id = no.NPerson_Id,
                 Site_Id = no.Site_Id,
                 //Active = no.Active,
             };

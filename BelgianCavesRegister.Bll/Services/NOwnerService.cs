@@ -78,11 +78,11 @@ namespace BelgianCavesRegister.Bll.Services
             return null;
         }
 
-        public NOwner? Update(string status, string agreement, int site_Id, int nOwner_Id)
+        public NOwner? Update(string status, string agreement, int nPerson_Id, int site_Id, int nOwner_Id)
         {
             try
             {
-                var updateNOwner = _nOwnerRepository.Update(status, agreement, site_Id, nOwner_Id);
+                var updateNOwner = _nOwnerRepository.Update(status, agreement, nPerson_Id, site_Id, nOwner_Id);
                 return updateNOwner;
             }
             catch (System.ComponentModel.DataAnnotations.ValidationException ex)
