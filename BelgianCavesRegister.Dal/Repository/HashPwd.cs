@@ -27,14 +27,14 @@ namespace BelgianCaveRegister_Api.Tools
                 return Convert.ToBase64String(hashedPasswordWithSalt);
             }
         }
-        //static byte[] GenerateSalt()
-        //{
-        //    using (var rng = new RNGCryptoServiceProvider())
-        //    {
-        //        byte[] salt = new byte[32]; // Adjust the size based on your security requirements
-        //        rng.GetBytes(salt);
-        //        return salt;
-        //    }
-        //}
+        static byte[] GenerateSalt()
+        {
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                byte[] salt = new byte[32]; // Adjust the size based on your security requirements
+                rng.GetBytes(salt);
+                return salt;
+            }
+        }
     }
 }

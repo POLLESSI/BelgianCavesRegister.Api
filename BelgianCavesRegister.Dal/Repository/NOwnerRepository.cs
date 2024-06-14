@@ -87,14 +87,12 @@ namespace BelgianCavesRegister.Dal.Repository
 
         public NOwner? GetById(int nOwner_Id)
         {
-
-
             try
             {
-                string sql = "SELECT no.Status, no.Agreement, no.Site_Id FROM NOwner no JOIN Site si ON no.Site_Id WHERE NOwner_Id = @nOwner_Id JOIN NPerson pe ON no.NPerson_Id WHERE NPerson_Id = @nPerson_Id";
+                string sql = "SELECT no.Status, no.Agreement, no.Site_Id FROM NOwner no RIGHT JOIN Site si ON no.Site_Id = si.Site_Id LEFT JOIN NPerson pe ON no.NPerson_Id = pe.NPerson_Id WHERE NOwner_Id = @nOwner_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nOwner_Id", nOwner_Id);
-                return _connection.QueryFirst<NOwner?>(sql, new { nOwner_Id });
+                return _connection.QueryFirst<NOwner?>(sql, parameters);
             }
             catch (Exception ex)
             {

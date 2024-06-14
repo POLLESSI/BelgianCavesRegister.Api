@@ -73,6 +73,7 @@ namespace BelgianCavesRegister.Dal.Repository
             {
                 string sql = "DELETE * FROM LambdaData WHERE DonneesLambda_Id = @donneesLambda_Id";
                 DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@donneesLambda_Id", donneesLambda_Id);
                 return _connection.QueryFirst<LambdaData>(sql, parameters);
             }
             catch (Exception ex)
@@ -94,7 +95,7 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description, la.Site_Id FROM LambdaData la JOIN Site si ON la.Site_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
+                string sql = "SELECT la.Localisation, la.Topo, la.Acces, la.EquipementSheet, la.PracticalInformation, la.Description, la.Site_Id FROM LambdaData la JOIN Site si ON la.Site_Id = si.Site_Id WHERE DonneesLambda_Id = @donneesLambda_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@donneesLambda_Id", donneesLambda_Id);
                 return _connection.QueryFirst<LambdaData>(sql, parameters);

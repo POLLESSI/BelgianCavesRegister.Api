@@ -81,7 +81,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 string sql = "DELETE * FROM NPerson WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nPerson_Id", nPerson_Id);
-                return _connection.QueryFirst<NPerson>(sql, nPerson_Id);
+                return _connection.QueryFirst<NPerson>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -103,10 +103,10 @@ namespace BelgianCavesRegister.Dal.Repository
 
             try
             {
-                string sql = "SELECT pe.Lastname, pe.Firstname, pe.BirthDate, pe.Email, pe.Address_Street, pe.Address_Nbr, pe.PostalCode, pe.Address_City, pe.Address_Country, pe.Telephone, pe.Gsm FROM NPerson pe WHERE NPerson_Id = @nPerson_Id";
+                string sql = "SELECT * FROM NPerson WHERE NPerson_Id = @nPerson_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@nPerson_Id", nPerson_Id);
-                return _connection.QueryFirst<NPerson?>(sql, parameters);
+                return _connection.QueryFirst<NPerson>(sql, parameters);
             }
             catch (Exception ex)
             {

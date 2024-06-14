@@ -10,9 +10,10 @@ namespace BelgianCavesRegister.Dal.Interfaces
 {
     public interface IChatRepository
     {
+    #nullable disable
         bool Create(Chat chat);
         void CreateChat(Chat chat);
-        IEnumerable<Chat?> GetAll();
+        IEnumerable<Chat> GetAll();
         Chat? GetById(int chat_Id);
         Chat? Delete(int chat_Id);
     }

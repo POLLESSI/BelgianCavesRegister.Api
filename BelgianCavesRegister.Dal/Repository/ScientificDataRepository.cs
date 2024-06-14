@@ -69,7 +69,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 string sql = "DELETE * FROM ScientificData WHERE ScientificData_Id = @scientificData_ID";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@csientificData_Id", scientificData_Id);
-                return _connection.QueryFirst<ScientificData?>(sql, scientificData_Id);
+                return _connection.QueryFirst<ScientificData?>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 string sql = "SELECT sc.DataType, sc.DetailsData, sc.ReferenceData, sc.Site_Id FROM ScientificData sc JOIN Site si ON sc.Site_Id = si.Site_Id WHERE ScientificData_Id = @scientificData_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@scientificData_Id", scientificData_Id);
-                return _connection.QueryFirst<ScientificData?>(sql, new { scientificData_Id });
+                return _connection.QueryFirst<ScientificData?>(sql, parameters);
             }
             catch (Exception ex)
             {

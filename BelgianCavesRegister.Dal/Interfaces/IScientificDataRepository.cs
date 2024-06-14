@@ -9,12 +9,13 @@ namespace BelgianCavesRegister.Dal.Interfaces
 {
     public interface IScientificDataRepository
     {
+    #nullable disable
         bool Create(ScientificData scientificData);
         void CreateScientificData(ScientificData scientificData);
         IEnumerable<ScientificData?> GetAll();
         ScientificData? GetById(int scientificData_Id);
         ScientificData? Delete(int scientificData_Id);
-        ScientificData? Update(string? dataType, string? detailsData, string? referenceData, int site_Id, int scientificData_Id);
+        ScientificData Update(string dataType, string detailsData, string referenceData, int site_Id, int scientificData_Id);
         
     }
 }

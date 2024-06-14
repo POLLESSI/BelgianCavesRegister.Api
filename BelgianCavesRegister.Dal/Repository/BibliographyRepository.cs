@@ -99,8 +99,8 @@ namespace BelgianCavesRegister.Dal.Repository
             {
                 string sql = "SELECT bi.Title, bi.Author, bi.ISBN, bi.DataType, bi.Detail, bi.Site_Id FROM Bibliography bi JOIN Site si ON bi.Site_Id = si.Site_Id WHERE Bibliography_Id = @bibliography_Id";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@bibliography_Id", parameters);
-                return _connection.QueryFirst<Bibliography>(sql, new { bibliography_Id });
+                parameters.Add("@bibliography_Id", bibliography_Id);
+                return _connection.QueryFirst<Bibliography>(sql, parameters);
             }
             catch (Exception ex)
             {

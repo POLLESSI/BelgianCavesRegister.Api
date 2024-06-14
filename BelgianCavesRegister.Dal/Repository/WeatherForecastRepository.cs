@@ -98,10 +98,10 @@ namespace BelgianCavesRegister.Dal.Repository
         {
             try
             {
-                string sql = "SELECT we.Date, we.TemperatureC, we.TemperatureF, we.Summary, we.Description, we.Humidity, we.Precipitation, we.Site_Id FROM WeatherForecast we JOIN Site si ON we.Site_Id WHERE WeatherForecast_Id = @weatherForecast_Id";
+                string sql = "SELECT we.Date, we.TemperatureC, we.TemperatureF, we.Summary, we.Description, we.Humidity, we.Precipitation, we.Site_Id FROM WeatherForecast we JOIN Site si ON we.Site_Id = si.Site_Id WHERE WeatherForecast_Id = @weatherForecast_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@weatherForecast_Id", weatherForecast_Id);
-				return _connection.QueryFirst<WeatherForecast?>(sql, parameters);
+				return _connection.QueryFirst<WeatherForecast>(sql, parameters);
 			}
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public WeatherForecast? Update(DateTime date, string? temperatureC, string? temperatureF, string? summary, string? description, string? humidity, string? presipitation, int site_Id, int weatherForecast_Id)
+        public WeatherForecast Update(DateTime date, string temperatureC, string temperatureF, string summary, string description, string humidity, string presipitation, int site_Id, int weatherForecast_Id)
         {
             try
             {

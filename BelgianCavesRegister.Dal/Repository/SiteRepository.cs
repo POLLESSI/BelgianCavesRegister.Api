@@ -97,10 +97,10 @@ namespace BelgianCavesRegister.Dal.Repository
             return null;
         }
 
-        public IEnumerable<Site?> GetAll()
+        public IEnumerable<Site> GetAll()
         {
             string sql = "SELECT * FROM Site";
-            return _connection.Query<Site?>(sql);
+            return _connection.Query<Site>(sql);
         }
 
         public Site? GetById(int site_Id)
@@ -112,7 +112,7 @@ namespace BelgianCavesRegister.Dal.Repository
                 string sql = "SELECT * FROM Site WHERE Site_Id = @site_Id";
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@site_Id", site_Id);
-                return _connection.QueryFirst<Site?>(sql, new { site_Id });
+                return _connection.QueryFirst<Site>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -121,7 +121,7 @@ namespace BelgianCavesRegister.Dal.Repository
             }
             return null;
         }
-        public Site? Update(string? site_Name, string? site_Decription, string? latitude, string? longitude, string? length, string? depth, string? accessRequirement, string? practicalInformation, int site_Id)
+        public Site Update(string site_Name, string site_Decription, string latitude, string longitude, string length, string depth, string accessRequirement, string practicalInformation, int site_Id)
         {
             try
             {

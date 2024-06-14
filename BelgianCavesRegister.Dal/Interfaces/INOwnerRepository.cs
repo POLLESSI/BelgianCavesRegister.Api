@@ -9,12 +9,13 @@ namespace BelgianCavesRegister.Dal.Interfaces
 {
     public interface INOwnerRepository
     {
+    #nullable disable
         bool Create(NOwner nOwner);
         void CreateNOwner(NOwner nOwner);
         IEnumerable<NOwner?> GetAll();
         NOwner? GetById(int nOwner_Id);
         NOwner? Delete(int nOwner_Id);
-        NOwner? Update(string status, string agreement, int nPerson_Id, int site_Id, int nOwner_Id);
+        NOwner Update(string status, string agreement, int nPerson_Id, int site_Id, int nOwner_Id);
     }
 }
 
